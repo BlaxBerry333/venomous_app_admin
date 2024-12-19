@@ -1,0 +1,8 @@
+{
+  "ignores": [
+    "prettier-plugin-organize-imports",
+    "stylelint-config-standard",
+    "stylelint-config-standard-scss",
+    "~"
+  ]
+}

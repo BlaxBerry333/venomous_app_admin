@@ -1,0 +1,26 @@
+{
+  "name": "venomous_app_admin",
+  "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": "blaxberry333",
+  "description": "blaxberry333's venomous apps admin",
+  "scripts": {
+    "prepare": "husky",
+    "commit": "git-cz",
+    "commitlint": "commitlint --edit"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@commitlint/cz-commitlint": "^19.6.1",
+    "commitizen": "^4.3.1",
+    "concurrently": "^9.1.0",
+    "husky": "^9.1.7"
+  }
+}

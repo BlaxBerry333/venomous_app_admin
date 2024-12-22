@@ -15,7 +15,7 @@
 % npm install
 % make setup
 
-# 2 create admin superuser for Django
+# 2. create admin superuser for Django
 % make entry CONTAINER=admin_server
 root@[CONTAINER_ID]:/app# \
     export DJANGO_SUPERUSER_USERNAME=admin && \
@@ -23,17 +23,22 @@ root@[CONTAINER_ID]:/app# \
     export DJANGO_SUPERUSER_PASSWORD=admin && \
     python manage.py createsuperuser --noinput
 root@[CONTAINER_ID]:/app# exit
+
+# 3. start client server
+% cd admin_client
+% yarn start:dev --force
 ```
 
 ## 🛠 Commands
 
 ```shell
 # server
-% make setup            # setup all containers
-% make start-all        # start all containers
-% make stop-all         # stop all containers
-% make clean-all        # stop then remove all containers、volumes、images
+% make setup                    # setup all containers
+% make start-all                # start all containers
+% make stop-all                 # stop all containers
+% make clean-all                # stop then remove all containers、volumes、images
+% make entry [CONTAINER_NAME]   # entry a specify container
 
 # others
-% npm run commit        # using interactive options to replace standard command "git commit"
+% npm run commit                # using interactive options to replace standard command "git commit"
 ```

@@ -16,13 +16,19 @@ const DashboardLayoutNavMenu: FC = () => {
 
   return (
     <>
-      <CustomCollapsibleList expandedTitle={"Overview"}>
+      <CustomCollapsibleList
+        expandedTitle={"Overview"}
+        MuiListProps={{ sx: { pl: { xs: 0, md: 1, xl: 0 } } }}
+      >
         {OverviewNavigationList.map((item) => (
           <DashboardLayoutNavMenuItem key={item.name} {...item} />
         ))}
       </CustomCollapsibleList>
 
-      <CustomCollapsibleList expandedTitle={"Management"}>
+      <CustomCollapsibleList
+        expandedTitle={"Management"}
+        MuiListProps={{ sx: { pl: { xs: 0, md: 1, xl: 0 } } }}
+      >
         {managementNavigationList.map((item) => (
           <CustomCollapsibleListItem
             key={item.name}

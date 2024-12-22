@@ -2,6 +2,7 @@ import packageJson from "../../package.json";
 
 export const ADMIN_CLIENT_CONFIGS = {
   info: {
+    name: "Venomous Admin",
     version: packageJson.version,
     description: packageJson.description,
     author: packageJson.author,

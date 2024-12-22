@@ -1,7 +1,7 @@
 # Node.js 忽略项
 node_modules/   
-yarn.lock                  
-package-lock.json               
+# yarn.lock                  
+# package-lock.json             
 .pnp.*                     
 .yarn-integrity           
 

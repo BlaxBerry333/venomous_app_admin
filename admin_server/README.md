@@ -11,6 +11,9 @@
 
 [more →](../README.md)
 
+- Server URL: `http://localhost:8080/`
+- Django Admin: `http://localhost:8080/admin/`
+
 ## 🛠 Commands
 
 ```shell
@@ -26,6 +29,9 @@
 
 
 # create admin superuser
+# - USERNAME: admin
+# - EMAIL: admin@example.com
+# - PASSWORD: admin
 root@[CONTAINER_ID]:/app# \
     export DJANGO_SUPERUSER_USERNAME=[username] && \
     export DJANGO_SUPERUSER_EMAIL=[email@example.com] && \
@@ -59,6 +65,25 @@ root@[CONTAINER_ID]:/app# \
     black .
 ```
 
+## 🔗 API
+
+| Method | URL                       | Description                                 |
+| ------ | ------------------------- | ------------------------------------------- |
+|        | Workflow Data             |                                             |
+| GET    | `/workflow/data/`         | get all workflows' data                     |
+| POST   | `/workflow/data/`         | create a workflow                           |
+| GET    | `/workflow/data/<id>/`    | get a specific workflow's data              |
+| PATCH  | `/workflow/data/<id>/`    | update a specific workflow's data           |
+| PUT    | `/workflow/data/<id>/`    | update a specific workflow's data           |
+| DELETE | `/workflow/data/<id>/`    | delete a specific workflow's data           |
+|        | Workflow History          |                                             |
+| GET    | `/workflow/history/`      | get all workflows' update history           |
+| POST   | `/workflow/history/`      | create a workflow update history            |
+| GET    | `/workflow/history/<id>/` | get a specific workflow's update history    |
+| PATCH  | `/workflow/history/<id>/` | update a specific workflow's update history |
+| PUT    | `/workflow/history/<id>/` | update a specific workflow's update history |
+| DELETE | `/workflow/history/<id>/` | delete a specific workflow's update history |
+
 ## 📂 Project Structure
 
 ```shell
@@ -73,7 +98,7 @@ venomous_apps/
     │    ├── wsgi.py
     │    └── ...
     │
-    ├── scenario/               # scenario apis' application
+    ├── workflow/               # workflow apis' application
     │    ├── migrations/
     │    ├── models/
     │    ├── serializers/

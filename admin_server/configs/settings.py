@@ -36,7 +36,10 @@ INSTALLED_APPS += [
     "rest_framework",
 ]
 # Custom Local Apps
-INSTALLED_APPS += ["scenario", "users"]
+INSTALLED_APPS += [
+    "users",
+    "workflow",
+]
 
 
 # DRF

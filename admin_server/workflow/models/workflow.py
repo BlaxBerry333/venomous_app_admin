@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class ScenarioFlowModel(models.Model):
+class WorkflowModel(models.Model):
     id = models.BigAutoField(
         primary_key=True,
         verbose_name="流程图ID",
@@ -43,6 +43,6 @@ class ScenarioFlowModel(models.Model):
         return str(self.id)
 
     class Meta:
-        db_table = "scenario_flow"
-        verbose_name_plural = "Scenario Flow"
+        db_table = "workflow"
+        verbose_name_plural = "Workflow"
         ordering = ["id"]

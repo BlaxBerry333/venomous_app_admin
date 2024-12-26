@@ -16,6 +16,9 @@
 % make setup
 
 # 2. create admin superuser for Django
+# - USERNAME: admin
+# - EMAIL: admin@example.com
+# - PASSWORD: admin
 % make entry CONTAINER=admin_server
 root@[CONTAINER_ID]:/app# \
     export DJANGO_SUPERUSER_USERNAME=admin && \

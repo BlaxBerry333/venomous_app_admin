@@ -1,10 +1,11 @@
 from django.contrib import admin
 
-from scenario.models.scenario_flow import ScenarioFlowModel
+
+from workflow.models.workflow import WorkflowModel
 
 
-@admin.register(ScenarioFlowModel)
-class ScenarioFLowAdmin(admin.ModelAdmin):
+@admin.register(WorkflowModel)
+class WorkflowAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "name",

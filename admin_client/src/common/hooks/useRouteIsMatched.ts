@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useMatch } from "react-router-dom";
 
-export default function useIsRouteMatched(path: string) {
+export default function useRouteIsMatched(path: string) {
   const matchedPath = useMatch({
     path, // 可包含 :id 占位符的 URL 路径
     caseSensitive: false, // 是否严格按照大小写匹配

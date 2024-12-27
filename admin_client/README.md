@@ -2,9 +2,16 @@
 
 ## 📚 Tech Stacks
 
-- [Vite]() v5.4.8
-- [Typescript]() v5.5.3
-- [React]() v18.3.1
+- [vite]() v5
+- [typescript]() v5
+- [react]() v18
+- [react-route-dom]() v6
+- [react-hook-form]() v7
+- [tanstack query]() v5
+- [reactflow]() v12
+- [mui]() v6
+- [sass]() v1
+- [zustand]() v5
 
 ## 🚀 Local Setup
 
@@ -24,6 +31,7 @@
 
 # Test & Lint
 % yarn check-all
+% yarn check-type
 % yarn check-eslint
 % yarn check-stylelint
 % yarn check-prettier

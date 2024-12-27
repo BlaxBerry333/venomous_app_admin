@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthLayoutPageContainer } from "~/common/components/layouts/AuthLayout";
-import { ROUTE_PATHS } from "~/router";
+import { ROUTE_PATHS } from "~/common/router";
 import AuthLoginForm, { type AuthLoginFormValueType } from "~/sections/auth-login/AuthLoginForm";
 
 export default function AuthLoginPageView() {

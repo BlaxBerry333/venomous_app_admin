@@ -8,7 +8,7 @@ import {
   CustomMuiThemeProvider,
   CustomQueryClientProvider,
 } from "./common/components/providers";
-import { Router as RouterViews } from "./router";
+import { Router as RouterViews } from "./common/router";
 
 export default function App() {
   return (

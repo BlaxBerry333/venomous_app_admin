@@ -4,7 +4,7 @@ import { memo } from "react";
 import MuiBox from "@mui/material/Box";
 import MuiTypography from "@mui/material/Typography";
 
-import Logo from "~/assets/images/logo.webp";
+import Logo from "~/common/assets/images/logo.webp";
 import { ADMIN_CLIENT_CONFIGS } from "~/configs/_base";
 
 const DashboardLayoutHeaderLogo: FC<{ showLogo?: boolean; showTitle?: boolean }> = ({

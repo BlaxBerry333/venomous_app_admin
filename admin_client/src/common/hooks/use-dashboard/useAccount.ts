@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { ROUTE_PATHS } from "~/router";
+import { ROUTE_PATHS } from "~/common/router";
 import useBoolean from "../useBoolean";
 
 export default function useAccount() {

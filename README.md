@@ -2,7 +2,7 @@
 
 |            App Name             |                                                                                                    |  Topic   |  Port  |
 | :-----------------------------: | -------------------------------------------------------------------------------------------------- | :------: | :----: |
-| [Admin Client](./admin_client/) | [![My Skills](https://skillicons.dev/icons?i=docker,vite,react&perline=4)](https://skillicons.dev) |   SPA    | `3000` |
+| [Admin Client](./admin_client/) | [![My Skills](https://skillicons.dev/icons?i=vite,react&perline=4)](https://skillicons.dev)        |   SPA    | `3000` |
 | [Admin Server](./admin_server/) | [![My Skills](https://skillicons.dev/icons?i=docker,django&perline=4)](https://skillicons.dev)     | REST API | `8080` |
 |         Admin Server DB         | [![My Skills](https://skillicons.dev/icons?i=docker,postgresql&perline=4)](https://skillicons.dev) |    DB    | `5432` |
 

@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 import { Icon } from "@iconify/react";
 
-import { ROUTE_PATHS } from "~/router";
+import { ROUTE_PATHS } from "~/common/router";
 
 export type BaseNavMenuItemType = {
   name: string;
@@ -27,7 +27,7 @@ export default function useCustomLayoutNavigation() {
       {
         icon: <Icon icon="solar:routing-3-bold-duotone" />,
         name: "Workflow",
-        path: ROUTE_PATHS.dashboard.workflow.playground,
+        path: ROUTE_PATHS.dashboard.workflow.list,
       },
       {
         icon: <Icon icon="solar:pie-chart-2-bold-duotone" />,

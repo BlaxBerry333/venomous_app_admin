@@ -5,12 +5,26 @@ import react from "@vitejs/plugin-react-swc";
 import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
+  const ENV = loadEnv(mode, process.cwd(), "");
 
   return {
     server: {
-      port: parseInt(env.VITE_ADMIN_CLIENT_PORT),
+      port: parseInt(ENV.VITE_ADMIN_CLIENT_PORT),
       strictPort: true,
+      proxy: {
+        // "/api" → "http://localhost:8000"
+        "/api": {
+          target: ENV.VITE_DOMAIN_ADMIN_SERVER,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ""),
+        },
+        // "/bff" → "http://localhost:9000
+        "/bff": {
+          target: ENV.VITE_DOMAIN_BFF,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/bff/, ""),
+        },
+      },
     },
 
     resolve: {
@@ -34,7 +48,7 @@ export default defineConfig(({ mode }) => {
         plugins: [
           visualizer(() => {
             return {
-              open: env.VITE_ADMIN_CLIENT_ENV_NAME === "production", // 在本地基于发环境打包后自动打开分析页面
+              open: ENV.VITE_ADMIN_CLIENT_ENV_NAME === "production", // 在本地基于发环境打包后自动打开分析页面
               filename: `.build_stats/rollup_build_stats.html`,
             };
           }),
@@ -44,7 +58,8 @@ export default defineConfig(({ mode }) => {
           // 分包策略
           manualChunks: (id) => {
             if (id.includes("node_modules")) {
-              return "vendor"; // node_modules 中使用的第三方依赖不会改变，单独打包到 vendor-[hash].js
+              return id.toString().split("node_modules/")[1].split("/")[0].toString(); // 第三方依赖拆包
+              // return "vendor"; //  第三方依赖单独打包到 vendor-[hash].js
             }
           },
           chunkFileNames: "assets/js/[name]-[hash].js", // 引入文件名的名称

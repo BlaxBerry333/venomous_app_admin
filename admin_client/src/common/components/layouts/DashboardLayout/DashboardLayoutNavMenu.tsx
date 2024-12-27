@@ -9,7 +9,7 @@ import {
 import { CustomRouterLink } from "~/common/components/custom/router-link";
 import type { NavMenuItemType } from "~/common/hooks/use-dashboard/useCustomLayoutNavigation";
 import useCustomLayoutNavigation from "~/common/hooks/use-dashboard/useCustomLayoutNavigation";
-import useIsRouteMatched from "~/common/hooks/useIsRouteMatched";
+import useRouteIsMatched from "~/common/hooks/useRouteIsMatched";
 
 const DashboardLayoutNavMenu: FC = () => {
   const { OverviewNavigationList, managementNavigationList } = useCustomLayoutNavigation();
@@ -47,7 +47,7 @@ const DashboardLayoutNavMenu: FC = () => {
 };
 
 const DashboardLayoutNavMenuItem = memo<NavMenuItemType>(({ name, icon, path = "", isDraft }) => {
-  const isActive = useIsRouteMatched(path);
+  const isActive = useRouteIsMatched(path);
 
   const itemContent = useMemo(
     () => (

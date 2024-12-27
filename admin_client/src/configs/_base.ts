@@ -14,4 +14,6 @@ export const ADMIN_CLIENT_CONFIGS = {
     adminServer: import.meta.env.VITE_DOMAIN_ADMIN_SERVER,
     bff: import.meta.env.VITE_DOMAIN_BFF,
   },
+
+  envUseMockData: import.meta.env.VITE_ADMIN_CLIENT_ENV_USE_MOCK_DATA,
 } as const;

@@ -1,21 +1,24 @@
 import type { NamedExoticComponent } from "react";
 
 import { Icon } from "@iconify/react";
-import { memo, useCallback, useMemo } from "react";
+import { lazy, memo, Suspense, useCallback, useMemo } from "react";
 
 import { CustomSquareBlock } from "~/common/components/custom/buttons";
-import { CustomConfirmDialog } from "~/common/components/custom/dialogs";
 import useBoolean from "~/common/hooks/useBoolean";
+import useRouteSearchParams from "~/common/hooks/useRouteSearchParams";
 import type { CustomNodeType } from "~/common/types/dashboard-workflow";
 import useWorkflowInstance from "~/sections/dashboard-workflow/_hooks/_core/use-workflow-instance";
-import { checkIsStartNode } from "../_helpers/functions";
+import { useUpdateWorkflowPlayground } from "~/services/apis-hooks/workflow";
+import { checkIsStartNode, transformWorkflowData } from "../_helpers/functions";
+
+const CustomConfirmDialog = lazy(
+  () => import("~/common/components/custom/dialogs/CustomConfirmDialog"),
+);
 
 const ActionButtonSave: NamedExoticComponent = memo(() => {
   const { getElements } = useWorkflowInstance();
 
   const elements = getElements();
-
-  // ----------------------------------------------------------------------------------------------------
 
   const invalidNodes = useMemo<Array<CustomNodeType>>(
     () => elements.nodes.filter((node) => !checkIsStartNode(node) && !node.data.form?.isValid),
@@ -31,10 +34,23 @@ const ActionButtonSave: NamedExoticComponent = memo(() => {
     [elements.nodes, invalidNodes],
   );
 
+  // ----------------------------------------------------------------------------------------------------
+
+  const { workflowId } = useRouteSearchParams<{ workflowId: string }>();
+
+  const { mutateAsync } = useUpdateWorkflowPlayground(workflowId);
+
   const handleConfirmSave = useCallback(async () => {
-    console.log(elements);
-    confirmDialog.setFalse();
-  }, [elements, confirmDialog]);
+    try {
+      const formattedElements = transformWorkflowData(elements);
+      // console.log({ elements, formattedElements });
+      await mutateAsync(formattedElements);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      confirmDialog.setFalse();
+    }
+  }, [elements, confirmDialog, mutateAsync]);
 
   // ----------------------------------------------------------------------------------------------------
 
@@ -43,19 +59,22 @@ const ActionButtonSave: NamedExoticComponent = memo(() => {
       <CustomSquareBlock
         color="primary"
         style={{ height: 40, width: 40 }}
+        disabled={isDisableSave}
         onClick={confirmDialog.setTrue}
       >
         <Icon icon="fa-solid:save" width={20} />
       </CustomSquareBlock>
 
-      <CustomConfirmDialog
-        isOpen={confirmDialog.value}
-        onClose={confirmDialog.setFalse}
-        onOpen={handleConfirmSave}
-        disabledConfirm={isDisableSave}
-        title={"Are you sure to update flow ?"}
-        content={<>Node: {elements.nodes.length}</>}
-      />
+      <Suspense>
+        <CustomConfirmDialog
+          isOpen={confirmDialog.value}
+          onClose={confirmDialog.setFalse}
+          onOpen={handleConfirmSave}
+          disabledConfirm={isDisableSave}
+          title={"Are you sure to update flow ?"}
+          content={<>Node: {elements.nodes.length}</>}
+        />
+      </Suspense>
     </>
   );
 });

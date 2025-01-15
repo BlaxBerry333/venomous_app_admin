@@ -1,0 +1,12 @@
+@use "sass:map";
+@use "global_variables";
+
+body,
+#root {
+  min-height: map.get(global_variables.$app-layout, min-height);
+  min-width: map.get(global_variables.$app-layout, min-width);
+}
+
+body {
+  overflow: hidden;
+}

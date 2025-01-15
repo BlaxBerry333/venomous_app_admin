@@ -1,0 +1,9 @@
+COLOR_PURPLE='\033[0;35m'
+COLOR_GREEN='\033[0;32m'
+COLOR_NO_COLOR='\033[0m'
+
+
+# commitlint
+echo "${COLOR_NO_COLOR}[Husky prepare-commit-msg]${COLOR_NO_COLOR} CHECKING [git commit message]..."
+npm run commitlint
+echo "${COLOR_GREEN} ✔ ${COLOR_NO_COLOR} [git commit message] OK..."

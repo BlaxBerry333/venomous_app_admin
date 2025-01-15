@@ -1,0 +1,8 @@
+/* stylelint-disable selector-class-pattern */
+
+.react-flow__node-default {
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* stylelint-enable selector-class-pattern */

@@ -1,0 +1,19 @@
+# 忽略的语言检测
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+*.scss linguist-detectable=false
+*.js linguist-detectable=false
+*.cjs linguist-detectable=false
+*.mjs linguist-detectable=false
+
+# 需要的语言检测
+Dockerfile linguist.language=Dockerfile
+Makefile linguist.language=Makefile
+*.ts linguist.language=TypeScript
+*.py linguist.language=Python
+*.graphql linguist-detectable=true
+*.graphql linguist-documentation=false
+*.graphql linguist-language=GraphQL
+*.gql linguist-detectable=true
+*.gql linguist-documentation=false
+*.gql linguist-language=GraphQL

@@ -1,0 +1,62 @@
+# Node.js 忽略项
+node_modules/   
+# yarn.lock                  
+# package-lock.json             
+.pnp.*                     
+.yarn-integrity           
+
+# NPM 缓存
+.npm/                     
+   
+# 打包输出
+dist/                     
+build/                    
+
+# 生成的文件和目录
+coverage/                 
+*.log                     
+
+# 编辑器和 IDE 的配置文件
+.vscode/                   
+.idea/                   
+*.swp                     
+*.swo                     
+
+# 临时文件
+*.tmp                      
+*.temp                    
+
+# macOS 生成的文件
+.DS_Store                
+.AppleDouble            
+.LSOverride     
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Python 忽略项（针对 Django 项目）
+__pycache__/              
+*.pyc                   
+*.pyo                  
+*.pyd                    
+env/                       
+venv/      
+.venv/                
+*.egg-info/               
+*.egg                      
+db.sqlite3                                                
+
+# Husky 生成的文件
+# .husky/*  
+
+# 其他可忽略的文件
+*.bak                      
+*.orig                     
+*.pid                     
+*.seed                     

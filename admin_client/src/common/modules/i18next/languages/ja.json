@@ -1,0 +1,103 @@
+{
+  "common": {
+    "buttons": {
+      "save": "保存",
+      "cancel": "キャンセル",
+      "confirm": "確認",
+      "delete": "削除",
+      "edit": "編集",
+      "create": "作成",
+      "reset": "リセット",
+      "download": "ダウンロード",
+      "upload": "アップロード",
+      "logout": "ログアウト",
+      "login": "ログイン",
+      "signup": "サインアップ"
+    },
+    "tooltips": {
+      "confirm-delete": "削除しますか?",
+      "confirm-update": "更新しますか?"
+    }
+  },
+
+  "dashboard": {
+    "nav-menu": {
+      "overview": "概要",
+      "management": "管理",
+      "accounts": "アカウント",
+      "workflows": "ワークフロー",
+      "reports": "レポート",
+      "chats": "チャット",
+      "notes": "ノート",
+      "security": "セキュリティ"
+    },
+    "settings": {
+      "settings": "設定",
+      "theme-mode": "テーマモード",
+      "theme-palettes": "テーマパレット",
+      "light-mode": "ライトモード",
+      "dark-mode": "ダークモード",
+      "languages": "言語"
+    }
+  },
+
+  "auth": {
+    "user-data": {
+      "username": "ユーザー名",
+      "email": "メール",
+      "password": "パスワード",
+      "first_name": "名",
+      "last_name": "姓",
+      "date_joined": "作成日時",
+      "last_login": "最終ログイン日時",
+      "is_active": "アクティブ",
+      "is_staff": "スタッフ",
+      "is_superuser": "スーパーユーザー",
+      "role": "ユーザーロール",
+      "normal-user": "ノーマルユーザー",
+      "normal-admin-user": "ノーマル管理者",
+      "super-admin-user": "スーパー管理者"
+    },
+    "auth-login": {
+      "title": "アカウントログイン",
+      "navigate-to-signup": "アカウントを持っていませんか?",
+      "visitor-login": "ゲストログイン"
+    },
+    "auth-signup": {
+      "title": "アカウント作成",
+      "navigate-to-login": "アカウントを持っていますか?"
+    }
+  },
+
+  "workflow": {
+    "workflow-data-create": {
+      "create-new-blank": " 新規作成",
+      "use-existing-template": " 既存テンプレートを使用する",
+      "import-file": "ファイルをインポート"
+    },
+    "workflow-data": {
+      "name": "名前",
+      "description": "説明",
+      "created_at": "作成日時",
+      "updated_at": "更新日時",
+      "is_active": "起動中",
+      "is_draft": "編集中",
+      "playground": "プレイグラウンド"
+    },
+    "workflow-playground": {
+      "custom-nodes-groups": {
+        "communication": "通信ノード",
+        "logic": "ロジックノード",
+        "transform": "変換ノード"
+      },
+      "custom-nodes": {
+        "start": "開始",
+        "message": "メッセージ",
+        "resizable": "リサイズエイブル",
+        "condition": "分岐条件",
+        "code": "コード",
+        "variables": "変数"
+      }
+    }
+  }
+}

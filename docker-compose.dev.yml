@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+  # Admin Client
+  # ...
+
+  # Admin Server
+  # ----------------------------------------------------------------------------------------------------
+  admin_server:
+    image: venomous_apps_admin_server:latest
+    container_name: admin_server
+    build:
+      context: ./admin_server
+      dockerfile: Dockerfile.dev
+    environment:
+      - CUSTOM_DB_HOST=admin_server_db
+    command: sh -c "
+      python manage.py migrate && \
+      python manage.py runserver 0.0.0.0:8080
+      "
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./admin_server:/app
+    depends_on:
+      admin_server_db:
+        condition: service_healthy
+    networks:
+      - venomous_apps_network
+
+  # Admin Server Database ( PostgreSQL )
+  # ----------------------------------------------------------------------------------------------------
+  admin_server_db:
+    image: postgres:latest
+    container_name: admin_server_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: admin_server_db
+    volumes:
+      - admin_server_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d admin_server_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - venomous_apps_network
+
+  # Admin Server Redis
+  # ----------------------------------------------------------------------------------------------------
+  admin_server_redis:
+    image: redis:latest
+    container_name: admin_server_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - venomous_apps_network
+
+  # Admin Server Celery
+  # ----------------------------------------------------------------------------------------------------
+  # admin_server_celery:
+  #   image: celery:latest
+  #   container_name: admin_server_celery
+  #   environment:
+  #     - BROKER_URL=redis://admin_server_redis:6379/0
+  #     - CELERY_RESULT_BACKEND=redis://admin_server_redis:6379/0
+  #   depends_on:
+  #     - admin_server_redis
+  #   networks:
+  #     - venomous_apps_network
+
+networks:
+  venomous_apps_network:
+    driver: bridge
+
+volumes:
+  admin_server_db:

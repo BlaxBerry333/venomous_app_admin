@@ -1,0 +1,103 @@
+{
+  "common": {
+    "buttons": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "delete": "Delete",
+      "edit": "Edit",
+      "create": "Create",
+      "reset": "Reset",
+      "download": "Download",
+      "upload": "Upload",
+      "logout": "Logout",
+      "login": "Login",
+      "signup": "Signup"
+    },
+    "tooltips": {
+      "confirm-delete": "Are you sure to delete ?",
+      "confirm-update": "Are you sure to update ?"
+    }
+  },
+
+  "dashboard": {
+    "nav-menu": {
+      "overview": "Overview",
+      "management": "Management",
+      "accounts": "Accounts",
+      "workflows": "Workflows",
+      "reports": "Reports",
+      "chats": "Chats",
+      "notes": "Notes",
+      "security": "Security"
+    },
+    "settings": {
+      "settings": "Settings",
+      "theme-mode": "Theme Mode",
+      "theme-palettes": "Theme Palettes",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode",
+      "language": "Language"
+    }
+  },
+
+  "auth": {
+    "user-data": {
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "date_joined": "Date Joined",
+      "last_login": "Last Login",
+      "is_active": "Is Active",
+      "is_staff": "Is Staff",
+      "is_superuser": "Is Superuser",
+      "role": "User Role",
+      "normal-user": "Normal User",
+      "normal-admin-user": "Normal Admin User",
+      "super-admin-user": "Super Admin User"
+    },
+    "auth-login": {
+      "title": "Account Login",
+      "navigate-to-signup": "Don't have an account?",
+      "visitor-login": "Visitor Login"
+    },
+    "auth-signup": {
+      "title": "Account Signup",
+      "navigate-to-login": "Already have an account?"
+    }
+  },
+
+  "workflow": {
+    "workflow-data-create": {
+      "create-new-blank": "Create New Blank Workflow",
+      "use-existing-template": "Use Existing Template",
+      "import-file": "Import Workflow File"
+    },
+    "workflow-data": {
+      "name": "Name",
+      "description": "Description",
+      "created_at": "Created At",
+      "updated_at": "Updated At",
+      "is_active": "Active",
+      "is_draft": "Editing",
+      "playground": "Workflow Playground"
+    },
+    "workflow-playground": {
+      "custom-nodes-groups": {
+        "communication": "Communication Nodes",
+        "logic": "Logic Nodes",
+        "transform": "Transform Nodes"
+      },
+      "custom-nodes": {
+        "start": "Start",
+        "message": "Message",
+        "resizable": "Resizable",
+        "condition": "Condition",
+        "code": "Code",
+        "variables": "Variables"
+      }
+    }
+  }
+}

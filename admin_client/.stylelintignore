@@ -1,0 +1,15 @@
+# Ignore build generated files
+dist/
+build/
+node_modules/
+
+# Ignore specific file types
+*.min.css
+*.css.map
+*.min.scss
+*.scss.map
+
+# Ignore specific directories
+src/assets/styles/legacy/
+src/components/**/*.test.js
+src/__tests__/

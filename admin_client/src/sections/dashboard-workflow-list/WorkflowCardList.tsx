@@ -65,10 +65,6 @@ const WorkflowCardList: NamedExoticComponent<{
 
   // ----------------------------------------------------------------------------------------------------
 
-  if (!cardListData.length) {
-    return null;
-  }
-
   return (
     <>
       <MuiGrid container spacing={1}>

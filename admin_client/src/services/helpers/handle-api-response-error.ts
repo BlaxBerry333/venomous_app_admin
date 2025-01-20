@@ -18,9 +18,10 @@ export function getParsedAPIErrorResponse(error: AxiosError) {
 
   // 是 axios 错误，但返回值数据结构中有自定义的属性时
   if (typeof response?.data === "object") {
+    const message = response?.data ? Object.values(response.data)[0] : "";
     return {
       code: response.status,
-      message: Object.values(response?.data!)[0],
+      message: typeof message === "string" ? message : "",
     };
   }
 

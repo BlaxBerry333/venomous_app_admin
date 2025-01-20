@@ -30,7 +30,7 @@ export default function AuthLoginPageView() {
         toast.error(`${code}: ${message}`);
       }
     },
-    [accountLoginAsync, navigate],
+    [accountLoginAsync, navigate, t],
   );
 
   // ----------------------------------------------------------------------------------------------------

@@ -29,12 +29,12 @@ const WorkflowCardDeleteConfirmDialog: NamedExoticComponent<{
     try {
       await deleteWorkflowAsync();
       toast.success(t("common.snackbar.delete-success"));
-    } catch (error) {
+    } catch {
       toast.success(t("common.snackbar.delete-failed"));
     } finally {
       closeDialog();
     }
-  }, [deleteWorkflowAsync, closeDialog]);
+  }, [deleteWorkflowAsync, closeDialog, t]);
 
   return (
     <Suspense>

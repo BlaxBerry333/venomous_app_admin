@@ -60,12 +60,12 @@ const WorkflowCardEditDialog: NamedExoticComponent<{
 
       await updateWorkflowData(formValue);
       toast.success(t("common.snackbar.update-success"));
-    } catch (error) {
+    } catch {
       toast.success(t("common.snackbar.update-failed"));
     } finally {
       closeDialog();
     }
-  }, [workflowData, updateWorkflowData, getValues, closeDialog]);
+  }, [workflowData, updateWorkflowData, getValues, closeDialog, t]);
 
   return (
     <Suspense>

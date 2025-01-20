@@ -1,5 +1,6 @@
 import { lazy, memo, Suspense, useCallback, type NamedExoticComponent } from "react";
 
+import { toast } from "~/common/components/custom/snackbar";
 import useBoolean from "~/common/hooks/useBoolean";
 import useTranslation from "~/common/hooks/useTranslation";
 import type { Nullable } from "~/common/types/tools";
@@ -27,8 +28,9 @@ const WorkflowCardDeleteConfirmDialog: NamedExoticComponent<{
   const handleConfirmSave = useCallback(async () => {
     try {
       await deleteWorkflowAsync();
+      toast.success(t("common.snackbar.delete-success"));
     } catch (error) {
-      console.error(error);
+      toast.success(t("common.snackbar.delete-failed"));
     } finally {
       closeDialog();
     }

@@ -17,6 +17,17 @@
     "tooltips": {
       "confirm-delete": "Are you sure to delete ?",
       "confirm-update": "Are you sure to update ?"
+    },
+    "snackbar": {
+      "login-success": "Login success",
+      "logout-success": "Logout success",
+      "signup-success": "Signup success",
+      "create-success": "Create success",
+      "update-success": "Update success",
+      "delete-success": "Delete success",
+      "create-failed": "Create failed",
+      "update-failed": "Update failed",
+      "delete-failed": "Delete failed"
     }
   },
 

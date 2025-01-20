@@ -6,6 +6,7 @@ import { isEqual } from "lodash-es";
 import { useForm } from "react-hook-form";
 
 import { CustomForm, CustomFormField } from "~/common/components/custom/form-fields";
+import { toast } from "~/common/components/custom/snackbar";
 import useBoolean from "~/common/hooks/useBoolean";
 import useTranslation from "~/common/hooks/useTranslation";
 import type { Nullable } from "~/common/types/tools";
@@ -57,10 +58,10 @@ const WorkflowCardEditDialog: NamedExoticComponent<{
         return;
       }
 
-      const data = await updateWorkflowData(formValue);
-      console.log(data);
+      await updateWorkflowData(formValue);
+      toast.success(t("common.snackbar.update-success"));
     } catch (error) {
-      console.error(error);
+      toast.success(t("common.snackbar.update-failed"));
     } finally {
       closeDialog();
     }

@@ -17,6 +17,17 @@
     "tooltips": {
       "confirm-delete": "削除しますか?",
       "confirm-update": "更新しますか?"
+    },
+    "snackbar": {
+      "login-success": "ログイン成功",
+      "logout-success": "ログアウト成功",
+      "signup-success": "サインアップ成功",
+      "create-success": "作成成功",
+      "update-success": "更新成功",
+      "delete-success": "削除成功",
+      "create-failed": "作成失敗",
+      "update-failed": "更新失敗",
+      "delete-failed": "削除失敗"
     }
   },
 

@@ -17,6 +17,17 @@
     "tooltips": {
       "confirm-delete": "确认删除?",
       "confirm-update": "确认更新?"
+    },
+    "snackbar": {
+      "login-success": "登录成功",
+      "logout-success": "退出成功",
+      "signup-success": "注册成功",
+      "create-success": "创建成功",
+      "update-success": "更新成功",
+      "delete-success": "删除成功",
+      "create-failed": "创建失败",
+      "update-failed": "更新失败",
+      "delete-failed": "删除失败"
     }
   },
 

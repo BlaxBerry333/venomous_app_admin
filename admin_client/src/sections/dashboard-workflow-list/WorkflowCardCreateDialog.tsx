@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { CustomForm, CustomFormField } from "~/common/components/custom/form-fields";
+import { toast } from "~/common/components/custom/snackbar";
 import useBoolean from "~/common/hooks/useBoolean";
 import useTranslation from "~/common/hooks/useTranslation";
 import { useCreteWorkflowData } from "~/services/apis-hooks/workflow";
@@ -42,11 +43,11 @@ const WorkflowCardCreateDialog: NamedExoticComponent<{
   const handleFormSubmit = useCallback(async () => {
     try {
       const formValue = getValues();
-      const data = await createWorkflowData(formValue);
-      console.log(data);
+      await createWorkflowData(formValue);
+      toast.success(t("common.snackbar.create-success"));
       reset();
     } catch (error) {
-      console.error(error);
+      toast.success(t("common.snackbar.create-failed"));
     } finally {
       confirmDialog.setFalse();
     }

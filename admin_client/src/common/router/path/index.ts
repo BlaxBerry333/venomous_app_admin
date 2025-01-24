@@ -7,6 +7,7 @@ export const ROUTE_SEGMENTS = {
   report: "report" as const,
   workflow: "workflow" as const,
   playground: "playground" as const,
+  note: "note" as const,
   list: "list" as const,
   specific_id: ":id" as const,
   detail: "detail" as const,
@@ -44,6 +45,11 @@ export const ROUTE_PATHS = {
       list: `/${ROUTE_SEGMENTS.dashboard}/${ROUTE_SEGMENTS.workflow}/${ROUTE_SEGMENTS.list}` as const,
       playground:
         `/${ROUTE_SEGMENTS.dashboard}/${ROUTE_SEGMENTS.workflow}/${ROUTE_SEGMENTS.playground}` as const,
+    },
+    note: {
+      root: `/${ROUTE_SEGMENTS.dashboard}/${ROUTE_SEGMENTS.note}` as const,
+      list: `/${ROUTE_SEGMENTS.dashboard}/${ROUTE_SEGMENTS.note}/${ROUTE_SEGMENTS.list}` as const,
+      id: `/${ROUTE_SEGMENTS.dashboard}/${ROUTE_SEGMENTS.note}/${ROUTE_SEGMENTS.specific_id}` as const,
     },
   },
 };

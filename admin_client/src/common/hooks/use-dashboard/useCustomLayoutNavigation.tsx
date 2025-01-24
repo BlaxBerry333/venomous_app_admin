@@ -33,13 +33,13 @@ export default function useCustomLayoutNavigation() {
         path: ROUTE_PATHS.dashboard.workflow.list,
       },
       {
-        icon: <Icon icon="solar:chat-round-line-bold-duotone" />,
-        name: t("dashboard.nav-menu.chats"),
-        path: ROUTE_PATHS.error.unknown,
-      },
-      {
         icon: <Icon icon="solar:notes-bold-duotone" />,
         name: t("dashboard.nav-menu.notes"),
+        path: ROUTE_PATHS.dashboard.note.list,
+      },
+      {
+        icon: <Icon icon="solar:chat-round-line-bold-duotone" />,
+        name: t("dashboard.nav-menu.chats"),
         path: ROUTE_PATHS.error.unknown,
       },
     ],

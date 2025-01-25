@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -46,6 +46,12 @@ const AuthLoginForm: FC<{
   const { formState, reset } = form;
 
   // ----------------------------------------------------------------------------------------------------
+
+  // 初次加载时触发验证
+  useEffect(() => {
+    form.trigger("username");
+    form.trigger("password");
+  }, [form]);
 
   const isResetDisabled: boolean = !formState.isDirty;
   const isSubmitDisabled: boolean = !formState.isValid;

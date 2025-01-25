@@ -1,5 +1,5 @@
 import type { NamedExoticComponent } from "react";
-import { lazy, memo, Suspense, useCallback } from "react";
+import { lazy, memo, Suspense, useCallback, useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,6 +37,14 @@ const WorkflowCardCreateDialog: NamedExoticComponent<{
   });
 
   const { getValues, reset } = form;
+
+  // ----------------------------------------------------------------------------------------------------
+
+  // 初次加载时触发验证
+  useEffect(() => {
+    form.trigger("name");
+    form.trigger("description");
+  }, [form]);
 
   const isDisabledSubmit: boolean = !form.formState.isValid || isCreateWorkflowDataLoading;
 

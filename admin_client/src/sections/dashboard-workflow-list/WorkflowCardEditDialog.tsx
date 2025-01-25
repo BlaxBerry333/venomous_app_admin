@@ -41,6 +41,14 @@ const WorkflowCardEditDialog: NamedExoticComponent<{
 
   const { getValues, reset } = form;
 
+  // ----------------------------------------------------------------------------------------------------
+
+  // 初次加载时触发验证
+  useEffect(() => {
+    form.trigger("name");
+    form.trigger("description");
+  }, [form]);
+
   useEffect(() => {
     if (workflowData) {
       reset(workflowData);

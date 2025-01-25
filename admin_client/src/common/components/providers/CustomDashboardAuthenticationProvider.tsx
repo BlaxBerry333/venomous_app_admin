@@ -10,7 +10,7 @@ const CustomDashboardAuthenticationProvider: FC<PropsWithChildren> = ({ children
     // 每 30 秒定期检查 access token 是否过期
     const intervalId = setInterval(() => {
       if (storedToken && !validateTokenExpires(storedToken)) {
-        redirectToLoginPage();
+        redirectToLoginPage({ hasRedirect: true });
       }
     }, 1000 * 30);
 

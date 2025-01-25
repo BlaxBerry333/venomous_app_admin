@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { toast } from "~/common/components/custom/snackbar";
 import { AuthLayoutPageContainer } from "~/common/components/layouts/AuthLayout";
+import useRouteSearchParams from "~/common/hooks/useRouteSearchParams";
 import useTranslation from "~/common/hooks/useTranslation";
 import { ROUTE_PATHS } from "~/common/router";
 import AuthLoginForm, { type AuthLoginFormValueType } from "~/sections/auth-login/AuthLoginForm";
@@ -14,6 +15,7 @@ export default function AuthLoginPageView() {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
+  const searchParams = useRouteSearchParams<{ redirect: string }>();
 
   // ----------------------------------------------------------------------------------------------------
 
@@ -23,6 +25,14 @@ export default function AuthLoginPageView() {
     async (formValue: AuthLoginFormValueType) => {
       try {
         await accountLoginAsync(formValue);
+
+        // token 过期等原因导致的挑战到登陆页的场合，重定向回指定页面
+        if (searchParams.redirect) {
+          toast.success(t("common.snackbar.login-welcome-back"));
+          navigate(searchParams.redirect, { replace: true });
+          return;
+        }
+        // 初次登录
         toast.success(t("common.snackbar.login-success"));
         navigate(ROUTE_PATHS.dashboard.root, { replace: true });
       } catch (error) {
@@ -30,7 +40,7 @@ export default function AuthLoginPageView() {
         toast.error(`${code}: ${message}`);
       }
     },
-    [accountLoginAsync, navigate, t],
+    [accountLoginAsync, navigate, t, searchParams.redirect],
   );
 
   // ----------------------------------------------------------------------------------------------------

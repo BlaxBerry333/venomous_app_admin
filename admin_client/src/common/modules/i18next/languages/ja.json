@@ -20,6 +20,7 @@
     },
     "snackbar": {
       "login-success": "ログイン成功",
+      "login-welcome-back": "おかえり",
       "logout-success": "ログアウト成功",
       "signup-success": "サインアップ成功",
       "create-success": "作成成功",

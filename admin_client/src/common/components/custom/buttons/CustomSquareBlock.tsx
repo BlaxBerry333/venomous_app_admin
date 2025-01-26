@@ -11,18 +11,19 @@ const CustomSquareBlock: FC<
     tooltip?: MuiTooltipProps["title"];
     tooltipPlacement?: MuiTooltipProps["placement"];
   }
-> = ({ tooltip, tooltipPlacement, ...props }) => {
+> = ({ tooltip, tooltipPlacement, size = "small", ...props }) => {
   return (
     <MuiTooltip title={tooltip} placement={tooltipPlacement} arrow>
       <span>
         <MuiButton
           color="inherit"
-          sx={{
-            minHeight: 32,
-            minWidth: 32,
+          style={{
+            ...(size === "small" ? { minHeight: 32, minWidth: 32 } : {}),
+            ...(size === "medium" ? { minHeight: 40, minWidth: 40 } : {}),
+            ...(size === "large" ? { minHeight: 48, minWidth: 48 } : {}),
             padding: "6px",
             borderRadius: "8px",
-            ...props.sx,
+            ...props.style,
           }}
           {...props}
         />

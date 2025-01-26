@@ -15,7 +15,7 @@ const WorkflowPlaygroundPage = lazy(() => import("~/pages/dashboard/workflow/pla
 const ReportListPage = lazy(() => import("~/pages/dashboard/report/list/page"));
 const ReportDetailPage = lazy(() => import("~/pages/dashboard/report/[id]/page"));
 const NoteListPage = lazy(() => import("~/pages/dashboard/note/list/page"));
-const NoteDetailPage = lazy(() => import("~/pages/dashboard/note/[id]/page"));
+const NoteEditorPage = lazy(() => import("~/pages/dashboard/note/editor/page"));
 
 const DashboardRoutes: RouteObject[] = [
   {
@@ -119,8 +119,8 @@ const DashboardRoutes: RouteObject[] = [
             element: <NoteListPage />,
           },
           {
-            path: ROUTE_SEGMENTS.specific_id,
-            element: <NoteDetailPage />,
+            path: ROUTE_SEGMENTS.editor,
+            element: <NoteEditorPage />,
           },
           {
             path: "*",

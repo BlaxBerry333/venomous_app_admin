@@ -13,6 +13,7 @@
 - [sass]() v1
 - [zustand]() v5
 - [zod]()
+- [tiptap]()
 
 ## 🚀 Local Setup
 

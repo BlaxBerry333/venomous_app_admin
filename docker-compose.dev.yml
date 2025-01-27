@@ -12,6 +12,12 @@ services:
       dockerfile: Dockerfile.dev
     environment:
       - CUSTOM_DB_HOST=admin_server_db
+      - CUSTOM_DB_PORT=5432
+      - CUSTOM_DB_USER=postgres
+      - CUSTOM_DB_PASSWORD=postgres
+      - CUSTOM_DB_NAME=admin_server_db
+      - CUSTOM_REDIS_HOST=admin_server_redis
+      - CUSTOM_REDIS_PORT=6379
     command: sh -c "
       python manage.py migrate && \
       python manage.py runserver 0.0.0.0:8080

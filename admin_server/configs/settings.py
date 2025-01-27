@@ -83,11 +83,25 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "admin_server_db",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
+        "NAME": os.environ.get("CUSTOM_DB_NAME", "admin_server_db"),
+        "USER": os.environ.get("CUSTOM_DB_USER", "postgres"),
+        "PASSWORD": os.environ.get("CUSTOM_DB_PASSWORD", "postgres"),
         "HOST": os.environ.get("CUSTOM_DB_HOST", "0.0.0.0"),
-        "PORT": "5432",
+        "PORT": os.environ.get("CUSTOM_DB_PORT", "5432"),
+    }
+}
+
+# CACHES
+# ----------------------------------------------------------------------------------------------------
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{os.environ.get('CUSTOM_REDIS_HOST', '127.0.0.1')}:{os.environ.get('CUSTOM_REDIS_PORT', '6379')}",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": True,
+        },
     }
 }
 

@@ -18,11 +18,12 @@
     "check-eslint": "eslint . --cache --cache-location=./.cache/.eslintcache",
     "check-stylelint": "stylelint \"**/*.{css,scss}\"",
     "check-prettier": "prettier . --check",
-    "check-all": "concurrently \"yarn check-packages\" \"yarn check-type\" \"yarn check-eslint\" \"yarn check-stylelint\" \"yarn check-prettier\"",
+    "check-all": "concurrently --names \"check-packages,check-type,check-eslint,check-stylelint,check-prettier\" \"yarn check-packages\" \"yarn check-type\" \"yarn check-eslint\" \"yarn check-stylelint\" \"yarn check-prettier\"",
     "eslint": "prettier --write .",
     "stylelint": "stylelint \"**/*.{css,scss}\" --fix --cache --cache-location=./.cache/.stylelintcache",
     "prettier": "prettier . --write --cache --cache-location=./.cache/.prettiercache",
-    "format-all": "concurrently \"yarn eslint\" \"yarn stylelint\" \"yarn prettier\""
+    "format-all": "concurrently  --names \"eslint,stylelint,prettier\" \"yarn eslint\" \"yarn stylelint\" \"yarn prettier\"",
+    "clean-cache": "rm -rf .cache"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

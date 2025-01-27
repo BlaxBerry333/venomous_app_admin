@@ -4,6 +4,6 @@ COLOR_NO_COLOR='\033[0m'
 
 
 # commitlint
-echo "${COLOR_NO_COLOR}[Husky prepare-commit-msg]${COLOR_NO_COLOR} CHECKING [git commit message]..."
+echo "${COLOR_PURPLE}[Husky prepare-commit-msg]${COLOR_NO_COLOR} CHECKING [git commit message]..."
 npm run commitlint ${1}
 echo "${COLOR_GREEN} ✔ ${COLOR_NO_COLOR} [git commit message] OK..."

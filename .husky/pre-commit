@@ -6,12 +6,12 @@ COLOR_NO_COLOR='\033[0m'
 # admin client
 echo "${COLOR_PURPLE}[Husky pre-commit]${COLOR_NO_COLOR} CHECKING [admin_client] ..."
 cd admin_client
-concurrently "npm run check-all" "npm run format-all"
+npm run check-all && npm run format-all
 echo "${COLOR_GREEN} ✔ ${COLOR_NO_COLOR} [admin_client] OK..."
 cd -
 
 
 # admin server
 echo "${COLOR_PURPLE}[Husky pre-commit]${COLOR_NO_COLOR} CHECKING [admin_server] ..."
-echo "Please manually enter the Docker container for inspection before submitting."
+echo "${COLOR_PURPLE}Please manually enter the Docker container for inspection before submitting.${COLOR_NO_COLOR}"
 echo "${COLOR_GREEN} ✔ ${COLOR_NO_COLOR} [admin_server] OK..."

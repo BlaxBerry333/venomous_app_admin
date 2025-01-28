@@ -1,5 +1,5 @@
 import { mapValues } from "lodash-es";
-import type { ObjectKeyof } from "~/common/types/tools";
+import type { ObjectKeyof, SupportedFileTypes } from "~/common/types/tools";
 
 /**
  * API 接口地址
@@ -47,6 +47,11 @@ export const API_ENTRYPOINTS = {
     patchWorkflowHistory: (id: string) => `/api/workflow/history/${id}/` as const,
     // 删除 workflow history
     deleteWorkflowHistory: (id: string) => `/api/workflow/history/${id}/` as const,
+    // 下载 workflow data 的 JSON 文件
+    downloadWorkflowData: (id: string) => `/api/workflow/download/${id}/` as const,
+    // 下载所有 workflow 的文件
+    downloadAllWorkflowData: (fileType: SupportedFileTypes) =>
+      `/api/workflow/download/?type=${fileType}` as const,
   },
 
   // notes

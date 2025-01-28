@@ -6,20 +6,27 @@ import MuiClickAwayListener from "@mui/material/ClickAwayListener";
 import MuiGrow from "@mui/material/Grow";
 import MuiPaper from "@mui/material/Paper";
 import MuiPopper from "@mui/material/Popper";
+import type { SxProps } from "@mui/material/styles";
 
-const CustomPulldown: FC<
-  PropsWithChildren<{
-    defaultIsOpen?: boolean;
-    renderMainItem: ({ isOpen }: { isOpen: boolean }) => ReactNode;
-    afterCloseMenuList?: () => void;
-    afterOpenMenuList?: () => void;
-  }>
-> = ({
+export type CustomPulldownProps = PropsWithChildren<{
+  defaultIsOpen?: boolean;
+  renderMainItem: ({ isOpen }: { isOpen: boolean }) => ReactNode;
+  afterCloseMenuList?: () => void;
+  afterOpenMenuList?: () => void;
+  mainItemWrapperSx?: SxProps;
+  menuListWrapperPaperSx?: SxProps;
+  allowClickAwayToClose?: boolean;
+}>;
+
+const CustomPulldown: FC<CustomPulldownProps> = ({
   defaultIsOpen = false,
   children,
   renderMainItem,
   afterCloseMenuList,
   afterOpenMenuList,
+  mainItemWrapperSx,
+  menuListWrapperPaperSx,
+  allowClickAwayToClose = true,
 }) => {
   const [open, setOpen] = useState<boolean>(defaultIsOpen);
   const anchorRef = useRef<HTMLDivElement>(null);
@@ -42,7 +49,7 @@ const CustomPulldown: FC<
 
   return (
     <>
-      <MuiBox ref={anchorRef} onClick={handleToggleMenuList}>
+      <MuiBox ref={anchorRef} onClick={handleToggleMenuList} sx={mainItemWrapperSx}>
         {renderMainItem({ isOpen: open })}
       </MuiBox>
 
@@ -59,10 +66,14 @@ const CustomPulldown: FC<
             {...TransitionProps}
             style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }}
           >
-            <MuiPaper sx={{ p: 0, borderRadius: 2 }}>
-              <MuiClickAwayListener onClickAway={handleCloseMenuList}>
-                <div>{children}</div>
-              </MuiClickAwayListener>
+            <MuiPaper sx={{ p: 0, borderRadius: 2, ...menuListWrapperPaperSx }}>
+              {allowClickAwayToClose ? (
+                <MuiClickAwayListener onClickAway={handleCloseMenuList}>
+                  <div style={{ width: "100%", height: "100%" }}>{children}</div>
+                </MuiClickAwayListener>
+              ) : (
+                <div style={{ width: "100%", height: "100%" }}>{children}</div>
+              )}
             </MuiPaper>
           </MuiGrow>
         )}

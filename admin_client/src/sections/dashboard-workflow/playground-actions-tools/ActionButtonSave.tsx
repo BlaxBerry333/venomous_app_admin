@@ -61,11 +61,11 @@ const ActionButtonSave: NamedExoticComponent = memo(() => {
     <>
       <CustomSquareBlock
         color="primary"
-        style={{ height: 40, width: 40 }}
+        size="medium"
         disabled={isDisableSave}
         onClick={confirmDialog.setTrue}
       >
-        <Icon icon="fa-solid:save" width={20} />
+        <Icon icon="fa-solid:save" width={16} />
       </CustomSquareBlock>
 
       <Suspense>

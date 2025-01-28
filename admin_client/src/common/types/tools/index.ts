@@ -17,3 +17,13 @@ export type FunctionParamsArrayOf<T extends (...args: any[]) => any> = T extends
 ) => any
   ? P
   : never;
+
+// ----------------------------------------------------------------------------------------------------
+
+export enum SupportedFileTypes {
+  JSON = "json",
+  CSV = "csv",
+  XLSX = "xlsx",
+  // PDF = "pdf",
+  // YAML = "yaml",
+}

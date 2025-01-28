@@ -16,7 +16,9 @@
     },
     "tooltips": {
       "confirm-delete": "Are you sure to delete ?",
-      "confirm-update": "Are you sure to update ?"
+      "confirm-update": "Are you sure to update ?",
+      "confirm-logout": "Are you sure to logout ?",
+      "confirm-download-file-type": "Please select file type to download"
     },
     "snackbar": {
       "login-success": "Login success",
@@ -26,9 +28,11 @@
       "create-success": "Create success",
       "update-success": "Update success",
       "delete-success": "Delete success",
+      "download-success": "Download success",
       "create-failed": "Create failed",
       "update-failed": "Update failed",
-      "delete-failed": "Delete failed"
+      "delete-failed": "Delete failed",
+      "download-failed": "Download failed"
     }
   },
 
@@ -85,7 +89,8 @@
     "workflow-data-create": {
       "create-new-blank": "Create New Blank Workflow",
       "use-existing-template": "Use Existing Template",
-      "import-file": "Import Workflow File"
+      "import-local-workflow": "Import Local Workflow",
+      "export-all-workflow": "Export All Workflow"
     },
     "workflow-data": {
       "name": "Name",

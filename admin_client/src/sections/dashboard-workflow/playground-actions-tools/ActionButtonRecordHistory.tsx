@@ -25,8 +25,8 @@ const ActionButtonRecordHistory: NamedExoticComponent = memo(() => {
 
   return (
     <>
-      <CustomSquareBlock style={{ height: 40, width: 40 }} disabled onClick={openHistoryList}>
-        <Icon icon="solar:history-bold-duotone" width={24} />
+      <CustomSquareBlock size="medium" onClick={openHistoryList}>
+        <Icon icon="solar:history-bold-duotone" width={20} />
       </CustomSquareBlock>
 
       <MuiMenu

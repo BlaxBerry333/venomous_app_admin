@@ -20,6 +20,7 @@ import { formatDate } from "~/common/utils/handle-date-formatters";
 import type { DRFWorkflowDataType } from "~/services/types/workflow";
 import WorkflowCardCreateDialog from "./WorkflowCardCreateDialog";
 import WorkflowCardDeleteConfirmDialog from "./WorkflowCardDeleteConfirmDialog";
+import WorkflowCardDownloadAllDialog from "./WorkflowCardDownloadAllDialog";
 import WorkflowCardEditDialog from "./WorkflowCardEditDialog";
 
 const WorkflowCardList: NamedExoticComponent<{
@@ -42,6 +43,7 @@ const WorkflowCardList: NamedExoticComponent<{
   const createDialog = useBoolean(false);
   const editDialog = useBoolean(false);
   const deleteConfirmDialog = useBoolean(false);
+  const downloadAllDialog = useBoolean(false);
 
   const handleOpenDeleteConfirmDialog = useCallback(
     (id: number): void => {
@@ -63,6 +65,10 @@ const WorkflowCardList: NamedExoticComponent<{
     [editDialog],
   );
 
+  const handleOpenDownloadAllDialog = useCallback((): void => {
+    downloadAllDialog.setTrue();
+  }, [downloadAllDialog]);
+
   // ----------------------------------------------------------------------------------------------------
 
   return (
@@ -73,7 +79,10 @@ const WorkflowCardList: NamedExoticComponent<{
           sx={{ position: "sticky", top: 0, left: 0, zIndex: 1 }}
         >
           {/* 操作卡片 */}
-          <WorkflowCreateCard handleOpenCreateDialog={handleOpenCreateDialog} />
+          <WorkflowCreateCard
+            handleOpenCreateDialog={handleOpenCreateDialog}
+            handleOpenDownloadAllDialog={handleOpenDownloadAllDialog}
+          />
         </MuiGrid>
 
         {/* 流程图卡片 */}
@@ -108,6 +117,9 @@ const WorkflowCardList: NamedExoticComponent<{
 
       {/* 新建流程图 Dialog */}
       <WorkflowCardCreateDialog confirmDialog={createDialog} />
+
+      {/* 文件下载 Dialog */}
+      <WorkflowCardDownloadAllDialog confirmDialog={downloadAllDialog} />
     </>
   );
 });
@@ -214,7 +226,8 @@ const WorkflowDataCard: NamedExoticComponent<{
 
 const WorkflowCreateCard: NamedExoticComponent<{
   handleOpenCreateDialog: () => void;
-}> = memo(({ handleOpenCreateDialog }) => {
+  handleOpenDownloadAllDialog: () => void;
+}> = memo(({ handleOpenCreateDialog, handleOpenDownloadAllDialog }) => {
   const { t } = useTranslation();
 
   return (
@@ -224,35 +237,36 @@ const WorkflowCreateCard: NamedExoticComponent<{
         justifyContent: "space-around",
         backgroundColor: (theme) =>
           theme.palette.mode === "dark"
-            ? darken(theme.palette.primary.dark, 0.6)
-            : lighten(theme.palette.primary.dark, 0.8),
+            ? darken(theme.palette.primary.dark, 0.8)
+            : lighten(theme.palette.primary.main, 0.8),
       }}
     >
-      <MuiList disablePadding>
-        <CustomNormalListItem
-          icon={<Icon icon="solar:add-circle-bold-duotone" />}
-          MuiListItemTextProps={{
-            primary: t("workflow.workflow-data-create.create-new-blank"),
-            primaryTypographyProps: { variant: "subtitle2" },
-          }}
-          MuiListItemButtonProps={{ sx: { p: 1, mb: 0 }, onClick: handleOpenCreateDialog }}
-        />
-        <CustomNormalListItem
-          icon={<Icon icon="solar:clipboard-add-bold-duotone" />}
-          MuiListItemTextProps={{
-            primary: t("workflow.workflow-data-create.use-existing-template"),
-            primaryTypographyProps: { variant: "subtitle2" },
-          }}
-          MuiListItemButtonProps={{ sx: { p: 1, mb: 0 }, disabled: true, onClick: () => {} }}
-        />
-        <CustomNormalListItem
-          icon={<Icon icon="solar:upload-minimalistic-bold-duotone" />}
-          MuiListItemTextProps={{
-            primary: t("workflow.workflow-data-create.import-file"),
-            primaryTypographyProps: { variant: "subtitle2" },
-          }}
-          MuiListItemButtonProps={{ sx: { p: 1, mb: 0 }, disabled: true, onClick: () => {} }}
-        />
+      <MuiList disablePadding sx={{ justifyContent: "flex-start" }}>
+        {[
+          {
+            icon: <Icon icon="solar:clipboard-add-bold-duotone" />,
+            title: t("workflow.workflow-data-create.create-new-blank"),
+            onClick: handleOpenCreateDialog,
+          },
+          {
+            icon: <Icon icon="solar:export-linear" />,
+            title: t("workflow.workflow-data-create.import-local-workflow"),
+            onClick: () => {},
+            disabled: true,
+          },
+          {
+            icon: <Icon icon="solar:import-linear" />,
+            title: t("workflow.workflow-data-create.export-all-workflow"),
+            onClick: handleOpenDownloadAllDialog,
+          },
+        ].map(({ icon, title, onClick, disabled }) => (
+          <CustomNormalListItem
+            key={title}
+            icon={icon}
+            MuiListItemTextProps={{ primary: title }}
+            MuiListItemButtonProps={{ sx: { py: 0.5, px: 1, mb: 0 }, disabled, onClick }}
+          />
+        ))}
       </MuiList>
     </WorkflowCardWrapper>
   );

@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 
 import type { WorkflowInfoType } from "~/common/types/dashboard-workflow";
+import type { SupportedFileTypes } from "~/common/types/tools";
+import { downloadFile } from "~/common/utils/handle-files";
 import { API_ENTRYPOINTS } from "../entry-points";
 import { SERVER_API_INSTANCE } from "../instance";
 import type {
@@ -163,4 +165,24 @@ export function useGetWorkflowHistory(id: string) {
   });
 
   return { ...query };
+}
+
+export async function downloadWorkflowDataList(
+  fileType: SupportedFileTypes,
+): Promise<{ fileName: string }> {
+  const downloadURL = API_ENTRYPOINTS.workflow.downloadAllWorkflowData(fileType);
+  const { headers } = await SERVER_API_INSTANCE.get(downloadURL);
+  const fileName: string = headers["content-disposition"].split("filename=")[1];
+
+  downloadFile({ url: downloadURL, fileName });
+  return { fileName };
+}
+
+export async function downloadWorkflowData(id: string): Promise<{ fileName: string }> {
+  const downloadURL = API_ENTRYPOINTS.workflow.downloadWorkflowData(id);
+  const { headers } = await SERVER_API_INSTANCE.get(downloadURL);
+  const fileName: string = headers["content-disposition"].split("filename=")[1];
+
+  downloadFile({ url: downloadURL, fileName });
+  return { fileName };
 }

@@ -41,11 +41,7 @@ const ActionButtonNodeMenuList: NamedExoticComponent = memo(() => {
 
   return (
     <>
-      <CustomSquareBlock
-        color="primary"
-        style={{ height: 40, width: 40 }}
-        onClick={openNodeMenuList}
-      >
+      <CustomSquareBlock color="primary" size="medium" onClick={openNodeMenuList}>
         <Icon icon="solar:add-circle-linear" width={20} />
       </CustomSquareBlock>
 

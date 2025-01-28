@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import workflow, workflow_history
+from .views import workflow, workflow_history, workflow_download
 
 
 workflow_router = DefaultRouter()
@@ -20,6 +20,17 @@ workflow_router.register(
     basename="workflow",
 )
 
+
+"""
+GET     /workflow/download/
+GET     /workflow/download/?type=<file_type>
+GET     /workflow/download/<id>/
+"""
+workflow_router.register(
+    prefix="download",
+    viewset=workflow_download.WorkflowDownloadViewSet,
+    basename="workflow_download",
+)
 
 """
 GET     /workflow/history/

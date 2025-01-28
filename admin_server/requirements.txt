@@ -13,3 +13,8 @@ psycopg2-binary==2.9.9
 sqlparse==0.5.1
 tomli==2.0.2
 typing_extensions==4.12.2
+redis==4.5.5
+django-redis==5.2.0
+numpy==1.23.5 
+pandas==1.5.3
+openpyxl==3.0.10

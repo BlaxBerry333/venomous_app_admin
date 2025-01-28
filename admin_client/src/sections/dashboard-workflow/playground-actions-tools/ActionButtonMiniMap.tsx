@@ -54,7 +54,7 @@ const ActionButtonMiniMap: NamedExoticComponent = memo(() => {
 
   return (
     <>
-      <CustomSquareBlock style={{ height: 40, width: 40 }} onClick={toggleIsOpenMiniMap}>
+      <CustomSquareBlock size="medium" onClick={toggleIsOpenMiniMap}>
         <Icon
           icon={isOpenMiniMap ? "line-md:map-marker-off-loop" : "line-md:map-marker-alt-loop"}
           width={20}

@@ -26,6 +26,7 @@ import {
   ActionButtonNodeMenuList,
   ActionButtonRecordHistory,
   ActionButtonSave,
+  ActionButtonToolMenu,
   ActionButtonUndoRedo,
   ActionButtonZoom,
 } from "~/sections/dashboard-workflow/playground-actions-tools";
@@ -161,6 +162,7 @@ const WorkflowPlayground: NamedExoticComponent<{
         </Panel>
         <Panel position="top-right">
           <MuiStack direction="row" spacing={1}>
+            <ActionButtonToolMenu />
             <ActionButtonRecordHistory />
             <ActionButtonSave />
           </MuiStack>

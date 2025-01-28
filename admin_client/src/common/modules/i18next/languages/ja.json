@@ -16,7 +16,9 @@
     },
     "tooltips": {
       "confirm-delete": "削除しますか?",
-      "confirm-update": "更新しますか?"
+      "confirm-update": "更新しますか?",
+      "confirm-logout": "ログアウトしますか?",
+      "confirm-download-file-type": "ファイルタイプを選択してください"
     },
     "snackbar": {
       "login-success": "ログイン成功",
@@ -26,9 +28,11 @@
       "create-success": "作成成功",
       "update-success": "更新成功",
       "delete-success": "削除成功",
+      "download-success": "ダウンロード成功",
       "create-failed": "作成失敗",
       "update-failed": "更新失敗",
-      "delete-failed": "削除失敗"
+      "delete-failed": "削除失敗",
+      "download-failed": "ダウンロード失敗"
     }
   },
 
@@ -85,7 +89,8 @@
     "workflow-data-create": {
       "create-new-blank": " 新規作成",
       "use-existing-template": " 既存テンプレートを使用する",
-      "import-file": "ファイルをインポート"
+      "import-local-workflow": "ローカルワークフローをインポート",
+      "export-all-workflow": "全てのワークフローをエクスポート"
     },
     "workflow-data": {
       "name": "名前",

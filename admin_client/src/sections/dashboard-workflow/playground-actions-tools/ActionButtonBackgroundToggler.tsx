@@ -12,10 +12,7 @@ const ActionButtonBackgroundToggler: NamedExoticComponent = memo(() => {
   const isGridLayout: boolean = canvasBackground.isGridLayout;
 
   return (
-    <CustomSquareBlock
-      style={{ height: 40, width: 40 }}
-      onClick={canvasBackground.toggleIsGridLayout}
-    >
+    <CustomSquareBlock size="medium" onClick={canvasBackground.toggleIsGridLayout}>
       <Icon
         icon={isGridLayout ? "material-symbols-light:grid-off" : "material-symbols-light:grid-on"}
         width={20}

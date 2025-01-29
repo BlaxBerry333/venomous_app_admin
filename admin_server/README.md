@@ -9,6 +9,7 @@
 - [numpy]() v1.23.5
 - [pandas]() v1.5.3
 - [openpyxl]() v3.0.10
+- [django-export-import]() v3.0.0
 
 ## 🚀 Local Setup
 

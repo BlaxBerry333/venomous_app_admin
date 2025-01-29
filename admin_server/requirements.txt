@@ -18,3 +18,4 @@ django-redis==5.2.0
 numpy==1.23.5 
 pandas==1.5.3
 openpyxl==3.0.10
+django-import-export==3.0.0

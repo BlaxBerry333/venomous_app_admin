@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 # Third Party Apps
 INSTALLED_APPS += [
     "rest_framework",
+    "import_export",
 ]
 # Custom Local Apps
 INSTALLED_APPS += [

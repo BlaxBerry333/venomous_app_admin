@@ -81,6 +81,12 @@ export const overrideMuiComponentsOptions: MuiComponents<Omit<MuiTheme, "compone
     },
   },
 
+  MuiTab: {
+    styleOverrides: {
+      root: { textTransform: "capitalize" },
+    },
+  },
+
   MuiTextField: {
     styleOverrides: {
       root: { marginTop: 8 },

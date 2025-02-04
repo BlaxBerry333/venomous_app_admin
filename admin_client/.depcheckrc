@@ -3,6 +3,10 @@
     "prettier-plugin-organize-imports",
     "stylelint-config-standard",
     "stylelint-config-standard-scss",
-    "~"
+    "~",
+    "@types/google-protobuf",
+    "google-protobuf",
+    "@mui/x-charts",
+    "@mui/x-date-pickers"
   ]
 }

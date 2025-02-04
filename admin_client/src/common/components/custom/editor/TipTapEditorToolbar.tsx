@@ -30,7 +30,7 @@ const TipTapEditorToolbar: NamedExoticComponent<unknown> = memo(() => {
       <MuiStack spacing={0.5} sx={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
         {/* Headings */}
         <MenuList
-          width={120}
+          width={130}
           items={[
             {
               label: "Heading 1",

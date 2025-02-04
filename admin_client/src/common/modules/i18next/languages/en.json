@@ -116,5 +116,23 @@
         "variables": "Variables"
       }
     }
+  },
+
+  "notes": {
+    "note-data": {
+      "title": "Title",
+      "message": "Message",
+      "created_at": "Created At",
+      "updated_at": "Updated At",
+      "account_ad": "Account ID"
+    },
+    "note-data-type": {
+      "0": "All",
+      "1": "Memo"
+    },
+    "note-list": {
+      "content-type-table": "Table",
+      "content-type-cards": "Cards"
+    }
   }
 }

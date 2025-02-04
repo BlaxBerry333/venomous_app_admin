@@ -8,12 +8,13 @@
 - [react-route-dom]() v6
 - [react-hook-form]() v7
 - [tanstack query]() v5
-- [reactflow]() v12
-- [mui]() v6
+- [xyflow]() v12
+- [mui/material]() v6
 - [sass]() v1
 - [zustand]() v5
-- [zod]()
-- [tiptap]()
+- [zod]() v3
+- [tiptap]() v2
+- [protobuf]()
 
 ## 🚀 Local Setup
 

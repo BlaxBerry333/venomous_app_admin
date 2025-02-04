@@ -116,5 +116,23 @@
         "variables": "変数"
       }
     }
+  },
+
+  "notes": {
+    "note-data": {
+      "title": "タイトル",
+      "message": "メッセージ",
+      "created_at": "作成日時",
+      "updated_at": "更新日時",
+      "account_id": "アカウントID"
+    },
+    "note-data-type": {
+      "0": "全て",
+      "1": "メモ"
+    },
+    "note-list": {
+      "content-type-table": "テーブル",
+      "content-type-cards": "カード"
+    }
   }
 }

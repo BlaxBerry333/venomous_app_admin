@@ -14,6 +14,11 @@
       "login": "ログイン",
       "signup": "サインアップ"
     },
+    "labels": {
+      "created_at": "作成日時",
+      "updated_at": "更新日時",
+      "no-data": "データありません"
+    },
     "tooltips": {
       "confirm-delete": "削除しますか?",
       "confirm-update": "更新しますか?",
@@ -45,7 +50,8 @@
       "reports": "レポート",
       "chats": "チャット",
       "notes": "ノート",
-      "security": "セキュリティ"
+      "security": "セキュリティ",
+      "assets": "アセット"
     },
     "settings": {
       "settings": "設定",

@@ -6,11 +6,11 @@ type DashboardLayoutContextValueType = {
   largeScreenLimit: Breakpoint;
   isSmallScreen: boolean;
   isOpenSmallScreenNavDrawer: boolean;
-  toggleSmallScreenNavDrawer: () => void;
-  closeSmallScreenNavDrawer: () => void;
+  toggleSmallScreenNavDrawer: VoidFunction;
+  closeSmallScreenNavDrawer: VoidFunction;
   isOpenSettingDrawer: boolean;
-  toggleSettingDrawer: () => void;
-  closeSettingDrawer: () => void;
+  toggleSettingDrawer: VoidFunction;
+  closeSettingDrawer: VoidFunction;
 };
 
 export const DashboardLayoutContext = createContext<null | DashboardLayoutContextValueType>(null);

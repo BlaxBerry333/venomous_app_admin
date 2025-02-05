@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+
 import DashboardLayoutMainContainerInnerWrappers from "~/common/components/layouts/DashboardLayout/DashboardLayoutMainContainerInnerWrappers";
 import { ROUTE_PATHS } from "~/common/router";
 import { appendQueryParams } from "~/common/utils/handle-route-path";
@@ -18,7 +19,7 @@ export default function DashboardNoteListPageView() {
   // ----------------------------------------------------------------------------------------------------
 
   return (
-    <DashboardLayoutMainContainerInnerWrappers isOverflowHidden={false} showCommonFooter={false}>
+    <DashboardLayoutMainContainerInnerWrappers isOverflowHidden showCommonFooter={false}>
       <NoteList navigateToEditorPage={navigateToEditorPage} />
     </DashboardLayoutMainContainerInnerWrappers>
   );

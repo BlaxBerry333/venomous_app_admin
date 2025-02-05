@@ -4,7 +4,7 @@ import { memo, useContext, useState } from "react";
 import MuiBox from "@mui/material/Box";
 import MuiContainer from "@mui/material/Container";
 
-import { BackToTopAnchor, CustomBackToTop } from "~/common/components/custom/back-to-top";
+import { CustomBackToTop } from "~/common/components/custom/back-to-top";
 import { DashboardLayoutContext } from "./context";
 import DashboardLayoutNavMenu from "./DashboardLayoutNavMenu";
 
@@ -13,7 +13,7 @@ const DashboardLayoutMainContainer: FC<PropsWithChildren> = ({ children }) => {
 
   // ----------------------------------------------------------------------------------------------------
 
-  const [scrollTarget, setScrollTarget] = useState<Node | Window | undefined>(undefined);
+  const [scrollTarget, setScrollTarget] = useState<HTMLElement | undefined>(undefined);
 
   // ----------------------------------------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ const DashboardLayoutMainContainer: FC<PropsWithChildren> = ({ children }) => {
       component="main"
       maxWidth={layoutContextValue?.largeScreenLimit}
       style={{ padding: 0 }}
-      sx={{ display: "flex" }}
+      sx={{ display: "flex", position: "relative" }}
     >
       <MuiBox
         component="aside"
@@ -38,22 +38,19 @@ const DashboardLayoutMainContainer: FC<PropsWithChildren> = ({ children }) => {
 
       <MuiBox
         component="div"
+        ref={(node: HTMLElement) => node && setScrollTarget(node)}
         sx={{
           flex: 1,
           height: `calc(100svh - 64px)`,
           overflowY: "scroll",
-          position: "relative",
           py: 1,
           px: 1,
         }}
-        ref={(node: Node) => {
-          if (node) setScrollTarget(node);
-        }}
       >
-        <div id={BackToTopAnchor} />
         {children}
-        <CustomBackToTop scrollTarget={scrollTarget} />
       </MuiBox>
+
+      <CustomBackToTop target={scrollTarget} />
     </MuiContainer>
   );
 };

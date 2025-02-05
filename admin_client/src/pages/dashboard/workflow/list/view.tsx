@@ -9,7 +9,7 @@ import { useGetWorkflowDataList } from "~/services/apis-hooks/workflow";
 import type { DRFWorkflowDataType } from "~/services/types/workflow";
 
 export default function DashboardWorkflowListPageView() {
-  const { data: dataSource } = useGetWorkflowDataList();
+  const { data: dataSource, isLoading } = useGetWorkflowDataList();
   const data = useMemo<Array<DRFWorkflowDataType>>(() => dataSource?.results || [], [dataSource]);
 
   // ----------------------------------------------------------------------------------------------------
@@ -27,10 +27,12 @@ export default function DashboardWorkflowListPageView() {
   // ----------------------------------------------------------------------------------------------------
 
   return (
-    <DashboardLayoutMainContainerInnerWrappers isOverflowHidden={false} showCommonFooter>
+    <DashboardLayoutMainContainerInnerWrappers isOverflowHidden showCommonFooter={false}>
       <WorkflowCardList
         cardListData={data}
         navigateToSpecificWorkflow={navigateToSpecificWorkflow}
+        dataSource={data}
+        isLoading={isLoading}
       />
     </DashboardLayoutMainContainerInnerWrappers>
   );

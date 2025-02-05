@@ -9,4 +9,5 @@ export type NoteListTabContentRenderComponentProps = {
   dataSource: NoteDataType[];
   isLoading: boolean;
   setSelectedItem: (item: NoteDataType) => void;
+  deleteSelectedItem: VoidFunction;
 };

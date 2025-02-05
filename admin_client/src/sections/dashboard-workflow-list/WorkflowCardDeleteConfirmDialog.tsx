@@ -13,7 +13,7 @@ const CustomConfirmDialog = lazy(
 const WorkflowCardDeleteConfirmDialog: NamedExoticComponent<{
   confirmDialog: ReturnType<typeof useBoolean>;
   selectedWorkflowId: Nullable<number>;
-  clearSelectedWorkflowId: () => void;
+  clearSelectedWorkflowId: VoidFunction;
 }> = memo(({ confirmDialog, selectedWorkflowId, clearSelectedWorkflowId }) => {
   const { t } = useTranslation();
 

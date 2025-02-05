@@ -26,10 +26,22 @@ const TipTapEditorToolbar: NamedExoticComponent<unknown> = memo(() => {
   }
 
   return (
-    <MuiPaper sx={{ boxShadow: 0, borderRadius: 0 }}>
+    <MuiPaper
+      sx={{
+        boxShadow: 0,
+        borderRadius: 0,
+        position: "sticky",
+        top: 0,
+        zIndex: 1,
+        py: 1,
+        borderBottom: 1,
+        borderColor: "divider",
+      }}
+    >
       <MuiStack spacing={0.5} sx={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
         {/* Headings */}
         <MenuList
+          height={40}
           width={130}
           items={[
             {
@@ -256,15 +268,16 @@ export default TipTapEditorToolbar;
 type MenuItemType = {
   label: string;
   iconString: string;
-  onClick: () => void;
+  onClick: VoidFunction;
   isDisabled: boolean;
   isActive: boolean;
 };
 
 const MenuList: NamedExoticComponent<{
+  height: number;
   width: number;
   items: Array<MenuItemType>;
-}> = memo(({ width, items }) => {
+}> = memo(({ width, height, items }) => {
   const [selectedItem, setSelectedItem] = useState<MenuItemType | null>(null);
 
   const activeItem = useMemo<MenuItemType | null>(
@@ -277,7 +290,7 @@ const MenuList: NamedExoticComponent<{
       renderMainItem={({ isOpen }) => (
         <MuiButton
           variant={isOpen ? "outlined" : "text"}
-          sx={{ width, typography: "body2", fontWeight: 600 }}
+          sx={{ width, height, typography: "body2", fontWeight: 600 }}
           endIcon={
             <Icon icon={isOpen ? "solar:alt-arrow-up-linear" : "solar:alt-arrow-down-linear"} />
           }

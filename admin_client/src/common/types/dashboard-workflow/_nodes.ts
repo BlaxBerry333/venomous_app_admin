@@ -42,7 +42,7 @@ export type CustomNodeWrapperProps = PropsWithChildren<
       | false
       | ((props: {
           handleFormSubmit: (formValue: CustomNodeDataFormValueType) => void;
-          handleFormCancel: () => void;
+          handleFormCancel: VoidFunction;
         }) => ReactNode);
   }
 >;

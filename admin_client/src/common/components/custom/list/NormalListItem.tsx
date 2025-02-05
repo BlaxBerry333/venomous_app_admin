@@ -32,12 +32,13 @@ const CustomNormalListItem: FC<CustomListItemProps> = ({
       {icon && (
         <MuiListItemIcon
           sx={{
+            color: "inherit",
             svg: {
               fontSize: "1.2em",
               color: ({ palette }) => {
                 const isDarkMode = palette.mode === "dark";
                 const activeColor = isDarkMode ? palette.primary.light : palette.primary.main;
-                return isSelected ? activeColor : palette.text.secondary;
+                return MuiListItemButtonProps?.color || isSelected ? activeColor : "inherit";
               },
             },
           }}
@@ -55,7 +56,7 @@ const CustomNormalListItem: FC<CustomListItemProps> = ({
             color: ({ palette }) => {
               const isDarkMode = palette.mode === "dark";
               const activeColor = isDarkMode ? palette.primary.light : palette.primary.main;
-              return isSelected ? activeColor : palette.text.secondary;
+              return isSelected ? activeColor : "inherit";
             },
             ...MuiListItemTextProps?.primaryTypographyProps?.sx,
           },

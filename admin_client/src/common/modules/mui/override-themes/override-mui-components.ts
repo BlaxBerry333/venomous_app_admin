@@ -34,6 +34,12 @@ export const overrideMuiComponentsOptions: MuiComponents<Omit<MuiTheme, "compone
     },
   },
 
+  MuiList: {
+    styleOverrides: {
+      root: { borderRadius: 8, marginBottom: 4, padding: 8 },
+    },
+  },
+
   MuiListItemButton: {
     styleOverrides: {
       root: { borderRadius: 8, marginBottom: 4 },

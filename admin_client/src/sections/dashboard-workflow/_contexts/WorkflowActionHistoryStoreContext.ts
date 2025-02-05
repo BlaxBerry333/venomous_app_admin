@@ -17,7 +17,7 @@ export type WorkflowActionHistoryStoreContextType = Nullable<{
   futureStates: WorkflowActionHistoryStoreType[];
   pastStates: WorkflowActionHistoryStoreType[];
   updateState: WorkflowActionHistoryStoreType["update"];
-  clear: () => void;
+  clear: VoidFunction;
   undo: (steps?: number) => void;
   redo: (steps?: number) => void;
 }>;

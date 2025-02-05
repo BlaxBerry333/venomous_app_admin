@@ -1,58 +1,52 @@
-import type { FC } from "react";
-import { memo } from "react";
+import { memo, type NamedExoticComponent } from "react";
 
 import { Icon } from "@iconify/react";
-
-import MuiBox from "@mui/material/Box";
-import MuiFab from "@mui/material/Fab";
+import MuiFab, { type FabProps as MuiFabProps } from "@mui/material/Fab";
 import MuiFade from "@mui/material/Fade";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 
-export const BackToTopAnchor = "back-to-top-anchor" as const;
-
-type Props = {
-  scrollTarget: Node | Window | undefined;
-};
-
-const CustomBackToTop: FC<Props> = ({ scrollTarget }) => {
+/**
+ * @example
+ * const [scrollTarget, setScrollTarget] = useState<HTMLElement | undefined>(undefined);
+ *
+ * return (
+ *   <div sx={{ position: "relative" }}>
+ *     <div
+ *       style={{ overflowY: "scroll", height: "100vh" }}
+ *       ref={(node: HTMLElement) => node && setScrollTarget(node)}
+ *     >
+ *       // ...
+ *       // ...
+ *     </div>
+ *     <BackToTop target={scrollTarget} />
+ *   </div>
+ * );
+ */
+const BackToTop: NamedExoticComponent<{
+  target: HTMLElement | undefined;
+  sx?: MuiFabProps["sx"];
+}> = memo(({ target, sx }) => {
   const trigger = useScrollTrigger({
-    target: scrollTarget,
+    target,
     disableHysteresis: true,
     threshold: 100,
   });
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    const anchor = ((event.target as HTMLDivElement).ownerDocument || document).querySelector(
-      `#${BackToTopAnchor}`,
-    );
-
-    if (anchor) {
-      anchor.scrollIntoView({ block: "center", behavior: "smooth" });
-    }
-  };
-
-  // ----------------------------------------------------------------------------------------------------
-
   return (
     <MuiFade in={trigger}>
-      <MuiBox
-        onClick={handleClick}
-        sx={{
-          position: "sticky",
-          bottom: 0,
-          right: 0,
-          width: 1,
-          display: trigger ? "flex" : "none",
-          justifyContent: "flex-end",
-          pr: 2,
+      <MuiFab
+        color="primary"
+        sx={{ position: "absolute", bottom: 80, right: 40, ...sx }}
+        onClick={() => {
+          if (target) {
+            target.scrollTo({ top: 0, behavior: "smooth" });
+          }
         }}
       >
-        <MuiFab size="large" color="primary" sx={{ fontSize: "2em" }}>
-          <Icon icon="solar:alt-arrow-up-linear" />
-        </MuiFab>
-      </MuiBox>
+        <Icon icon="solar:alt-arrow-up-linear" width={20} />
+      </MuiFab>
     </MuiFade>
   );
-};
+});
 
-export default memo(CustomBackToTop);
+export default BackToTop;

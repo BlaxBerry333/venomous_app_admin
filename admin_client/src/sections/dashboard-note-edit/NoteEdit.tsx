@@ -1,32 +1,34 @@
 import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 
-import MuiFade from "@mui/material/Fade";
-import MuiLinearProgress from "@mui/material/LinearProgress";
-import MuiPaper, { type PaperProps as MuiPaperProps } from "@mui/material/Paper";
+import MuiPaper from "@mui/material/Paper";
 
 import { TipTapEditor } from "~/common/components/custom/editor";
+import { CustomLoadingScreen } from "~/common/components/custom/loadings";
 
 const NoteEdit: NamedExoticComponent<{
   isLoading: boolean;
   editorContentString: string;
-  sx?: MuiPaperProps["sx"];
-}> = memo(({ isLoading, editorContentString, sx }) => {
+}> = memo(({ isLoading, editorContentString }) => {
   if (isLoading) {
-    return (
-      <MuiPaper sx={{ borderRadius: 4, ...sx }}>
-        <MuiLinearProgress color="primary" sx={{ width: 1 }} />
-      </MuiPaper>
-    );
+    return <CustomLoadingScreen />;
   }
 
   return (
-    <MuiPaper sx={{ borderRadius: 4, ...sx }}>
-      <MuiFade in={!isLoading} unmountOnExit>
-        <div>
-          <TipTapEditor content={editorContentString} editable={!isLoading} />
-        </div>
-      </MuiFade>
+    <MuiPaper
+      sx={{
+        minHeight: "850px",
+        height: "calc(100svh - 150px)",
+        maxHeight: "calc(100svh - 150px)",
+        overflowY: "scroll",
+        borderRadius: 4,
+        position: "relative",
+        px: 1,
+        border: 1,
+        borderColor: "divider",
+      }}
+    >
+      <TipTapEditor content={editorContentString} editable={!isLoading} />
     </MuiPaper>
   );
 });

@@ -21,7 +21,7 @@ const WorkflowCardEditDialog: NamedExoticComponent<{
   confirmDialog: ReturnType<typeof useBoolean>;
   selectedWorkflowId: Nullable<number>;
   workflowData: undefined | WorkflowEditFormValueType;
-  clearSelectedWorkflowId: () => void;
+  clearSelectedWorkflowId: VoidFunction;
 }> = memo(({ confirmDialog, selectedWorkflowId, workflowData, clearSelectedWorkflowId }) => {
   const { t } = useTranslation();
 

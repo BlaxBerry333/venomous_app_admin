@@ -8,7 +8,7 @@ import { createContext } from "react";
 export type WorkflowWidgetStatusContextType = Nullable<{
   canvasBackground: {
     isGridLayout: boolean;
-    toggleIsGridLayout: () => void;
+    toggleIsGridLayout: VoidFunction;
     gridLayoutGap: undefined | typeof DASHBOARD_WORKFLOW_CONFIGS.CanvasGridLayoutGap;
     gridLayoutType: undefined | _BackgroundVariant;
   };
@@ -16,7 +16,7 @@ export type WorkflowWidgetStatusContextType = Nullable<{
   specificNodeFormWidget: {
     specificNodeId: null | CustomNodeType["id"]; // 不为 null 时即为有节点被选中
     setSpecificNodeId: (nodeId: null | CustomNodeType["id"]) => void;
-    clearSpecificNodeId: () => void;
+    clearSpecificNodeId: VoidFunction;
   };
 }>;
 

@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 
-import MuiBox from "@mui/material/Box";
-
 import DashboardLayoutMainContainerInnerWrappers from "~/common/components/layouts/DashboardLayout/DashboardLayoutMainContainerInnerWrappers";
+import useRouteSearchParams from "~/common/hooks/useRouteSearchParams";
 import NoteEdit from "~/sections/dashboard-note-edit/NoteEdit";
-import NoteEditMenuBar from "~/sections/dashboard-note-edit/NoteEditMenuBar";
 
 export default function DashboardNoteEditorPageView() {
+  const { noteId } = useRouteSearchParams<{ noteId: string }>();
+  console.log(noteId);
+
+  // ----------------------------------------------------------------------------------------------------
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<string>("");
 
@@ -25,11 +28,8 @@ export default function DashboardNoteEditorPageView() {
   // ----------------------------------------------------------------------------------------------------
 
   return (
-    <DashboardLayoutMainContainerInnerWrappers isOverflowHidden={false} showCommonFooter>
-      <MuiBox sx={{ display: "flex", height: "80vh" }}>
-        <NoteEditMenuBar sx={{ width: 200 }} />
-        <NoteEdit isLoading={isLoading} editorContentString={data} sx={{ flex: 1, p: 1 }} />
-      </MuiBox>
+    <DashboardLayoutMainContainerInnerWrappers isOverflowHidden showCommonFooter={false}>
+      <NoteEdit isLoading={isLoading} editorContentString={data} />
     </DashboardLayoutMainContainerInnerWrappers>
   );
 }

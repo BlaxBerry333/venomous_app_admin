@@ -1,1 +1,1 @@
-export { BackToTopAnchor, default as CustomBackToTop } from "./BackToTop";
+export { default as CustomBackToTop } from "./BackToTop";

@@ -10,9 +10,9 @@ import type { SxProps } from "@mui/material/styles";
 
 export type CustomPulldownProps = PropsWithChildren<{
   defaultIsOpen?: boolean;
-  renderMainItem: ({ isOpen }: { isOpen: boolean }) => ReactNode;
-  afterCloseMenuList?: () => void;
-  afterOpenMenuList?: () => void;
+  renderMainItem: (params: { isOpen: boolean; toggle: VoidFunction }) => ReactNode;
+  afterCloseMenuList?: VoidFunction;
+  afterOpenMenuList?: VoidFunction;
   mainItemWrapperSx?: SxProps;
   menuListWrapperPaperSx?: SxProps;
   allowClickAwayToClose?: boolean;
@@ -50,7 +50,7 @@ const CustomPulldown: FC<CustomPulldownProps> = ({
   return (
     <>
       <MuiBox ref={anchorRef} onClick={handleToggleMenuList} sx={mainItemWrapperSx}>
-        {renderMainItem({ isOpen: open })}
+        {renderMainItem({ isOpen: open, toggle: handleToggleMenuList })}
       </MuiBox>
 
       <MuiPopper

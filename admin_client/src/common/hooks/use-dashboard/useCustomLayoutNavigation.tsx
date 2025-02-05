@@ -33,7 +33,7 @@ export default function useCustomLayoutNavigation() {
         path: ROUTE_PATHS.dashboard.workflow.list,
       },
       {
-        icon: <Icon icon="solar:notes-bold-duotone" />,
+        icon: <Icon icon="solar:document-text-bold-duotone" />,
         name: t("dashboard.nav-menu.notes"),
         path: ROUTE_PATHS.dashboard.note.list,
       },
@@ -41,6 +41,7 @@ export default function useCustomLayoutNavigation() {
         icon: <Icon icon="solar:chat-round-line-bold-duotone" />,
         name: t("dashboard.nav-menu.chats"),
         path: ROUTE_PATHS.error.unknown,
+        isDraft: true,
       },
     ],
     [t],
@@ -72,9 +73,17 @@ export default function useCustomLayoutNavigation() {
             path: "",
             isDraft: true,
           },
+        ],
+      },
+      {
+        icon: <Icon icon="solar:folder-open-bold-duotone" />,
+        name: t("dashboard.nav-menu.assets"),
+        path: ROUTE_PATHS.error.unknown,
+        subitems: [
           {
-            name: "TODO....",
-            path: ROUTE_PATHS.error.unknown,
+            name: "TODO...",
+            path: "",
+            isDraft: true,
           },
         ],
       },

@@ -12,7 +12,7 @@ import MuiToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Icon } from "@iconify/react";
 
 import useTranslation from "~/common/hooks/useTranslation";
-import type { ArrayElementOf } from "~/common/types/tools";
+import type { ArrayElementOf, Nullable } from "~/common/types/tools";
 import { SelectableNoteType } from "~/services/types/notes";
 import { SUPPORTED_NOTE_LIST_CONTENT_TABS } from "./_helpers";
 import { SupportedNoteListContentType } from "./_types";
@@ -47,8 +47,10 @@ const NoteListTabContent = memo<{
     DEFAULT_VALUE.contentType,
   );
   const handleChangeContentType = useCallback(
-    (_: React.MouseEvent<HTMLElement>, value: SupportedNoteListContentType) =>
-      startTransition(() => setContentType(value)),
+    (_: React.MouseEvent<HTMLElement>, value: Nullable<SupportedNoteListContentType>) => {
+      if (value === null) return;
+      startTransition(() => setContentType(value));
+    },
     [],
   );
 
@@ -73,22 +75,26 @@ const NoteListTabContent = memo<{
                 "& .MuiTabs-flexContainer": { gap: "0 !important" },
               }}
             >
-              {SUPPORTED_NOTE_LIST_CONTENT_TABS.map((tab, index) => (
-                <MuiTab
-                  key={tab.type}
-                  label={t(`notes.note-data-type.${tab.type}`)}
-                  value={index.toString()}
-                  sx={{
-                    typography: "subtitle2",
-                    p: 0,
-                    border: 1,
-                    borderBottom: 0,
-                    borderTopLeftRadius: 6,
-                    borderTopRightRadius: 6,
-                    borderColor: index === Number(tabIndex) ? "divider" : "transparent",
-                  }}
-                />
-              ))}
+              {SUPPORTED_NOTE_LIST_CONTENT_TABS.map((tab, index) => {
+                const isSelected: boolean = index === Number(tabIndex);
+                return (
+                  <MuiTab
+                    key={tab.type}
+                    label={t(`notes.note-data-type.${tab.type}`)}
+                    value={index.toString()}
+                    sx={{
+                      typography: "subtitle2",
+                      p: 0,
+                      border: 1,
+                      borderBottom: 0,
+                      borderTopLeftRadius: 6,
+                      borderTopRightRadius: 6,
+                      borderColor: isSelected ? "divider" : "transparent",
+                      bgcolor: isSelected ? "divider" : "transparent",
+                    }}
+                  />
+                );
+              })}
             </MuiTabList>
           </MuiGrid>
           <MuiGrid
@@ -129,6 +135,7 @@ const NoteListTabContent = memo<{
             borderBottomLeftRadius: 6,
             borderBottomRightRadius: 6,
             borderColor: "divider",
+            bgcolor: "divider",
             display: "flex",
             flexDirection: "column",
           }}

@@ -1,18 +1,16 @@
-import type { NamedExoticComponent, PropsWithChildren } from "react";
+import type { NamedExoticComponent } from "react";
 import { memo, useCallback, useMemo, useState } from "react";
 
 import { Icon } from "@iconify/react";
 
-import MuiCard, { type CardProps as MuiCardProps } from "@mui/material/Card";
-import MuiCardActions from "@mui/material/CardActions";
-import MuiCardContent from "@mui/material/CardContent";
+import MuiBox from "@mui/material/Box";
 import MuiGrid from "@mui/material/Grid2";
-import MuiList from "@mui/material/List";
 import MuiTypography from "@mui/material/Typography";
-import { darken, lighten } from "@mui/material/styles";
 
-import { CustomSquareBlock } from "~/common/components/custom/buttons";
+import { darken, lighten } from "@mui/material/styles";
+import { CardWithPulldownMenuList } from "~/common/components/custom/cards";
 import { CustomNormalListItem } from "~/common/components/custom/list";
+import { CustomLoadingScreen } from "~/common/components/custom/loadings";
 import useBoolean from "~/common/hooks/useBoolean";
 import useTranslation from "~/common/hooks/useTranslation";
 import type { Nullable } from "~/common/types/tools";
@@ -26,7 +24,15 @@ import WorkflowCardEditDialog from "./WorkflowCardEditDialog";
 const WorkflowCardList: NamedExoticComponent<{
   cardListData: Array<DRFWorkflowDataType>;
   navigateToSpecificWorkflow: (id: number) => void;
-}> = memo(({ cardListData, navigateToSpecificWorkflow }) => {
+  // ---
+
+  dataSource: Array<DRFWorkflowDataType>;
+  isLoading: boolean;
+}> = memo(({ cardListData, navigateToSpecificWorkflow, dataSource = [], isLoading }) => {
+  const { t } = useTranslation();
+
+  // ----------------------------------------------------------------------------------------------------
+
   const [selectedWorkflowId, setSelectedWorkflowId] = useState<Nullable<number>>(null);
 
   const selectedWorkflowItemData = useMemo<DRFWorkflowDataType | undefined>(
@@ -71,34 +77,111 @@ const WorkflowCardList: NamedExoticComponent<{
 
   // ----------------------------------------------------------------------------------------------------
 
+  if (isLoading) {
+    return <CustomLoadingScreen />;
+  }
+
+  if (!dataSource.length) {
+    return <MuiTypography>データがありません</MuiTypography>;
+  }
+
   return (
     <>
-      <MuiGrid container spacing={1}>
-        <MuiGrid
-          size={{ xs: 12, sm: 6, xl: 4 }}
-          sx={{ position: "sticky", top: 0, left: 0, zIndex: 1 }}
-        >
+      <MuiBox
+        sx={{
+          minHeight: "calc(100svh - 225px)",
+          height: "calc(100svh - 225px)",
+          maxHeight: "calc(100svh - 225px)",
+        }}
+      >
+        <MuiGrid container spacing={2} sx={{ p: 2 }}>
           {/* 操作卡片 */}
-          <WorkflowCreateCard
-            handleOpenCreateDialog={handleOpenCreateDialog}
-            handleOpenDownloadAllDialog={handleOpenDownloadAllDialog}
-          />
-        </MuiGrid>
-
-        {/* 流程图卡片 */}
-        {cardListData?.map((item) => (
-          <MuiGrid key={item.id} size={{ xs: 12, sm: 6, xl: 4 }}>
-            <WorkflowDataCard
-              key={item.id}
-              workflowItemData={item}
-              isSelected={item.id === selectedWorkflowId}
-              navigateToSpecificWorkflow={navigateToSpecificWorkflow}
-              handleOpenDeleteConfirmDialog={handleOpenDeleteConfirmDialog}
-              handleOpenEditDialog={handleOpenEditDialog}
-            />
+          <MuiGrid size={{ xs: 6, lg: 4 }} sx={{ position: "sticky", top: 0, left: 0, zIndex: 1 }}>
+            <CardWithPulldownMenuList
+              onlyWrapper
+              showActionMenu={false}
+              sx={{
+                boxShadow: 4,
+                transition: "background-color 0s",
+                backgroundColor: ({ palette: { mode, primary } }) =>
+                  mode === "dark" ? darken(primary.dark, 0.8) : lighten(primary.light, 0.8),
+                color: ({ palette: { mode, primary } }) =>
+                  mode === "dark" ? primary.light : primary.dark,
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {[
+                {
+                  icon: <Icon icon="solar:add-circle-line-duotone" />,
+                  title: t("workflow.workflow-data-create.create-new-blank"),
+                  onClick: handleOpenCreateDialog,
+                },
+                {
+                  icon: <Icon icon="solar:export-linear" />,
+                  title: t("workflow.workflow-data-create.import-local-workflow"),
+                  onClick: () => {},
+                  disabled: true,
+                },
+                {
+                  icon: <Icon icon="solar:import-linear" />,
+                  title: t("workflow.workflow-data-create.export-all-workflow"),
+                  onClick: handleOpenDownloadAllDialog,
+                },
+              ].map(({ icon, title, onClick, disabled }) => (
+                <CustomNormalListItem
+                  key={title}
+                  icon={icon}
+                  MuiListItemTextProps={{ primary: title }}
+                  MuiListItemButtonProps={{ sx: { py: 0.5, px: 1, mb: 0 }, disabled, onClick }}
+                />
+              ))}
+            </CardWithPulldownMenuList>
           </MuiGrid>
-        ))}
-      </MuiGrid>
+
+          {/* 流程图卡片 */}
+          {dataSource.map((item) => (
+            <MuiGrid key={item.id} size={{ xs: 6, lg: 4 }}>
+              <CardWithPulldownMenuList
+                primaryTitle={item.name}
+                secondaryTitle={
+                  <>
+                    <div>
+                      <strong>{t("common.labels.created_at")}</strong>&nbsp;&nbsp;
+                      {formatDate(item.created_at)}
+                    </div>
+                    <div>
+                      <strong>{t("common.labels.created_at")}</strong>&nbsp;&nbsp;
+                      {formatDate(item.updated_at)}
+                    </div>
+                  </>
+                }
+                sx={{
+                  "&:hover": { boxShadow: 8 },
+                  transition: "outline 0.15s, box-shadow 0.5s",
+                  ...(item.id === selectedWorkflowId
+                    ? { outline: 3, outlineColor: ({ palette }) => palette.primary.main }
+                    : {}),
+                }}
+                onClick={() => handleOpenEditDialog(item.id)}
+                actionMenuListWidth={220}
+                actionMenuList={[
+                  {
+                    icon: <Icon icon="solar:trash-bin-trash-bold-duotone" />,
+                    label: t("common.buttons.delete"),
+                    onClick: () => handleOpenDeleteConfirmDialog(item.id),
+                    isErrorAction: true,
+                  },
+                  {
+                    icon: <Icon icon="solar:routing-3-bold-duotone" />,
+                    label: t("workflow.workflow-data.playground"),
+                    onClick: () => navigateToSpecificWorkflow(item.id),
+                  },
+                ]}
+              />
+            </MuiGrid>
+          ))}
+        </MuiGrid>
+      </MuiBox>
 
       {/* 删除确认 Dialog */}
       <WorkflowCardDeleteConfirmDialog
@@ -125,149 +208,3 @@ const WorkflowCardList: NamedExoticComponent<{
 });
 
 export default WorkflowCardList;
-
-const WorkflowCardWrapper: NamedExoticComponent<PropsWithChildren<MuiCardProps>> = memo(
-  ({ children, sx, ...props }) => (
-    <MuiCard
-      sx={{
-        height: 160,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        ...sx,
-      }}
-      {...props}
-    >
-      {children}
-    </MuiCard>
-  ),
-);
-
-const WorkflowDataCard: NamedExoticComponent<{
-  workflowItemData: DRFWorkflowDataType;
-  isSelected: boolean;
-  navigateToSpecificWorkflow: (id: number) => void;
-  handleOpenDeleteConfirmDialog: (id: number) => void;
-  handleOpenEditDialog: (id: number) => void;
-}> = memo(
-  ({
-    workflowItemData: item,
-    isSelected,
-    navigateToSpecificWorkflow,
-    handleOpenDeleteConfirmDialog,
-    handleOpenEditDialog,
-  }) => {
-    const { t } = useTranslation();
-
-    return (
-      <WorkflowCardWrapper
-        sx={{
-          cursor: "pointer",
-          "&:hover": {
-            boxShadow: ({ palette }) => `0px 1px 8px 0px ${palette.text.secondary}`,
-          },
-          ...(isSelected
-            ? { outline: 3, outlineColor: ({ palette }) => palette.primary.main }
-            : {}),
-        }}
-        onClick={() => handleOpenEditDialog(item.id)}
-      >
-        <MuiCardContent>
-          <MuiTypography variant="subtitle1" noWrap sx={{ mb: 1 }}>
-            {item.name}
-          </MuiTypography>
-          <MuiTypography component="p" variant="caption" color="text.secondary">
-            <strong>{t("workflow.workflow-data.updated_at")}</strong>
-            {": "}
-            {formatDate(item.updated_at)}
-          </MuiTypography>
-          <MuiTypography component="p" variant="caption" color="text.secondary">
-            <strong>{t("workflow.workflow-data.created_at")}</strong>
-            {": "}
-            {formatDate(item.created_at)}
-          </MuiTypography>
-        </MuiCardContent>
-        <MuiCardActions
-          sx={{
-            justifyContent: "flex-end",
-            float: "inline-end",
-            position: "sticky",
-            right: 0,
-            bottom: 0,
-            px: 2,
-            pb: 2,
-          }}
-        >
-          <CustomSquareBlock
-            color="error"
-            tooltip={t("common.buttons.delete")}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleOpenDeleteConfirmDialog(item.id);
-            }}
-          >
-            <Icon icon="solar:trash-bin-trash-bold-duotone" width={20} />
-          </CustomSquareBlock>
-          <CustomSquareBlock
-            color="primary"
-            tooltip={t("workflow.workflow-data.playground")}
-            onClick={(e) => {
-              e.stopPropagation();
-              navigateToSpecificWorkflow(item.id);
-            }}
-          >
-            <Icon icon="solar:routing-3-bold-duotone" width={20} />
-          </CustomSquareBlock>
-        </MuiCardActions>
-      </WorkflowCardWrapper>
-    );
-  },
-);
-
-const WorkflowCreateCard: NamedExoticComponent<{
-  handleOpenCreateDialog: () => void;
-  handleOpenDownloadAllDialog: () => void;
-}> = memo(({ handleOpenCreateDialog, handleOpenDownloadAllDialog }) => {
-  const { t } = useTranslation();
-
-  return (
-    <WorkflowCardWrapper
-      sx={{
-        p: 1,
-        justifyContent: "space-around",
-        backgroundColor: (theme) =>
-          theme.palette.mode === "dark"
-            ? darken(theme.palette.primary.dark, 0.8)
-            : lighten(theme.palette.primary.main, 0.8),
-      }}
-    >
-      <MuiList disablePadding sx={{ justifyContent: "flex-start" }}>
-        {[
-          {
-            icon: <Icon icon="solar:clipboard-add-bold-duotone" />,
-            title: t("workflow.workflow-data-create.create-new-blank"),
-            onClick: handleOpenCreateDialog,
-          },
-          {
-            icon: <Icon icon="solar:export-linear" />,
-            title: t("workflow.workflow-data-create.import-local-workflow"),
-            onClick: () => {},
-            disabled: true,
-          },
-          {
-            icon: <Icon icon="solar:import-linear" />,
-            title: t("workflow.workflow-data-create.export-all-workflow"),
-            onClick: handleOpenDownloadAllDialog,
-          },
-        ].map(({ icon, title, onClick, disabled }) => (
-          <CustomNormalListItem
-            key={title}
-            icon={icon}
-            MuiListItemTextProps={{ primary: title }}
-            MuiListItemButtonProps={{ sx: { py: 0.5, px: 1, mb: 0 }, disabled, onClick }}
-          />
-        ))}
-      </MuiList>
-    </WorkflowCardWrapper>
-  );
-});

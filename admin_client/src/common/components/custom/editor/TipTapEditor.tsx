@@ -3,8 +3,6 @@ import "./tiptap-editor.scss";
 import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 
-import Divider from "@mui/material/Divider";
-
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { Color } from "@tiptap/extension-color";
 import Image from "@tiptap/extension-image";
@@ -45,12 +43,7 @@ const TipTapEditor: NamedExoticComponent<{
           defaultLanguage: "plaintext",
         }),
       ]}
-      slotBefore={
-        <>
-          <TipTapEditorToolbar />
-          <Divider />
-        </>
-      }
+      slotBefore={<TipTapEditorToolbar />}
     />
   );
 });

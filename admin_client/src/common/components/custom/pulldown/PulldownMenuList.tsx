@@ -15,7 +15,7 @@ const CustomPulldownMenuList: NamedExoticComponent<
   return (
     <CustomPulldown
       mainItemWrapperSx={{ position: "relative" }}
-      renderMainItem={({ isOpen }) => <>{renderMainItem({ isOpen })}</>}
+      renderMainItem={(params) => <>{renderMainItem(params)}</>}
       menuListWrapperPaperSx={{
         width: 200,
         height: 300,
@@ -31,7 +31,16 @@ const CustomPulldownMenuList: NamedExoticComponent<
     >
       <MuiMenuList
         disablePadding
-        sx={{ width: "100%", height: "100%", overflowY: "scroll", pr: 1, ...menuListProps?.sx }}
+        dense
+        sx={{
+          width: "100%",
+          height: "100%",
+          overflowY: "scroll",
+          pr: 1,
+          border: 1,
+          borderColor: "divider",
+          ...menuListProps?.sx,
+        }}
         {...menuListProps}
       >
         {children}

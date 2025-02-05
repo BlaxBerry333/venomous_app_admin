@@ -46,7 +46,7 @@ const CollapsibleListItem: FC<Props> = ({
         position: "absolute",
         top: 0,
         left: 24,
-        height: "calc(100% - 32px)",
+        height: "calc(100% - 40px)",
         width: "2px",
         backgroundColor: ({ palette }) => palette.grey[200],
       },

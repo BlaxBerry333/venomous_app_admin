@@ -14,6 +14,11 @@
       "login": "Login",
       "signup": "Signup"
     },
+    "labels": {
+      "created_at": "Created at",
+      "updated_at": "Updated at",
+      "no-data": "No data"
+    },
     "tooltips": {
       "confirm-delete": "Are you sure to delete ?",
       "confirm-update": "Are you sure to update ?",
@@ -45,7 +50,8 @@
       "reports": "Reports",
       "chats": "Chats",
       "notes": "Notes",
-      "security": "Security"
+      "security": "Security",
+      "assets": "Assets"
     },
     "settings": {
       "settings": "Settings",
@@ -99,7 +105,7 @@
       "updated_at": "Updated At",
       "is_active": "Active",
       "is_draft": "Editing",
-      "playground": "Workflow Playground"
+      "playground": "Playground"
     },
     "workflow-playground": {
       "custom-nodes-groups": {

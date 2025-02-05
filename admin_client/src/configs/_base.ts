@@ -2,12 +2,13 @@ import packageJson from "../../package.json";
 
 export const ADMIN_CLIENT_CONFIGS = {
   info: {
-    name: "Venomous Admin",
+    name: import.meta.env.VITE_ADMIN_CLIENT_NAME,
     version: packageJson.version,
     description: packageJson.description,
     author: packageJson.author,
     envName: import.meta.env.VITE_ADMIN_CLIENT_ENV_NAME,
     port: import.meta.env.VITE_ADMIN_CLIENT_PORT,
+    envUseMockData: import.meta.env.VITE_ADMIN_CLIENT_ENV_USE_MOCK_DATA,
   },
 
   domain: {
@@ -15,5 +16,8 @@ export const ADMIN_CLIENT_CONFIGS = {
     bff: import.meta.env.VITE_DOMAIN_BFF,
   },
 
-  envUseMockData: import.meta.env.VITE_ADMIN_CLIENT_ENV_USE_MOCK_DATA,
+  links: {
+    repository: import.meta.env.VITE_LINK_REPOSITORY,
+    twitter: import.meta.env.VITE_LINK_TWITTER,
+  },
 } as const;

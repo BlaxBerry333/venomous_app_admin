@@ -68,6 +68,7 @@ const WorkflowCardCreateDialog: NamedExoticComponent<{
         onClose={confirmDialog.setFalse}
         onConfirm={handleFormSubmit}
         disabledConfirm={isDisabledSubmit}
+        disableCancel={isCreateWorkflowDataLoading}
         isConfirming={isCreateWorkflowDataLoading}
         title={undefined}
         confirmText={t("common.buttons.create")}

@@ -15,13 +15,14 @@ import useTranslation from "~/common/hooks/useTranslation";
 type CustomConfirmDialogProps = {
   MuiDialogProps?: Omit<MuiDialogProps, "open" | "onClose" | "onOpen">;
   isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
+  onClose: VoidFunction;
+  onConfirm: VoidFunction;
   title: ReactNode;
   content: ReactNode;
   cancelText?: string;
   confirmText?: string;
   disabledConfirm?: boolean;
+  disableCancel?: boolean;
   isConfirming?: boolean;
 };
 
@@ -37,6 +38,7 @@ const CustomConfirmDialog: NamedExoticComponent<CustomConfirmDialogProps> = memo
     confirmText,
     isConfirming = false,
     disabledConfirm = false,
+    disableCancel = false,
   }) => {
     const { t } = useTranslation();
 
@@ -65,7 +67,7 @@ const CustomConfirmDialog: NamedExoticComponent<CustomConfirmDialogProps> = memo
         </MuiDialogContent>
 
         <MuiDialogActions sx={{ p: 2 }}>
-          <MuiButton variant="outlined" color="error" onClick={onClose}>
+          <MuiButton variant="outlined" color="error" disabled={disableCancel} onClick={onClose}>
             {cancelText || t("common.buttons.cancel")}
           </MuiButton>
           <MuiLoadingButton loading={isConfirming} disabled={disabledConfirm} onClick={onConfirm}>

@@ -68,6 +68,7 @@ const WorkflowCardDownloadAllDialog: NamedExoticComponent<{
           handleSubmit();
         }}
         disabledConfirm={selectedFileTypes.length === 0}
+        disableCancel={isFetching}
         isConfirming={isFetching}
         title={t("common.tooltips.confirm-download-file-type")}
         confirmText={t("common.buttons.download")}

@@ -17,10 +17,10 @@ import { formatDate } from "~/common/utils/handle-date-formatters";
 import type { NoteListTabContentRenderComponentProps } from "./_types";
 
 const NoteListTabContentOfTable: NamedExoticComponent<NoteListTabContentRenderComponentProps> =
-  memo(({ dataSource = [], isLoading, setSelectedItem }) => {
+  memo(({ dataSource = [], isLoading, setSelectedItem, deleteSelectedItem }) => {
     const isEmpty = useMemo<boolean>(() => !dataSource.length, [dataSource]);
 
-    const columns = useNoteListTableColumns();
+    const columns = useNoteListTableColumns({ deleteSelectedItem });
 
     return (
       <MuiDataGrid
@@ -42,17 +42,31 @@ const NoteListTabContentOfTable: NamedExoticComponent<NoteListTabContentRenderCo
         slots={{
           noRowsOverlay: () => <MuiTypography>データがありません</MuiTypography>,
           noResultsOverlay: () => <MuiTypography>検索結果がありません</MuiTypography>,
+          moreActionsIcon: () => <Icon icon="solar:menu-dots-bold" width={24} />,
         }}
         sx={{
+          minHeight: "800px",
+          height: "calc(100svh - 150px)",
+          maxHeight: "calc(100svh - 150px)",
           border: 0,
-          minHeight: "calc(100svh - 225px)",
-          height: "calc(100svh - 225px)",
-          maxHeight: "calc(100svh - 225px)",
+          bgcolor: "background.default",
           "& .MuiDataGrid-row": { cursor: "pointer" },
-          "& .MuiDataGrid-columnHeader": { outline: "none !important" },
           "& .MuiDataGrid-cell": { outline: "none !important", userSelect: "none" },
+          "& .MuiDataGrid-columnHeader": { outline: "none !important", bgcolor: "divider" },
           "& .MuiDataGrid-columnHeaderTitle": { fontWeight: "bold !important" },
           "& .MuiDataGrid-columnSeparator": { display: "none !important" },
+        }}
+        slotProps={{
+          basePopper: {
+            sx: {
+              "& .MuiDataGrid-menuList": {
+                m: 0,
+                border: 1,
+                borderColor: "divider",
+                borderRadius: 1,
+              },
+            },
+          },
         }}
       />
     );
@@ -60,7 +74,9 @@ const NoteListTabContentOfTable: NamedExoticComponent<NoteListTabContentRenderCo
 
 export default NoteListTabContentOfTable;
 
-function useNoteListTableColumns() {
+function useNoteListTableColumns({
+  deleteSelectedItem,
+}: Pick<NoteListTabContentRenderComponentProps, "deleteSelectedItem">) {
   const { t } = useTranslation();
 
   const columns = useMemo<MuiGridColDef[]>(
@@ -109,7 +125,7 @@ function useNoteListTableColumns() {
         field: "action",
         type: "actions",
         headerName: " ",
-        width: 80,
+        width: 60,
         align: "center",
         headerAlign: "center",
         filterable: false,
@@ -120,19 +136,26 @@ function useNoteListTableColumns() {
         getActions: (_: MuiGridRowParams) => {
           return [
             <GridActionsCellItem
+              showInMenu
               label={t("common.buttons.delete")}
               key={t("common.buttons.delete")}
-              size="large"
-              sx={{ color: "error.main" }}
-              icon={<Icon icon="solar:trash-bin-minimalistic-linear" width={20} />}
-              onClick={(e) => e.stopPropagation()}
-              onMouseDown={(e) => e.stopPropagation()}
+              sx={{
+                borderRadius: 1,
+                color: "error.main",
+                "& svg": { color: "error.main" },
+              }}
+              icon={<Icon icon="solar:trash-bin-trash-bold-duotone" width={20} />}
+              onClick={async (e) => {
+                e.stopPropagation();
+                await new Promise((resolve) => setTimeout(resolve, 250));
+                deleteSelectedItem();
+              }}
             />,
           ];
         },
       },
     ],
-    [t],
+    [t, deleteSelectedItem],
   );
 
   return columns;

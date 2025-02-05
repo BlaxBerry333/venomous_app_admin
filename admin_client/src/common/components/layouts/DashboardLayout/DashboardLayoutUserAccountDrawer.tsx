@@ -142,8 +142,8 @@ const DashboardLayoutUserAccountDrawerButton: FC = () => {
 const DashboardLayoutUserAccountDrawer = memo<
   PropsWithChildren<{
     isOpen: boolean;
-    onOpen: () => void;
-    onClose: () => void;
+    onOpen: VoidFunction;
+    onClose: VoidFunction;
   }>
 >(({ children, isOpen, onClose }) => {
   const { t } = useTranslation();

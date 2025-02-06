@@ -11,7 +11,7 @@ import {
 } from "../helpers/handle-stored-token";
 
 const SERVER_API_INSTANCE = axios.create({
-  baseURL: "/",
+  baseURL: "/drf",
   responseType: "json",
   headers: { "Content-Type": "application/json" },
 });

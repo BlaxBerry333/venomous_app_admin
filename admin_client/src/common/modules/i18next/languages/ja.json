@@ -133,8 +133,8 @@
       "account_id": "アカウントID"
     },
     "note-data-type": {
-      "0": "全て",
-      "1": "メモ"
+      "ALL": "全て",
+      "RAFT": "メモ"
     },
     "note-list": {
       "content-type-table": "テーブル",

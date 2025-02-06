@@ -48,3 +48,28 @@ export const removeStoredAccessToken = (): void => {
 export const removeStoredRefreshToken = (): void => {
   removeLocalStorageItem(STORE_REFRESH_TOKEN_KEY);
 };
+
+// ----------------------------------------------------------------------------------------------------
+
+const STORE_ADMIN_USER_DISPLAYNAME_KEY = "__ACCESS_TOKEN_OF_NOTEAPP__" as const;
+
+/**
+ * 从本地 LocalStorage 获取缓存的 access token
+ */
+export const getStoredAccessTokenOfNoteApp = () => {
+  return getLocalStorageItem<string>(STORE_ADMIN_USER_DISPLAYNAME_KEY);
+};
+
+/**
+ * 将 access token 缓存到本地 LocalStorage
+ */
+export const setAccessTokenAsStoredOfNoteApp = (token: string): void => {
+  setLocalStorageItem(STORE_ADMIN_USER_DISPLAYNAME_KEY, token);
+};
+
+/**
+ * 从本地 LocalStorage 中删除缓存的 access token
+ */
+export const removeStoredAccessTokenOfNoteApp = (): void => {
+  removeLocalStorageItem(STORE_ADMIN_USER_DISPLAYNAME_KEY);
+};

@@ -1,11 +1,12 @@
 import axios from "axios";
 
 import { CommonErrorMessages } from "~/common/utils/handle-common-message";
-import { redirectToLoginPage } from "~/common/utils/handle-route-redirect";
-import { ADMIN_CLIENT_CONFIGS } from "~/configs/_base";
+import { getStoredAccessTokenOfNoteApp } from "../helpers";
 
 const BFF_API_INSTANCE = axios.create({
-  baseURL: ADMIN_CLIENT_CONFIGS.domain.bff,
+  baseURL: "/bff",
+  responseType: "json",
+  headers: { "Content-Type": "application/json" },
 });
 
 BFF_API_INSTANCE.interceptors.request.use(
@@ -15,26 +16,14 @@ BFF_API_INSTANCE.interceptors.request.use(
       throw Promise.reject(CommonErrorMessages.NoInternetConnection);
     }
 
-    // const storedToken = getStoredAccessToken();
+    // 请求 BFF Notes API
+    if (configs.url?.startsWith("/api/notes/api/")) {
+      const accessToken = getStoredAccessTokenOfNoteApp();
+      if (accessToken) {
+        configs.headers.Authorization = `Bearer ${accessToken}`;
+      }
+    }
 
-    // // 没有本地缓存的 token
-    // if (!storedToken) {
-    //   // redirectToLoginPage();
-    //   return Promise.reject(CommonErrorMessages.NoLocalToken);
-    // }
-
-    // // 有本地缓存的 token，但过期了
-    // const isTokenExpiresValid = validateTokenExpires(storedToken);
-    // if (!isTokenExpiresValid) {
-    //   // const newToken = await refreshToken();
-    //   // setStoredToken(newToken);
-    //   // configs.headers.Authorization = `Bearer ${newToken}`;
-    //   // redirectToLoginPage();
-    //   return Promise.reject(CommonErrorMessages.LocalTokenExpires);
-    // }
-
-    // ok
-    // configs.headers.Authorization = `Bearer ${storedToken}`;
     return configs;
   },
   (error) => {
@@ -47,10 +36,10 @@ BFF_API_INSTANCE.interceptors.response.use(
     return res;
   },
   (error) => {
-    const unauthorized = error?.response?.status === 401;
-    if (unauthorized) {
-      redirectToLoginPage();
-    }
+    // const unauthorized = error?.response?.status === 401;
+    // if (unauthorized) {
+    //   redirectToLoginPage();
+    // }
     return Promise.reject(error);
   },
 );

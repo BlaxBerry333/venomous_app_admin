@@ -8,12 +8,11 @@ import { CustomSquareBlock } from "~/common/components/custom/buttons";
 import { CustomNormalListItem } from "~/common/components/custom/list";
 import { CustomPulldownMenuList } from "~/common/components/custom/pulldown";
 import { toast } from "~/common/components/custom/snackbar";
+import useRouteSearchParams from "~/common/hooks/useRouteSearchParams";
 import { downloadWorkflowData } from "~/services/apis-hooks/workflow";
 
-import useWorkflowId from "../_hooks/use-workflow-id";
-
 const ActionButtonToolMenu: NamedExoticComponent = memo(() => {
-  const workflowId = useWorkflowId();
+  const { workflowId } = useRouteSearchParams<{ workflowId: string }>();
 
   // ----------------------------------------------------------------------------------------------------
 

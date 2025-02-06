@@ -14,6 +14,7 @@ import type {
 
 import useTranslation from "~/common/hooks/useTranslation";
 import { formatDate } from "~/common/utils/handle-date-formatters";
+import { formatHTMLSting } from "./_helpers";
 import type { NoteListTabContentRenderComponentProps } from "./_types";
 
 const NoteListTabContentOfTable: NamedExoticComponent<NoteListTabContentRenderComponentProps> =
@@ -52,6 +53,7 @@ const NoteListTabContentOfTable: NamedExoticComponent<NoteListTabContentRenderCo
           bgcolor: "background.default",
           "& .MuiDataGrid-row": { cursor: "pointer" },
           "& .MuiDataGrid-cell": { outline: "none !important", userSelect: "none" },
+          "& .MuiDataGrid-columnHeaders": { opacity: isEmpty ? 0 : 1 },
           "& .MuiDataGrid-columnHeader": { outline: "none !important", bgcolor: "divider" },
           "& .MuiDataGrid-columnHeaderTitle": { fontWeight: "bold !important" },
           "& .MuiDataGrid-columnSeparator": { display: "none !important" },
@@ -95,11 +97,14 @@ function useNoteListTableColumns({
         sortable: false,
       },
       {
-        field: "title",
-        headerName: t("notes.note-data.title"),
-        description: t("notes.note-data.title"),
+        field: "message",
+        headerName: t("notes.note-data.message"),
+        description: t("notes.note-data.message"),
         flex: 1,
         filterable: false,
+        renderCell: (params: MuiGridRenderCellParams) => {
+          return formatHTMLSting(params.row.message);
+        },
       },
       {
         field: "created_at",

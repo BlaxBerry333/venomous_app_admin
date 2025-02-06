@@ -18,7 +18,7 @@ import { SUPPORTED_NOTE_LIST_CONTENT_TABS } from "./_helpers";
 import { SupportedNoteListContentType } from "./_types";
 
 const DEFAULT_VALUE = {
-  contentType: SupportedNoteListContentType.Table,
+  contentType: SupportedNoteListContentType.Cards,
   tabIndex: SUPPORTED_NOTE_LIST_CONTENT_TABS.findIndex(
     (item) => item.type === SelectableNoteType.ALL,
   ),

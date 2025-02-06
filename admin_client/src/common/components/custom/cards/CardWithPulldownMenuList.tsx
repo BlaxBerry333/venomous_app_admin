@@ -59,7 +59,11 @@ const CardWithPulldownMenuList: NamedExoticComponent<
         {!onlyWrapper && (
           <MuiListItemText
             sx={{ width: 1 }}
-            primaryTypographyProps={{ noWrap: true, typography: "subtitle1" }}
+            primaryTypographyProps={{
+              noWrap: true,
+              typography: "subtitle1",
+              width: 0.8,
+            }}
             secondaryTypographyProps={{
               component: "div",
               typography: "caption",

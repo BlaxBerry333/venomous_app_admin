@@ -4,3 +4,10 @@ export type DRFPaginatedResponseType<T> = {
   previous: string | null;
   results: T[];
 };
+
+export type BFFCommonResponseType<T, DataType = undefined> = {
+  code: number;
+  error: null | string;
+  data: null | (DataType extends undefined ? T : DataType);
+  message: string;
+};

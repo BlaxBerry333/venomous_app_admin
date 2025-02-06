@@ -4,8 +4,11 @@ import { ROUTE_PATHS } from "~/common/router";
  * 强制跳转到登录页面
  */
 export const redirectToLoginPage = (params?: { hasRedirect?: boolean }): void => {
-  const redirectUrl: string = params?.hasRedirect ? `?redirect=${window.location.pathname}` : "";
-  window.location.replace(ROUTE_PATHS.auth.login + redirectUrl);
+  const redirectUrl: string = params?.hasRedirect
+    ? `?redirect=${window.location.pathname + window.location.search}`
+    : "";
+
+  return window.location.replace(ROUTE_PATHS.auth.login + redirectUrl);
 };
 
 /**

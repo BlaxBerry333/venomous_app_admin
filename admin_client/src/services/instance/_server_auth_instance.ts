@@ -3,7 +3,7 @@ import axios from "axios";
 import { CommonErrorMessages } from "~/common/utils/handle-common-message";
 
 const SERVER_AUTH_INSTANCE = axios.create({
-  baseURL: "/",
+  baseURL: "/drf",
   responseType: "json",
   headers: { "Content-Type": "application/json" },
 });

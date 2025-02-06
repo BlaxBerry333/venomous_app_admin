@@ -1,7 +1,7 @@
 import "./tiptap-editor.scss";
 
 import type { NamedExoticComponent } from "react";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { Color } from "@tiptap/extension-color";
@@ -15,13 +15,25 @@ import { EditorProvider, ReactNodeViewRenderer } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { all, createLowlight } from "lowlight";
 
+import { debounce } from "lodash-es";
+
 import CodeBlockComponent from "./TipTapEditorCodeBlock";
 import TipTapEditorToolbar from "./TipTapEditorToolbar";
 
 const TipTapEditor: NamedExoticComponent<{
   content: string;
   editable: boolean;
-}> = memo(({ content, editable }) => {
+  handleContentChange: (params: { html: string; text: string }) => void;
+}> = memo(({ content, editable, handleContentChange }) => {
+  const debouncedContentChange = useMemo(() => {
+    return debounce((editor, callback) => {
+      callback({
+        html: editor.getHTML(),
+        text: editor.getText(),
+      });
+    }, 1000);
+  }, []);
+
   return (
     <EditorProvider
       content={content}
@@ -44,6 +56,9 @@ const TipTapEditor: NamedExoticComponent<{
         }),
       ]}
       slotBefore={<TipTapEditorToolbar />}
+      onUpdate={({ editor }) => {
+        debouncedContentChange(editor, handleContentChange);
+      }}
     />
   );
 });

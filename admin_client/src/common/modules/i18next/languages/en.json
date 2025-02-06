@@ -133,8 +133,8 @@
       "account_ad": "Account ID"
     },
     "note-data-type": {
-      "0": "All",
-      "1": "Memo"
+      "ALL": "All",
+      "RAFT": "Memo"
     },
     "note-list": {
       "content-type-table": "Table",

@@ -9,7 +9,8 @@ import { CustomLoadingScreen } from "~/common/components/custom/loadings";
 const NoteEdit: NamedExoticComponent<{
   isLoading: boolean;
   editorContentString: string;
-}> = memo(({ isLoading, editorContentString }) => {
+  setUpdatedEditorContent: (content: string) => void;
+}> = memo(({ isLoading, editorContentString, setUpdatedEditorContent }) => {
   if (isLoading) {
     return <CustomLoadingScreen />;
   }
@@ -28,7 +29,11 @@ const NoteEdit: NamedExoticComponent<{
         borderColor: "divider",
       }}
     >
-      <TipTapEditor content={editorContentString} editable={!isLoading} />
+      <TipTapEditor
+        content={editorContentString}
+        editable={!isLoading}
+        handleContentChange={(content) => setUpdatedEditorContent(content.html)}
+      />
     </MuiPaper>
   );
 });

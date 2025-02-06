@@ -55,7 +55,7 @@ const WorkflowCardCreateDialog: NamedExoticComponent<{
       toast.success(t("common.snackbar.create-success"));
       reset();
     } catch {
-      toast.success(t("common.snackbar.create-failed"));
+      toast.error(t("common.snackbar.create-failed"));
     } finally {
       confirmDialog.setFalse();
     }

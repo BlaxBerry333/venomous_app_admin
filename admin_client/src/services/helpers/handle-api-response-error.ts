@@ -14,27 +14,19 @@ export function getParsedAPIErrorResponse(error: AxiosError) {
     };
   }
 
-  const responseError = (response?.data as { error: string })?.error;
-
-  // 是 axios 错误，但返回值数据结构中有自定义的属性时
-  if (typeof response?.data === "object") {
-    const message = response?.data ? Object.values(response.data)[0] : "";
-    return {
-      code: response.status,
-      message: typeof message === "string" ? message : "",
-    };
-  }
-
-  // 是 axios 错误，但返回值数据结构中没有自定义的 error 属性时
-  if (!responseError) {
-    return {
-      code: response.status,
-      message: error.message,
-    };
-  }
-
-  return {
-    code: response.status,
-    message: responseError,
+  const errorResponseData = response?.data as {
+    message?: string;
+    code?: number;
+    error?: string;
+    data?: unknown;
   };
+
+  if (!errorResponseData?.message) {
+    return {
+      code: response.status,
+      message: errorResponseData.error || "Something went wrong",
+    };
+  }
+
+  return errorResponseData;
 }

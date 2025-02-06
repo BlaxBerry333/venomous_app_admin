@@ -1,8 +1,6 @@
 import type { NamedExoticComponent } from "react";
-import { memo, Suspense, useCallback } from "react";
+import { lazy, memo, Suspense, useCallback } from "react";
 
-import { MOCK_DATA } from "~/__mocks__/mocked-data/_notes";
-import { CustomConfirmDialog } from "~/common/components/custom/dialogs";
 import useBoolean from "~/common/hooks/useBoolean";
 import useTranslation from "~/common/hooks/useTranslation";
 import type { Nullable } from "~/common/types/tools";
@@ -11,17 +9,26 @@ import NoteListTabContent from "./NoteListTabContent";
 import NoteListTabContentOfCards from "./NoteListTabContentOfCards";
 import NoteListTabContentOfList from "./NoteListTabContentOfTable";
 
+const CustomConfirmDialog = lazy(
+  () => import("~/common/components/custom/dialogs/CustomConfirmDialog"),
+);
+
 const NoteList: NamedExoticComponent<{
+  dataSource: NoteDataType[];
+  isLoading: boolean;
   navigateToEditorPage: (id: string) => void;
-}> = memo(({ navigateToEditorPage }) => {
+}> = memo(({ navigateToEditorPage, dataSource }) => {
   const { t } = useTranslation();
 
   // ----------------------------------------------------------------------------------------------------
 
-  const getFilteredDataSource = useCallback((type: SelectableNoteType): NoteDataType[] => {
-    if (type === SelectableNoteType.ALL) return MOCK_DATA;
-    return MOCK_DATA.filter((item) => item.type === type);
-  }, []);
+  const getFilteredDataSource = useCallback(
+    (type: SelectableNoteType): NoteDataType[] => {
+      if (type === SelectableNoteType.ALL) return dataSource;
+      return dataSource.filter((item) => item.type === type);
+    },
+    [dataSource],
+  );
 
   // ----------------------------------------------------------------------------------------------------
 

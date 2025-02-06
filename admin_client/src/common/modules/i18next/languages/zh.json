@@ -133,8 +133,8 @@
       "account_id": "账号ID"
     },
     "note-data-type": {
-      "0": "全部",
-      "1": "便签"
+      "ALL": "全部",
+      "RAFT": "便签"
     },
     "note-list": {
       "content-type-table": "表格",

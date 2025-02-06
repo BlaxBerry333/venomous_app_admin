@@ -55,3 +55,20 @@ export function appendQueryParams(path: string, queryParams: Record<string, stri
   const separator = path.includes("?") ? "&" : "?";
   return `${path}${separator}${queryString}`;
 }
+
+/**
+ * 从查询字符串中获取所有的键值对，并以一个对象形式返回
+ * @param searchQuery 查询字符串
+ * @example
+ * ```ts
+ * const searchParams = getSearchParams('?a=1&b=2'); // {a: '1', b: '2'}
+ * ```
+ */
+export function getQueryParams(searchQuery: string): Record<string, string> {
+  const searchParams = new URLSearchParams(searchQuery);
+  const result: Record<string, string> = {};
+  searchParams.forEach((value, key) => {
+    result[key] = value;
+  });
+  return result;
+}

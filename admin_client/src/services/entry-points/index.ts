@@ -5,7 +5,7 @@ import type { ObjectKeyof, SupportedFileTypes } from "~/common/types/tools";
  * API 接口地址
  */
 export const API_ENTRYPOINTS = {
-  // users
+  // users ( DRF )
   // ----------------------------------------------------------------------------------------------------
   users: {
     // 创建
@@ -24,7 +24,7 @@ export const API_ENTRYPOINTS = {
     patchUserProfile: () => "/api/users/profile/" as const,
   },
 
-  // workflow
+  // workflow ( DRF )
   // ----------------------------------------------------------------------------------------------------
   workflow: {
     // 获取所有 workflow data
@@ -54,19 +54,21 @@ export const API_ENTRYPOINTS = {
       `/api/workflow/download/?type=${fileType}` as const,
   },
 
-  // notes
+  // notes ( BFF )
   // ----------------------------------------------------------------------------------------------------
   notes: {
+    // 登陆 NoteApp 后台的接口
+    postLoginAccount: () => "/api/notes/api/account/login" as const,
     // 获取指定种类的 Note 列表
-    getNoteList: () => "/bff/note/list" as const,
+    getNoteList: () => "/api/notes/api/note/list" as const,
     // 创建 Note 笔记
-    postNoteDetail: () => "/bff/note" as const,
+    postNoteDetail: () => "/api/notes/api/note/create" as const,
     // 获取 Note 笔记
-    getNoteDetail: (id: string) => `/bff/note/${id}` as const,
+    getNoteDetail: (id: string) => `/api/notes/api/note/${id}` as const,
     // 更新 Note 笔记
-    patchNoteDetail: (id: string) => `/bff/note/${id}` as const,
+    putNoteDetail: (id: string) => `/api/notes/api/note/${id}` as const,
     // 删除 Note 笔记
-    deleteDetail: (id: string) => `/bff/note/${id}` as const,
+    deleteDetail: (id: string) => `/api/notes/api/note/${id}` as const,
   },
 } as const;
 

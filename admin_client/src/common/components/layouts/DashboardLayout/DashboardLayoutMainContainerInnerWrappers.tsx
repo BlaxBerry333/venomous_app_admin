@@ -17,6 +17,7 @@ const DashboardLayoutMainContainerInnerWrappers: FC<
       component="section"
       sx={{
         height: isOverflowHidden ? "-webkit-fill-available" : "auto",
+        position: "relative",
       }}
     >
       {children}

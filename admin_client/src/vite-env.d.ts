@@ -14,6 +14,7 @@ interface ImportMetaEnv {
 
   // Domain
   // ----------------------------------------------------------------------------------------------------
+  VITE_DOMAIN_ADMIN_CLIENT: string;
   VITE_DOMAIN_ADMIN_SERVER: string;
   VITE_DOMAIN_BFF: string;
 

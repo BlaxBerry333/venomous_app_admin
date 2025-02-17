@@ -26,3 +26,6 @@ tsconfig.node.json
 
 # Ignore rollup build stats directory
 .build_stats/
+
+# Ignore Storybook
+storybook-static/

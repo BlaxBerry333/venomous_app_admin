@@ -2,14 +2,10 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -33,7 +29,6 @@
       "~/*": ["./src/*"]
     }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "storybook-static"]
 }

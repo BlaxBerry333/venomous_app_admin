@@ -17,6 +17,7 @@ export default tseslint.config(
       ".husky/",
       ".vscode/",
       "*.html",
+      "storybook-static/**",
     ],
   },
   {
@@ -33,7 +34,7 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+      "react-refresh/only-export-components": "off",
       "@tanstack/query/exhaustive-deps": "error",
     },
   },

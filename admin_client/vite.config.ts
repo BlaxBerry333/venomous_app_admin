@@ -89,6 +89,8 @@ export default defineConfig(({ mode }) => {
         "@hookform/resolvers",
         "@xyflow/react",
         "@faker-js/faker",
+        "@tiptap/react",
+        "storybook",
       ],
     },
   };

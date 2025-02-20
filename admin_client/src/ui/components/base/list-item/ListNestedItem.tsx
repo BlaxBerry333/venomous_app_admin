@@ -3,7 +3,7 @@ import { memo, useCallback, useMemo, useState } from "react";
 
 import MuiCollapse from "@mui/material/Collapse";
 
-import IconOfListitemNestedArrow from "~/assets/images/icons/listitem-nested-arrow.png";
+import IconOfListitemNestedArrow from "~/ui/assets/images/icons/listitem-nested-arrow.png";
 import { ListWrapper, type ListWrapperProps } from "~/ui/components/base/list";
 import { Icon } from "~/ui/components/customs/icons";
 import { Popover, usePopover } from "../popover";
@@ -74,6 +74,8 @@ const ListNestedItem: NamedExoticComponent<ListCollapsableItemProps> = memo(
           isOpen={popover.isOpen}
           anchorEl={popover.anchorEl}
           handleClose={popover.handleClose}
+          anchorOrigin={{ vertical: "center", horizontal: "right" }}
+          transformOrigin={{ vertical: "center", horizontal: "left" }}
         >
           <ListWrapper component="div" list={nestList} listItemSx={{ my: 0, ...nestListSx }} />
         </Popover>

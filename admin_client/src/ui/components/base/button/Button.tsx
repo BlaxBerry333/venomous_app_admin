@@ -1,7 +1,9 @@
 import type { NamedExoticComponent, PropsWithChildren } from "react";
 import { memo } from "react";
 
-import MuiButton, { type ButtonProps as MuiButtonProps } from "@mui/material/Button";
+import MuiLoadingButton, {
+  type LoadingButtonProps as MuiLoadingButtonProps,
+} from "@mui/lab/LoadingButton";
 
 export enum ButtonVariant {
   CONTAINED = "contained",
@@ -24,10 +26,11 @@ export enum ButtonColor {
 }
 
 export type ButtonProps = PropsWithChildren<
-  Omit<MuiButtonProps, "variant" | "size" | "color"> & {
+  Omit<MuiLoadingButtonProps, "variant" | "size" | "color" | "loading"> & {
     variant?: ButtonVariant;
     size?: ButtonSize;
     color?: ButtonColor;
+    isLoading?: boolean;
   }
 >;
 
@@ -36,21 +39,16 @@ const Button: NamedExoticComponent<ButtonProps> = memo(
     variant = ButtonVariant.CONTAINED,
     size = ButtonSize.MEDIUM,
     color = ButtonColor.PRIMARY,
-    sx,
+    isLoading = false,
+
     ...props
   }) => {
     return (
-      <MuiButton
+      <MuiLoadingButton
         variant={variant}
         size={size}
         color={color}
-        sx={{
-          textTransform: "none",
-          fontWeight: "bold",
-          minWidth: "unset",
-          borderRadius: "8px",
-          ...sx,
-        }}
+        loading={isLoading}
         {...props}
       />
     );

@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ListItem } from "~/ui/components";
 import VerticalNavMenuInLargeScreen from "./VerticalNavMenuInLargeScreen";
 
 const meta = {
-  title: "Layouts/VerticalNavMenuInLargeScreen",
+  title: "Common Layouts/NavMenuVertical ( LargeScreen )",
   component: VerticalNavMenuInLargeScreen,
   parameters: { layout: "fullscreen" },
   // tags: ["autodocs"],
@@ -19,13 +18,8 @@ export const DefaultSample: Story = {
   render: () => {
     return (
       <VerticalNavMenuInLargeScreen>
-        <ListItem
-          hasIconPlaceholder
-          title="xxxxx"
-          subtitle="yyyyy"
-          icon={"solar:box-minimalistic-bold-duotone"}
-        />
-        <div style={{ height: "200vh" }}>xxx</div>
+        xxx
+        <div style={{ height: "200vh" }}></div>
       </VerticalNavMenuInLargeScreen>
     );
   },

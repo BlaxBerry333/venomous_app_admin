@@ -31,6 +31,7 @@ const useLayoutStore = create<{
   navMenuPosition: NavPosition;
   setNavMenuPosition: (name: NavPosition) => void;
   toggleNavMenuPosition: () => void;
+  reset: () => void;
 }>()(
   devtools(
     persist(
@@ -64,6 +65,11 @@ const useLayoutStore = create<{
                 ? NavPosition.HorizontalNavPosition
                 : NavPosition.VerticalNavPosition,
           }));
+        },
+        reset: () => {
+          set({
+            navMenuPosition: DEFAULT_NAV_POSITION,
+          });
         },
       }),
       {

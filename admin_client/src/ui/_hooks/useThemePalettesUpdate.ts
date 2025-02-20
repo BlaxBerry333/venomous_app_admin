@@ -1,29 +1,13 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
 import type { Theme as MuiTheme } from "@mui/material/styles";
-import { createTheme } from "@mui/material/styles";
 
-import { getColor, ThemePaletteColors } from "../_helpers";
-import useThemeStore from "./useThemeStore";
+import { getColor } from "../_helpers";
 
-export default function useThemesSetup() {
-  const { mode, paletteColorName } = useThemeStore();
-
-  const theme = useMemo<MuiTheme>(() => {
-    const palette = ThemePaletteColors.find((p) => p.name === paletteColorName);
-    const paletteColors = palette ? palette.colors : ThemePaletteColors[0].colors;
-
-    return createTheme({
-      palette: {
-        mode,
-        primary: paletteColors.primary,
-      },
-    });
-  }, [mode, paletteColorName]);
-
+export default function useThemePalettesUpdate(palette: MuiTheme["palette"]): void {
   // 设置选中文本、滚动条的样式
   useEffect(() => {
-    const color = getColor(theme.palette.primary.main);
+    const color = getColor(palette.primary.main);
     const style = document.createElement("style");
     style.innerHTML = `
       /* 设置选中文本的样式 */
@@ -63,7 +47,5 @@ export default function useThemesSetup() {
     return () => {
       document.head.removeChild(style);
     };
-  }, [theme.palette.primary.main]);
-
-  return { theme };
+  }, [palette.primary.main]);
 }

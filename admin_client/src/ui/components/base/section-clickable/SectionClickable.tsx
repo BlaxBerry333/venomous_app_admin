@@ -16,16 +16,18 @@ const SectionClickable: NamedExoticComponent<SectionClickableProps> = memo(
   ({ children, onClick, wrapperSx, ...props }) => {
     return (
       <MuiCard
+        component="section"
         sx={{
           boxShadow: "none",
           borderRadius: 4,
           backgroundColor: "transparent",
           backgroundImage: "none",
           border: 0,
+          p: 0,
           ...wrapperSx,
         }}
       >
-        <MuiCardActionArea onClick={onClick}>
+        <MuiCardActionArea onClick={onClick} sx={{ borderRadius: 4, overflow: "hidden" }}>
           <MuiCardContent {...props}>{children}</MuiCardContent>
         </MuiCardActionArea>
       </MuiCard>

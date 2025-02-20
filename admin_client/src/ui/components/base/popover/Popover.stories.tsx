@@ -8,6 +8,20 @@ const meta = {
   component: Popover,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
+  argTypes: {
+    anchorOrigin: {
+      description: "锚点位置",
+      control: "object",
+    },
+    transformOrigin: {
+      description: "变换位置",
+      control: "object",
+    },
+  },
+  args: {
+    anchorOrigin: { vertical: "center", horizontal: "right" },
+    transformOrigin: { vertical: "center", horizontal: "left" },
+  },
 } satisfies Meta<typeof Popover>;
 
 export default meta;
@@ -28,8 +42,9 @@ export const DefaultSample: Story = {
           handleClose={popover.handleClose}
           {...args}
         >
-          <p>xxx</p>
-          <p>xxx</p>
+          <div>xxx</div>
+          <div>xxx</div>
+          <div>xxx</div>
         </Popover>
       </>
     );

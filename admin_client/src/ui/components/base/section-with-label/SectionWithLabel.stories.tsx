@@ -7,10 +7,19 @@ const meta = {
   component: SectionWithLabel,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    title: {
+      description: "标题",
+      control: "text",
+    },
+    children: {
+      description: "子元素",
+      control: "text",
+    },
+  },
   args: {
-    children: "content xxx",
     title: "title xxx",
+    children: "content xxx",
   },
 } satisfies Meta<typeof SectionWithLabel>;
 

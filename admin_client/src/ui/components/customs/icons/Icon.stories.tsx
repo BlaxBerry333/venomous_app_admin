@@ -4,14 +4,14 @@ import { ButtonColor } from "~/ui/components/base/button";
 import Icon from "./Icon";
 
 const meta = {
-  title: "Customs/Icon",
+  title: "Extra (3rd-party ) /Icon",
   component: Icon,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
   argTypes: {
     color: {
       description: "图标颜色",
-      control: "radio",
+      control: "select",
       options: Object.values(ButtonColor),
     },
     icon: {

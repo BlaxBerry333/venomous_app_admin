@@ -1,3 +1,5 @@
-export * from "./mui-theme-palette-colors";
+export * from "./mui-override-palettes-color-options";
 
-export * from "./mui-theme-color";
+export * from "./mui-override-components-options";
+
+export * from "./mui-handle-color";

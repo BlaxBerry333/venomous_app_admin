@@ -7,6 +7,7 @@ export enum ThemePaletteColorName {
   BlueGrey = "BlueGrey",
   Brown = "Brown",
   Wine = "Wine",
+  Ochre = "Ochre",
 }
 
 export const ThemePaletteColors: Array<{
@@ -70,6 +71,17 @@ export const ThemePaletteColors: Array<{
         light: lighten("#9B1B30", 0.2),
         dark: darken("#9B1B30", 0.2),
         contrastText: "#FFFFFF",
+      },
+    },
+  },
+  {
+    name: ThemePaletteColorName.Ochre,
+    colors: {
+      primary: {
+        main: "#E3D026",
+        light: "#E9DB5D",
+        dark: "#A29415",
+        contrastText: "#242105",
       },
     },
   },

@@ -7,11 +7,12 @@ import MuiGrid from "@mui/material/Grid2";
 import MuiStack from "@mui/material/Stack";
 import MuiSwitch from "@mui/material/Switch";
 
-import IconOfNavPositionHorizontal from "~/assets/images/icons/nav-position-horizontal.png";
-import IconOfNavPositionVertical from "~/assets/images/icons/nav-position-vertical.png";
+import IconOfNavPositionHorizontal from "~/ui/assets/images/icons/nav-position-horizontal.png";
+import IconOfNavPositionVertical from "~/ui/assets/images/icons/nav-position-vertical.png";
 
 import { getColor, ThemePaletteColors } from "~/ui/_helpers";
 import {
+  DEFAULT_NAV_POSITION,
   DEFAULT_PALETTE_COLOR_NAME,
   DEFAULT_THEME_MODE,
   HEADER_HEIGHT,
@@ -46,11 +47,20 @@ const SettingsDrawer: NamedExoticComponent<{
     return () => setIsOpen(newOpen);
   }, []);
 
-  const { paletteColorName, mode, reset } = useThemeStore();
+  const { paletteColorName, mode, reset: resetTheme } = useThemeStore();
+  const { navMenuPosition, reset: resetLayout } = useLayoutStore();
+
   const isSettingsOptionsChanged = useMemo<boolean>(
-    () => mode !== DEFAULT_THEME_MODE || paletteColorName !== DEFAULT_PALETTE_COLOR_NAME,
-    [mode, paletteColorName],
+    () =>
+      mode !== DEFAULT_THEME_MODE ||
+      paletteColorName !== DEFAULT_PALETTE_COLOR_NAME ||
+      navMenuPosition !== DEFAULT_NAV_POSITION,
+    [mode, paletteColorName, navMenuPosition],
   );
+  const reset = useCallback(() => {
+    resetTheme();
+    resetLayout();
+  }, [resetTheme, resetLayout]);
 
   return (
     <>
@@ -72,9 +82,7 @@ const SettingsDrawer: NamedExoticComponent<{
           open={isOpen}
           onClose={toggleIsOpen(false)}
           anchor="right"
-          PaperProps={{
-            sx: { width: SETTING_DRAWER_WIDTH },
-          }}
+          PaperProps={{ sx: { width: SETTING_DRAWER_WIDTH } }}
         >
           {/* Settings Drawer Header */}
           <Header
@@ -141,17 +149,24 @@ export const BlockOfThemeMode: NamedExoticComponent<{ title: string }> = memo(({
   const { mode, toggleMode } = useThemeStore();
   const isDarkMode: boolean = mode === ThemeMode.DARK;
   return (
-    <SectionWithLabel
-      title={title}
-      isClickableArea
-      onClick={toggleMode}
-      sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
-    >
-      <Typography sx={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: 2 }}>
-        <Icon icon={isDarkMode ? "solar:moon-bold-duotone" : "solar:sun-2-bold-duotone"} />
-        {mode === ThemeMode.LIGHT ? "Light" : "Dark"}
-      </Typography>
-      <MuiSwitch color="primary" checked={isDarkMode} />
+    <SectionWithLabel title={title} sx={{ p: 0 }}>
+      <SectionClickable
+        onClick={toggleMode}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          px: 4,
+          pt: 4,
+          pb: 3,
+        }}
+      >
+        <Typography sx={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: 2 }}>
+          <Icon icon={isDarkMode ? "solar:moon-bold-duotone" : "solar:sun-2-bold-duotone"} />
+          {mode === ThemeMode.LIGHT ? "Light" : "Dark"}
+        </Typography>
+        <MuiSwitch color="primary" checked={isDarkMode} />
+      </SectionClickable>
     </SectionWithLabel>
   );
 });

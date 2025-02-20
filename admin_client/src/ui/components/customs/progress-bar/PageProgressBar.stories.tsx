@@ -6,7 +6,7 @@ import Typography from "~/ui/components/base/typographies/Typography";
 import PageProgressBar from "./PageProgressBar";
 
 const meta = {
-  title: "Customs/PageProgressBar",
+  title: "Extra (3rd-party ) /PageProgressBar",
   component: PageProgressBar,
   parameters: { layout: "centered" },
   decorators: [

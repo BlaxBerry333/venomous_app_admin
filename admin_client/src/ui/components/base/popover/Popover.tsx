@@ -15,14 +15,10 @@ const Popover: NamedExoticComponent<PopoverProps> = memo(
         open={!!isOpen}
         anchorEl={anchorEl}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "center", horizontal: "right" }}
-        transformOrigin={{ vertical: "center", horizontal: "left" }}
         slotProps={{
           paper: {
             sx: {
               ml: 0.5,
-              p: 0.5,
-              borderRadius: 2,
               minWidth: 100,
             },
           },

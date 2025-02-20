@@ -6,7 +6,7 @@ import { Logo } from "../_logo";
 import Header, { HeaderDesign } from "./Header";
 
 const meta = {
-  title: "Layouts/Header",
+  title: "Common Layouts/Header",
   component: Header,
   parameters: { layout: "fullscreen" },
   // tags: ["autodocs"],

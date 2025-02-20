@@ -6,13 +6,13 @@ import { Button } from "~/ui/components/base/button";
 import Snackbar, { SnackbarPosition } from "./Snackbar";
 
 const meta = {
-  title: "Customs/Snackbar",
+  title: "Extra (3rd-party ) /Snackbar",
   component: Snackbar,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
   argTypes: {
     position: {
-      control: "radio",
+      control: "select",
       description: "位置",
       options: Object.values(SnackbarPosition),
     },

@@ -9,11 +9,11 @@ const meta = {
   // tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: "radio",
+      control: "select",
       options: Object.values(TypographyVariant),
     },
     color: {
-      control: "radio",
+      control: "select",
       options: Object.values(TypographyColor),
     },
   },

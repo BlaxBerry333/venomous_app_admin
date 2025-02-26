@@ -110,7 +110,10 @@ venomous_apps/
     │    └── ...
     │
     ├── configs/                # main application
-    │    ├── settings.py
+    │    ├── settings/
+    │    │    ├── __init__.py
+    │    │    ├── base.py
+    │    │    └── [env_name].py
     │    ├── urls.py
     │    ├── asgi.py
     │    ├── wsgi.py

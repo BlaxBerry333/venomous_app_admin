@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ButtonColor } from "~/ui/components/base/button";
+import { ButtonColor } from "~/ui/components/base";
 import Icon from "./Icon";
 
 const meta = {
-  title: "Extra (3rd-party ) /Icon",
+  title: "Components/Customs ( 3rd-party ) /Icon",
   component: Icon,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

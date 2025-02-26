@@ -1,7 +1,7 @@
 import type { CSSProperties, NamedExoticComponent } from "react";
 import { memo } from "react";
 
-import { IconButton, type IconButtonProps } from "~/ui/components/base/iconbutton";
+import { IconButton, type IconButtonProps } from "~/ui/components/base";
 import AnimationWrapper from "../AnimationWrapper";
 
 const AnimationIconButton: NamedExoticComponent<

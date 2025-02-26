@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import SectionWithLabel from "./SectionWithLabel";
 
 const meta = {
-  title: "Base ( MUI ) /SectionWithLabel",
+  title: "Components/Base ( MUI ) /SectionWithLabel",
   component: SectionWithLabel,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

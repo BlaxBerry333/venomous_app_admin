@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { toast } from "sonner";
 
-import { Button } from "~/ui/components/base/button";
+import { Button } from "~/ui/components";
 import Snackbar, { SnackbarPosition } from "./Snackbar";
 
 const meta = {
-  title: "Extra (3rd-party ) /Snackbar",
+  title: "Components/Customs ( 3rd-party ) /Snackbar",
   component: Snackbar,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

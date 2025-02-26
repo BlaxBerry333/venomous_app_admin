@@ -1,29 +1,5 @@
-export * from "./base/button";
+export * from "./base";
 
-export * from "./base/container-wrapper";
+export * from "./customs";
 
-export * from "./base/iconbutton";
-
-export * from "./base/image";
-
-export * from "./base/list";
-
-export * from "./base/list-item";
-
-export * from "./base/popover";
-
-export * from "./base/section-with-label";
-
-export * from "./base/section-clickable";
-
-export * from "./base/typographies";
-
-// ----------------------------------------------------------------------------------------------------
-
-export * from "./customs/animations";
-
-export * from "./customs/icons";
-
-export * from "./customs/progress-bar";
-
-export * from "./customs/snackbar";
+export * from "./layouts";

@@ -4,7 +4,7 @@ import { Button } from "../button";
 import Popover, { usePopover } from "./Popover";
 
 const meta = {
-  title: "Base ( MUI ) /Popover",
+  title: "Components/Base ( MUI ) /Popover",
   component: Popover,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

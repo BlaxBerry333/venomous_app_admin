@@ -5,7 +5,7 @@ import TabItemAction from "./TabItemAction";
 import Table, { type TableColumnsType, type TableDataSourceType } from "./Table";
 
 const meta = {
-  title: "Base ( MUI ) /Table ( MUI X )",
+  title: "Components/Base ( MUI ) /Table ( MUI X )",
   component: Table,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
@@ -46,7 +46,7 @@ const meta = {
     dataSource: [],
     columns: [],
     disableColumnMenu: true,
-    disableColumnSorting: true,
+    disableColumnSorting: false,
   },
 } satisfies Meta<typeof Table>;
 

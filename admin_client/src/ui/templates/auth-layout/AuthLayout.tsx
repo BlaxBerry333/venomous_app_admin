@@ -1,12 +1,16 @@
 import type { NamedExoticComponent, PropsWithChildren } from "react";
 import { memo } from "react";
+import { UI_CONFIGS } from "~/ui/_configs";
 
 import { getColor } from "~/ui/_helpers";
-import { HEADER_HEIGHT } from "~/ui/_hooks";
-import { ContainerMaxBreakpoint, ContainerWrapper } from "~/ui/components";
-import { Header, HeaderDesign } from "../_header";
-import { Logo } from "../_logo";
-import { SettingsDrawer } from "../_settings";
+import {
+  ContainerMaxBreakpoint,
+  ContainerWrapper,
+  Header,
+  HeaderDesign,
+  Logo,
+  SettingsDrawer,
+} from "~/ui/components";
 
 const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
   return (
@@ -18,9 +22,9 @@ const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) 
     >
       <Header
         design={HeaderDesign.GLASS}
-        height={HEADER_HEIGHT}
-        renderLogo={() => <Logo />}
-        renderActions={() => (
+        height={UI_CONFIGS.size.HEADER_HEIGHT}
+        renderLogo={<Logo sx={{ ml: 1.5 }} />}
+        renderActions={
           <>
             <SettingsDrawer
               showOptionBlocks={{
@@ -30,7 +34,7 @@ const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) 
               }}
             />
           </>
-        )}
+        }
       />
 
       {children}

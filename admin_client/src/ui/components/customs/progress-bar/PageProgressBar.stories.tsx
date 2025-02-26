@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { BrowserRouter } from "react-router-dom";
 
-import Typography from "~/ui/components/base/typographies/Typography";
+import { Typography } from "~/ui/components/base";
 import PageProgressBar from "./PageProgressBar";
 
 const meta = {
-  title: "Extra (3rd-party ) /PageProgressBar",
+  title: "Components/Customs ( 3rd-party ) /PageProgressBar",
   component: PageProgressBar,
   parameters: { layout: "centered" },
   decorators: [

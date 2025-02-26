@@ -6,7 +6,7 @@ import { SectionWithLabel } from "../section-with-label";
 import ListWrapper from "./ListWrapper";
 
 const meta = {
-  title: "Base ( MUI ) /ListWrapper",
+  title: "Components/Base ( MUI ) /ListWrapper",
   component: ListWrapper,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

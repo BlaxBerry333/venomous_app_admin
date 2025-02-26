@@ -3,8 +3,8 @@ import { memo } from "react";
 
 import Portal from "@mui/material/Portal";
 
-import { ButtonColor } from "~/ui/components/base/button";
-import { Icon } from "~/ui/components/customs/icons";
+import { ButtonColor } from "~/ui/components/base";
+import { Icon } from "~/ui/components/customs";
 import { StyledToaster } from "./StyledToaster";
 import { toasterClasses } from "./StyledToasterClasses";
 

@@ -65,25 +65,27 @@ venomous_app_admin/
 │       ├── main.ts
 │       ├── vite-env.d.ts
 │       │
+│       │
 │       ├── app/
+│       │   ├── _configs/                       # configuration of project
+│       │   ├── _providers/
 │       │   ├── pages/
 │       │   ├── router/
 │       │   │
 │       │   └── App.tsx                         # main App component of project
 │       │
-│       ├── assets/                             # assets of project
-│       │   ├── images/
-│       │   ├── uploads/
-│       │   └── ...
 │       │
-│       ├── configs/                            # configuration of project
 │       │
 │       ├── ui/
+│       │   ├── _configs/                       # configuration of UI
 │       │   ├── _helpers/                       # helper tools for ui components
-│       │   │
 │       │   ├── _hooks/                         # hook functions for ui components
-│       │   │
 │       │   ├── _providers/                     # providers & wrappers for ui components
+│       │   │
+│       │   ├── assets/                         # assets of project
+│       │   │   ├── images/
+│       │   │   ├── uploads/
+│       │   │   └── ...
 │       │   │
 │       │   ├── components/
 │       │   │   ├── base/                       # customized components based on MaterialUI
@@ -93,24 +95,33 @@ venomous_app_admin/
 │       │   │   │       ├── <name>.stories.tsx
 │       │   │   │       └── index.ts
 │       │   │   │
-│       │   │   └── custom/                     # customized components using extra libraries
+│       │   │   ├── custom/                     # customized components using extra libraries
+│       │   │   │   ├── ...
+│       │   │   │   └── <name>
+│       │   │   │       ├── <name>.tsx
+│       │   │   │       ├── <name>.stories.tsx
+│       │   │   │       └── index.ts
+│       │   │   │
+│       │   │   └── layouts/                    # layout components using components/base and components/customs
 │       │   │       ├── ...
 │       │   │       └── <name>
 │       │   │           ├── <name>.tsx
 │       │   │           ├── <name>.stories.tsx
 │       │   │           └── index.ts
 │       │   │
-│       │   │
-│       │   └── layouts/                        # layout components using components/base and components/customs
+│       │   └── templates/                      # template using components/layouts
+│       │       ├── ...
 │       │       └── <name>
 │       │           ├── <name>.tsx
 │       │           ├── <name>.stories.tsx
 │       │           └── index.ts
 │       │
 │       │
+│       │
 │       ├── utils/                              # common utils of project
 │       │
 │       └── ...
+│
 │
 ├── index.html
 │

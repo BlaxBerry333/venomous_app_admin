@@ -5,7 +5,7 @@ import { IconButton } from "../iconbutton";
 import ListItem from "./ListItem";
 
 const meta = {
-  title: "Base ( MUI ) /ListItem",
+  title: "Components/Base ( MUI ) /ListItem",
   component: ListItem,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

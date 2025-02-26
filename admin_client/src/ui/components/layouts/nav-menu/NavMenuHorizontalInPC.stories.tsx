@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import HorizontalNavMenuInLargeScreen from "./HorizontalNavMenuInLargeScreen";
+import NavMenuHorizontalInPC from "./NavMenuHorizontalInPC";
 
 const meta = {
-  title: "Common Layouts/NavMenuHorizontal ( LargeScreen )",
-  component: HorizontalNavMenuInLargeScreen,
+  title: "Components/Layouts/NavMenu ( Horizontal in PC )",
+  component: NavMenuHorizontalInPC,
   parameters: { layout: "fullscreen" },
   // tags: ["autodocs"],
-} satisfies Meta<typeof HorizontalNavMenuInLargeScreen>;
+} satisfies Meta<typeof NavMenuHorizontalInPC>;
 
 export default meta;
 
@@ -18,10 +18,10 @@ export const DefaultSample: Story = {
   render: () => {
     return (
       <div>
-        <HorizontalNavMenuInLargeScreen>
+        <NavMenuHorizontalInPC>
           xxx
           <div style={{ width: "200vw" }}></div>
-        </HorizontalNavMenuInLargeScreen>
+        </NavMenuHorizontalInPC>
       </div>
     );
   },

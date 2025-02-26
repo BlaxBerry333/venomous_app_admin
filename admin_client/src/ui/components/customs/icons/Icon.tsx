@@ -4,7 +4,7 @@ import type { IconProps as IconifyIconProps } from "@iconify/react";
 import { Icon as Iconify, disableCache, enableCache } from "@iconify/react";
 
 import MuiMuiBox, { type BoxProps as MuiBoxProps } from "@mui/material/Box";
-import { ButtonColor } from "~/ui/components/base/button";
+import { ButtonColor } from "~/ui/components/base";
 
 export type IconProps = MuiBoxProps &
   IconifyIconProps & {

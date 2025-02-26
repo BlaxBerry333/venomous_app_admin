@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Typography, { TypographyColor, TypographyVariant } from "./Typography";
 
 const meta = {
-  title: "Base ( MUI ) /Typography",
+  title: "Components/Base ( MUI ) /Typography",
   component: Typography,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

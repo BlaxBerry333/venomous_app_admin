@@ -6,8 +6,8 @@ import { throttle } from "lodash-es";
 import MuiBox, { type BoxProps as MuiBoxProps } from "@mui/material/Box";
 import type { Theme as MuiTheme } from "@mui/material/styles";
 
+import { UI_CONFIGS } from "~/ui/_configs";
 import { getColor } from "~/ui/_helpers";
-import { HEADER_HEIGHT } from "~/ui/_hooks";
 
 export enum HeaderDesign {
   NONE = "none",
@@ -19,17 +19,19 @@ export type HeaderProps = PropsWithChildren<MuiBoxProps> & {
   height?: number;
   design?: HeaderDesign;
   hideOnScroll?: boolean;
-  renderLogo?: () => ReactNode;
-  renderActions?: () => ReactNode;
+  renderLogo?: ReactNode;
+  renderActions?: ReactNode;
 };
 
 const Header: NamedExoticComponent<HeaderProps> = memo(
   ({
-    height = HEADER_HEIGHT,
+    height = UI_CONFIGS.size.HEADER_HEIGHT,
     design = HeaderDesign.NONE,
     hideOnScroll = false,
     renderLogo,
     renderActions,
+    children,
+    sx,
     ...props
   }) => {
     const { transformValue } = useHideOnScroll({ height, hideOnScroll });
@@ -45,20 +47,28 @@ const Header: NamedExoticComponent<HeaderProps> = memo(
           width: "100%",
           display: "flex",
           alignItems: "center",
-          px: 2,
           transform: hideOnScroll ? `translateY(-${transformValue}px)` : "none",
           transition: "transform 0.2s linear",
+          px: 1,
           ...getLayoutHeaderDesignStyle(design),
+          ...sx,
         }}
         {...props}
       >
-        {/* Logo */}
-        {renderLogo?.()}
+        {/* Custom Content */}
+        {children}
 
-        <div style={{ flexGrow: 1 }} />
+        {!children && (
+          <>
+            {/* Logo */}
+            {renderLogo}
 
-        {/* Actions */}
-        {renderActions?.()}
+            <div style={{ flexGrow: 1 }} />
+
+            {/* Actions */}
+            {renderActions}
+          </>
+        )}
       </MuiBox>
     );
   },
@@ -66,7 +76,7 @@ const Header: NamedExoticComponent<HeaderProps> = memo(
 
 export default Header;
 
-function getLayoutHeaderDesignStyle(design: HeaderDesign): MuiBoxProps["sx"] {
+function getLayoutHeaderDesignStyle(design: HeaderDesign) {
   switch (design) {
     case HeaderDesign.GLASS:
       return {
@@ -88,7 +98,7 @@ function getLayoutHeaderDesignStyle(design: HeaderDesign): MuiBoxProps["sx"] {
 }
 
 function useHideOnScroll({
-  height = HEADER_HEIGHT,
+  height = UI_CONFIGS.size.HEADER_HEIGHT,
   hideOnScroll = false,
 }: {
   height?: number;

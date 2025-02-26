@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-import { ADMIN_CLIENT_CONFIGS } from "~/configs";
+import { UI_CONFIGS } from "../_configs";
 import { ThemePaletteColorName } from "../_helpers";
 
 export enum ThemeMode {
@@ -49,7 +49,7 @@ const useThemeStore = create<{
         },
       }),
       {
-        name: ADMIN_CLIENT_CONFIGS.storeKeys.theme,
+        name: UI_CONFIGS.storeKeys.theme,
       },
     ),
   ),

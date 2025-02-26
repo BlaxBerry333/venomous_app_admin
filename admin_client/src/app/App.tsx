@@ -1,18 +1,15 @@
 import { HelmetProvider } from "react-helmet-async";
-import { BrowserRouter } from "react-router-dom";
 
-import { LanguageProvider, ThemeProvider } from "../ui/_providers";
-import { PageProgressBar } from "../ui/components";
+import { LanguageProvider, RouterProvider } from "~/app/_providers";
+import { ThemeProvider } from "~/ui/_providers";
 
 export default function App() {
   return (
     <LanguageProvider>
       <HelmetProvider>
-        <BrowserRouter>
-          <ThemeProvider>
-            <PageProgressBar />
-          </ThemeProvider>
-        </BrowserRouter>
+        <ThemeProvider>
+          <RouterProvider>{/* RouteView */}</RouterProvider>
+        </ThemeProvider>
       </HelmetProvider>
     </LanguageProvider>
   );

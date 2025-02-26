@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import VerticalNavMenuInLargeScreen from "./VerticalNavMenuInLargeScreen";
+import VerticalNavMenuInLargeScreen from "./NavMenuVerticalInPC";
 
 const meta = {
-  title: "Common Layouts/NavMenuVertical ( LargeScreen )",
+  title: "Components/Layouts/NavMenu ( Vertical in PC )",
   component: VerticalNavMenuInLargeScreen,
   parameters: { layout: "fullscreen" },
   // tags: ["autodocs"],

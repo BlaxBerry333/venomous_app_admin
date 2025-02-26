@@ -6,7 +6,7 @@ import iconMeta from "~/ui/components/customs/icons/Icon.stories";
 import IconButton from "./IconButton";
 
 const meta = {
-  title: "Base ( MUI ) /IconButton",
+  title: "Components/Base ( MUI ) /IconButton",
   component: IconButton,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

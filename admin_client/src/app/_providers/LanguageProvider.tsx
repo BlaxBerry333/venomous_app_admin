@@ -1,15 +1,10 @@
 import type { NamedExoticComponent, PropsWithChildren } from "react";
 import { memo } from "react";
 
-import dayjs from "dayjs";
-import "dayjs/locale/ar-sa";
-import "dayjs/locale/en";
-import "dayjs/locale/fr";
-import "dayjs/locale/vi";
-import "dayjs/locale/zh-cn";
+import { DAY_JS_LOCALES, dayjs } from "~/utils/datetime";
 
 const LanguageProvider: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
-  dayjs.locale("zh-cn");
+  dayjs.locale(DAY_JS_LOCALES["en"]);
 
   return <>{children}</>;
 });

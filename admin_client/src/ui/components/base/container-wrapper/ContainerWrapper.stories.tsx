@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ContainerWrapper, { ContainerMaxBreakpoint } from "./ContainerWrapper";
 
 const meta = {
-  title: "Base ( MUI ) /ContainerWrapper",
+  title: "Components/Base ( MUI ) /ContainerWrapper",
   component: ContainerWrapper,
   parameters: { layout: "fullscreen" },
   // tags: ["autodocs"],

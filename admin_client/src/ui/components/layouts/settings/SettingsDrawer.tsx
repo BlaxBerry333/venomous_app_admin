@@ -1,39 +1,36 @@
 import type { NamedExoticComponent } from "react";
-import { lazy, memo, Suspense, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 
-import MuiBadge from "@mui/material/Badge";
 import MuiBox from "@mui/material/Box";
 import MuiGrid from "@mui/material/Grid2";
 import MuiStack from "@mui/material/Stack";
 import MuiSwitch from "@mui/material/Switch";
 
-import IconOfNavPositionHorizontal from "~/ui/assets/images/icons/nav-position-horizontal.png";
-import IconOfNavPositionVertical from "~/ui/assets/images/icons/nav-position-vertical.png";
-
+import { UI_CONFIGS } from "~/ui/_configs";
 import { getColor, ThemePaletteColors } from "~/ui/_helpers";
 import {
   DEFAULT_NAV_POSITION,
   DEFAULT_PALETTE_COLOR_NAME,
   DEFAULT_THEME_MODE,
-  HEADER_HEIGHT,
   NavPosition,
-  SETTING_DRAWER_WIDTH,
   ThemeMode,
   useLayoutStore,
   useThemeStore,
 } from "~/ui/_hooks";
+import IconOfNavPositionHorizontal from "~/ui/assets/images/icons/nav-position-horizontal.png";
+import IconOfNavPositionVertical from "~/ui/assets/images/icons/nav-position-vertical.png";
 import {
-  AnimationIconButton,
+  Badge,
   ButtonColor,
-  Icon,
+  Drawer,
+  DrawerPosition,
   Image,
   SectionClickable,
   SectionWithLabel,
   Typography,
-} from "~/ui/components";
-import { Header, HeaderDesign } from "../_header";
-
-const MuiDrawer = lazy(() => import("@mui/material/Drawer"));
+} from "~/ui/components/base";
+import { AnimationIconButton, Icon } from "~/ui/components/customs";
+import { Header, HeaderDesign } from "../header";
 
 const SettingsDrawer: NamedExoticComponent<{
   showOptionBlocks: {
@@ -64,81 +61,76 @@ const SettingsDrawer: NamedExoticComponent<{
 
   return (
     <>
-      <MuiBadge
-        color="error"
-        variant="dot"
-        invisible={!isSettingsOptionsChanged}
-        sx={{ ".MuiBadge-badge": { top: "8px", right: "4px" } }}
-      >
+      <Badge showBadge={isSettingsOptionsChanged}>
         <AnimationIconButton
           icon={"solar:settings-bold-duotone"}
           onClick={toggleIsOpen(true)}
           color={ButtonColor.INHERIT}
+          sx={{
+            animation: "spin 30s linear infinite",
+            "@keyframes spin": {
+              "0%": { transform: "rotate(0deg)" },
+              "100%": { transform: "rotate(360deg)" },
+            },
+          }}
         />
-      </MuiBadge>
+      </Badge>
 
-      <Suspense>
-        <MuiDrawer
-          open={isOpen}
-          onClose={toggleIsOpen(false)}
-          anchor="right"
-          PaperProps={{ sx: { width: SETTING_DRAWER_WIDTH } }}
-        >
-          {/* Settings Drawer Header */}
-          <Header
-            design={HeaderDesign.GLASS}
-            height={HEADER_HEIGHT}
-            renderActions={() => (
-              <MuiStack direction="row" spacing={1}>
-                <MuiBadge
-                  color="error"
-                  variant="dot"
-                  invisible={!isSettingsOptionsChanged}
-                  sx={{ ".MuiBadge-badge": { top: "8px", right: "4px" } }}
-                >
-                  <AnimationIconButton
-                    icon={"solar:restart-bold-duotone"}
-                    color={ButtonColor.INHERIT}
-                    onClick={isSettingsOptionsChanged ? reset : undefined}
-                    disabled={!isSettingsOptionsChanged}
-                  />
-                </MuiBadge>
+      <Drawer
+        isOpen={isOpen}
+        onClose={toggleIsOpen(false)}
+        width={UI_CONFIGS.size.SETTING_DRAWER_WIDTH}
+        position={DrawerPosition.RIGHT}
+      >
+        {/* Settings Drawer Header */}
+        <Header
+          design={HeaderDesign.GLASS}
+          sx={{ backgroundColor: "transparent !important" }}
+          renderActions={
+            <MuiStack direction="row" spacing={1}>
+              <Badge showBadge={isSettingsOptionsChanged}>
                 <AnimationIconButton
-                  icon={"solar:close-circle-line-duotone"}
+                  icon={"solar:restart-bold-duotone"}
                   color={ButtonColor.INHERIT}
-                  onClick={toggleIsOpen(false)}
+                  onClick={isSettingsOptionsChanged ? reset : undefined}
+                  disabled={!isSettingsOptionsChanged}
                 />
-              </MuiStack>
-            )}
-          />
-
-          {/* Nav Menu Scrollable List */}
-          <MuiBox
-            component="nav"
-            sx={{
-              height: `calc(100svh - ${HEADER_HEIGHT}px)`,
-              overflowY: "scroll",
-              px: 1,
-            }}
-          >
-            <MuiStack
-              spacing={6}
-              sx={{ py: 2, "& .MuiSwitch-track": { transition: "background-color 0s" } }}
-            >
-              {/* Theme Mode */}
-              {showOptionBlocks.themeMode && <BlockOfThemeMode title="Mode" />}
-
-              {/* Theme Palettes */}
-              {showOptionBlocks.themePaletteColorName && <BlockOfPalettes title="Palettes" />}
-
-              {/* Dashboard Nav Position */}
-              {showOptionBlocks.dashboardNavMenuPosition && (
-                <BlockOfDashboardNavPositions title="Nav Position" />
-              )}
+              </Badge>
+              <AnimationIconButton
+                icon={"solar:close-circle-line-duotone"}
+                color={ButtonColor.INHERIT}
+                onClick={toggleIsOpen(false)}
+              />
             </MuiStack>
-          </MuiBox>
-        </MuiDrawer>
-      </Suspense>
+          }
+        />
+
+        {/* Nav Menu Scrollable List */}
+        <MuiBox
+          component="nav"
+          sx={{
+            height: `calc(100svh - ${UI_CONFIGS.size.HEADER_HEIGHT}px)`,
+            overflowY: "scroll",
+            px: 1,
+          }}
+        >
+          <MuiStack
+            spacing={6}
+            sx={{ py: 2, "& .MuiSwitch-track": { transition: "background-color 0s" } }}
+          >
+            {/* Theme Mode */}
+            {showOptionBlocks.themeMode && <BlockOfThemeMode title="Mode" />}
+
+            {/* Theme Palettes */}
+            {showOptionBlocks.themePaletteColorName && <BlockOfPalettes title="Palettes" />}
+
+            {/* Dashboard Nav Position */}
+            {showOptionBlocks.dashboardNavMenuPosition && (
+              <BlockOfDashboardNavPositions title="Nav Position" />
+            )}
+          </MuiStack>
+        </MuiBox>
+      </Drawer>
     </>
   );
 });
@@ -156,8 +148,8 @@ export const BlockOfThemeMode: NamedExoticComponent<{ title: string }> = memo(({
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          px: 4,
-          pt: 4,
+          pt: 3,
+          px: 3,
           pb: 3,
         }}
       >

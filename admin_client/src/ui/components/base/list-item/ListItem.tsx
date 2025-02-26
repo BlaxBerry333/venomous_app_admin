@@ -33,9 +33,9 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
           my: 0.5,
           height: "50px",
           ".MuiListItemSecondaryAction-root": {
-            px: endElement ? 1 : 0,
             display: "flex",
             alignItems: "center",
+            paddingRight: endElement ? "16px !important" : "0 !important",
           },
           ...sx,
         }}
@@ -48,8 +48,7 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
           sx={{
             height: "100%",
             borderRadius: 2,
-            py: 0,
-            px: 1.5,
+            padding: "16px !important",
             color: ({ palette: { primary } }) => {
               return selected ? primary.main : "inherit";
             },
@@ -59,11 +58,12 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
           {icon && (
             <MuiListItemIcon
               sx={{
-                minWidth: 32,
+                minWidth: 24,
+                width: 24,
                 display: "flex",
                 justifyContent: "center",
-                mr: 1.5,
                 color: "inherit",
+                mr: 1.5,
               }}
             >
               <Icon icon={icon} width={24} sx={{ color: "inherit" }} />
@@ -73,7 +73,7 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
           <MuiListItemText
             primary={title}
             secondary={subtitle}
-            primaryTypographyProps={{ variant: "subtitle1", noWrap: true }}
+            primaryTypographyProps={{ variant: "subtitle2", noWrap: true, fontWeight: "bold" }}
             secondaryTypographyProps={{ variant: "caption", noWrap: true, mt: -1 }}
             sx={{ m: 0, px: 0 }}
           />

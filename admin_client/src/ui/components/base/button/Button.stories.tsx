@@ -4,7 +4,7 @@ import { fn } from "@storybook/test";
 import Button, { ButtonColor, ButtonSize, ButtonVariant } from "./Button";
 
 const meta = {
-  title: "Base ( MUI ) /Button",
+  title: "Components/Base ( MUI ) /Button",
   component: Button,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

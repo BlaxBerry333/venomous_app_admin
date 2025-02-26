@@ -6,7 +6,7 @@ import ListItemMeta from "./ListItem.stories";
 import ListNestedItem from "./ListNestedItem";
 
 const meta = {
-  title: "Base ( MUI ) /ListNestedItem",
+  title: "Components/Base ( MUI ) /ListNestedItem",
   component: ListNestedItem,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

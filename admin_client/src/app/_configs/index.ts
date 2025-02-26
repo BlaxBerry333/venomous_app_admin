@@ -1,4 +1,4 @@
-import packageJson from "../../package.json";
+import packageJson from "../../../package.json";
 
 export const ADMIN_CLIENT_CONFIGS = {
   info: {
@@ -23,13 +23,8 @@ export const ADMIN_CLIENT_CONFIGS = {
   },
 
   storeKeys: {
-    theme: "VENOMOUS_APP_ADMIN__THEME",
-    layout: "VENOMOUS_APP_ADMIN__LAYOUT",
-    settings: "VENOMOUS_APP_ADMIN__SETTINGS",
-    language: "VENOMOUS_APP_ADMIN__LANGUAGE",
     jwtAccessToken: "VENOMOUS_APP_ADMIN__JWT_TOKEN",
     jwtRefreshToken: "VENOMOUS_APP_ADMIN__JWT_REFRESH_TOKEN",
-    appSetting: "VENOMOUS_APP_ADMIN__APP_SETTING",
     appWorkflow: "VENOMOUS_APP_ADMIN__APP_WORKFLOW",
     appNote: "VENOMOUS_APP_ADMIN__APP_NOTE",
   },

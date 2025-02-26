@@ -4,7 +4,7 @@ import { fn } from "@storybook/test";
 import SectionClickable from "./SectionClickable";
 
 const meta = {
-  title: "Base ( MUI ) /SectionClickable",
+  title: "Components/Base ( MUI ) /SectionClickable",
   component: SectionClickable,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

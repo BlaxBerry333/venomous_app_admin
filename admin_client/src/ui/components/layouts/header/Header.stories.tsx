@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { HEADER_HEIGHT } from "~/ui/_hooks";
+import { UI_CONFIGS } from "~/ui/_configs";
 import { Button } from "~/ui/components";
-import { Logo } from "../_logo";
+import { Logo } from "../logo";
 import Header, { HeaderDesign } from "./Header";
 
 const meta = {
-  title: "Common Layouts/Header",
+  title: "Components/Layouts/Header",
   component: Header,
   parameters: { layout: "fullscreen" },
   // tags: ["autodocs"],
@@ -26,7 +26,7 @@ const meta = {
     },
   },
   args: {
-    height: HEADER_HEIGHT,
+    height: UI_CONFIGS.size.HEADER_HEIGHT,
     design: HeaderDesign.SHADOW,
     hideOnScroll: false,
   },
@@ -41,7 +41,7 @@ export const DefaultSample: Story = {
   render: (args) => {
     return (
       <>
-        <Header {...args} renderLogo={() => <Logo />} renderActions={() => <Button>xxx</Button>} />
+        <Header {...args} renderLogo={<Logo />} renderActions={<Button>xxx</Button>} />
         <div style={{ height: "500px" }}>AAA</div>
         <div style={{ height: "500px" }}>BBB</div>
         <div style={{ height: "500px" }}>CCC</div>

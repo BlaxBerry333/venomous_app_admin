@@ -3,23 +3,31 @@ import { memo } from "react";
 
 import MuiBox, { type BoxProps as MuiBoxProps } from "@mui/material/Box";
 
-import { HEADER_HEIGHT } from "~/ui/_hooks";
+import { UI_CONFIGS } from "~/ui/_configs";
 
-const HorizontalNavMenuInLargeScreen: NamedExoticComponent<PropsWithChildren<MuiBoxProps>> = memo(
+const size = UI_CONFIGS.size.NAV_MENU_HEIGHT.COLLAPSED_IN_LARGE_SCREEN;
+
+const NavMenuHorizontalInPC: NamedExoticComponent<PropsWithChildren<MuiBoxProps>> = memo(
   ({ children, sx, ...props }) => {
     return (
       <MuiBox
         component="nav"
         sx={{
-          overflowX: "scroll",
-          height: `${HEADER_HEIGHT}px`,
+          height: `${size}px`,
+          display: "flex",
+          alignItems: "center",
           position: "sticky",
-          top: HEADER_HEIGHT,
+          top: UI_CONFIGS.size.HEADER_HEIGHT,
+          overflowX: "scroll",
           px: 1,
           borderTop: 1,
           borderBottom: 1,
           borderColor: "divider",
           backgroundColor: ({ palette }) => palette.background.paper,
+          "& li.MuiListItem-root": {
+            width: `${size}px !important`,
+            margin: "0 !important",
+          },
           ...sx,
         }}
         {...props}
@@ -30,4 +38,4 @@ const HorizontalNavMenuInLargeScreen: NamedExoticComponent<PropsWithChildren<Mui
   },
 );
 
-export default HorizontalNavMenuInLargeScreen;
+export default NavMenuHorizontalInPC;

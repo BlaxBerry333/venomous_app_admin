@@ -4,7 +4,7 @@ import ButtonMeta from "~/ui/components/base/button/Button.stories";
 import AnimationButton from "./AnimationButton";
 
 const meta = {
-  title: "Extra (3rd-party ) /AnimationButton",
+  title: "Components/Customs ( 3rd-party ) /AnimationButton",
   component: AnimationButton,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

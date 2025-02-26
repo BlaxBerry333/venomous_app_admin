@@ -1,5 +1,13 @@
 import { alpha, darken, lighten } from "@mui/material/styles";
 
+export enum BaseColor {
+  INHERIT = "inherit",
+  PRIMARY = "primary",
+  SUCCESS = "success",
+  ERROR = "error",
+  WARNING = "warning",
+}
+
 /**
  * 获取颜色
  * @example

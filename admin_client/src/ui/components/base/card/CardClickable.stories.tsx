@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
-import SectionClickable from "./SectionClickable";
+import CardClickable from "./CardClickable";
 
 const meta = {
-  title: "Components/Base ( MUI ) /SectionClickable",
-  component: SectionClickable,
+  title: "Components/Base ( MUI ) /CardClickable",
+  component: CardClickable,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
   args: {
     onClick: fn(),
   },
-} satisfies Meta<typeof SectionClickable>;
+} satisfies Meta<typeof CardClickable>;
 
 export default meta;
 
@@ -22,11 +22,13 @@ export const DefaultSample: Story = {
   render: (args) => {
     return (
       <>
-        <SectionClickable {...args}>
+        <CardClickable {...args}>
           <strong>点击此处可看到范围</strong>
-        </SectionClickable>
+        </CardClickable>
         <br />
-        <SectionClickable
+
+        <CardClickable
+          {...args}
           wrapperSx={{ p: 4, backgroundColor: "skyblue" }}
           sx={{ backgroundColor: "pink" }}
         >
@@ -38,10 +40,10 @@ export const DefaultSample: Story = {
 }
             `}
           </pre>
-        </SectionClickable>
+        </CardClickable>
         <br />
 
-        <SectionClickable wrapperSx={{ border: 1 }} sx={{ p: 4 }}>
+        <CardClickable {...args} wrapperSx={{ border: 1 }} sx={{ p: 4 }}>
           <pre>
             {`
 {
@@ -50,7 +52,7 @@ export const DefaultSample: Story = {
 }
             `}
           </pre>
-        </SectionClickable>
+        </CardClickable>
       </>
     );
   },

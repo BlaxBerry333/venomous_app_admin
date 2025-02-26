@@ -4,7 +4,8 @@ import { memo, useCallback, useState } from "react";
 import MuiBox from "@mui/material/Box";
 
 import { UI_CONFIGS } from "~/ui/_configs";
-import { ButtonColor, Drawer, DrawerPosition, IconButton } from "~/ui/components/base";
+import { BaseColor } from "~/ui/_helpers";
+import { Drawer, DrawerPosition, IconButton } from "~/ui/components/base";
 import { Header, HeaderDesign } from "~/ui/components/layouts";
 import { Logo } from "../logo";
 
@@ -18,7 +19,7 @@ const NavMenuVerticalInMobile: NamedExoticComponent<PropsWithChildren> = memo(({
     <>
       <IconButton
         icon={"solar:hamburger-menu-line-duotone"}
-        color={ButtonColor.INHERIT}
+        color={BaseColor.INHERIT}
         onClick={toggleIsOpen(true)}
       />
 

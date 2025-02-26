@@ -7,16 +7,15 @@ import MuiCardContent, {
   type CardContentProps as MuiCardContentProps,
 } from "@mui/material/CardContent";
 
-export type SectionClickableProps = PropsWithChildren<Omit<MuiCardContentProps, "onClick">> & {
+type CardClickableProps = PropsWithChildren<Omit<MuiCardContentProps, "onClick">> & {
   onClick?: () => void;
   wrapperSx?: MuiCardProps["sx"];
 };
 
-const SectionClickable: NamedExoticComponent<SectionClickableProps> = memo(
-  ({ children, onClick, wrapperSx, ...props }) => {
+const CardClickable: NamedExoticComponent<CardClickableProps> = memo(
+  ({ children, onClick, wrapperSx, sx, ...props }) => {
     return (
       <MuiCard
-        component="section"
         sx={{
           boxShadow: "none",
           borderRadius: 4,
@@ -28,11 +27,13 @@ const SectionClickable: NamedExoticComponent<SectionClickableProps> = memo(
         }}
       >
         <MuiCardActionArea onClick={onClick} sx={{ borderRadius: 4, overflow: "hidden" }}>
-          <MuiCardContent {...props}>{children}</MuiCardContent>
+          <MuiCardContent sx={{ py: 3, px: 3, ...sx }} {...props}>
+            {children}
+          </MuiCardContent>
         </MuiCardActionArea>
       </MuiCard>
     );
   },
 );
 
-export default SectionClickable;
+export default CardClickable;

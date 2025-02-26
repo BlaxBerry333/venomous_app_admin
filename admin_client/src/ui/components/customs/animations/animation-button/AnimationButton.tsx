@@ -8,10 +8,10 @@ const AnimationButton: NamedExoticComponent<
   ButtonProps & {
     wrapperStyle?: CSSProperties;
   }
-> = memo(({ wrapperStyle, ...props }) => {
+> = memo(({ disabled, wrapperStyle, ...props }) => {
   return (
-    <AnimationWrapper style={{ display: "inline-block", ...wrapperStyle }}>
-      <Button {...props} />
+    <AnimationWrapper noAnimation={disabled} style={{ display: "inline-block", ...wrapperStyle }}>
+      <Button disabled={disabled} {...props} />
     </AnimationWrapper>
   );
 });

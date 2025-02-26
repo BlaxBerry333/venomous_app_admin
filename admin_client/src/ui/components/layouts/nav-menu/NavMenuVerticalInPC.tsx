@@ -4,8 +4,8 @@ import { memo } from "react";
 import MuiBox, { type BoxProps as MuiBoxProps } from "@mui/material/Box";
 
 import { UI_CONFIGS } from "~/ui/_configs";
+import { BaseSize } from "~/ui/_helpers";
 import { useLayoutStore } from "~/ui/_hooks";
-import { ButtonSize } from "~/ui/components/base";
 import { AnimationIconButton } from "~/ui/components/customs";
 import { Header, HeaderDesign } from "~/ui/components/layouts";
 import { Logo } from "../logo";
@@ -43,7 +43,7 @@ const NavMenuVerticalInPC: NamedExoticComponent<PropsWithChildren<MuiBoxProps>> 
           renderLogo={<Logo sx={{ ml: 1.5 }} />}
           renderActions={
             <AnimationIconButton
-              size={ButtonSize.SMALL}
+              size={BaseSize.SMALL}
               onClick={toggleNavMenuExpandedInLargeScreen}
               icon={
                 navMenuExpandedInLargeScreen

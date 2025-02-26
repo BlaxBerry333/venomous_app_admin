@@ -113,7 +113,6 @@ const Table = <T extends TableBaseItemType>({
         columnMenuFilterIcon: () => <Icon icon="solar:filter-bold-duotone" />,
         columnMenuHideIcon: () => <Icon icon="solar:eye-closed-bold-duotone" />,
         columnMenuManageColumnsIcon: () => <Icon icon="solar:eye-bold-duotone" />,
-        ...props.slots,
       }}
       {...props}
     />

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
-import Button, { ButtonColor, ButtonSize, ButtonVariant } from "./Button";
+import { BaseColor, BaseSize } from "~/ui/_helpers";
+import Button, { ButtonVariant } from "./Button";
 
 const meta = {
   title: "Components/Base ( MUI ) /Button",
@@ -16,13 +17,13 @@ const meta = {
     },
     size: {
       description: "按钮尺寸",
-      control: "select",
-      options: Object.values(ButtonSize),
+      control: "radio",
+      options: Object.values(BaseSize),
     },
     color: {
       description: "按钮颜色",
       control: "select",
-      options: Object.values(ButtonColor),
+      options: Object.values(BaseColor),
     },
     isLoading: {
       description: "是否加载中",
@@ -33,8 +34,8 @@ const meta = {
     onClick: fn(),
     children: "Abc",
     variant: ButtonVariant.CONTAINED,
-    size: ButtonSize.MEDIUM,
-    color: ButtonColor.PRIMARY,
+    size: BaseSize.MEDIUM,
+    color: BaseColor.PRIMARY,
     isLoading: false,
   },
 } satisfies Meta<typeof Button>;

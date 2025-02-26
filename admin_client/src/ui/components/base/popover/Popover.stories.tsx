@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { BasePosition } from "~/ui/_helpers";
 import { Button } from "../button";
 import Popover, { usePopover } from "./Popover";
 
@@ -9,18 +10,14 @@ const meta = {
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
   argTypes: {
-    anchorOrigin: {
-      description: "锚点位置",
-      control: "object",
-    },
-    transformOrigin: {
-      description: "变换位置",
-      control: "object",
+    position: {
+      description: "位置",
+      control: "select",
+      options: Object.values(BasePosition),
     },
   },
   args: {
-    anchorOrigin: { vertical: "center", horizontal: "right" },
-    transformOrigin: { vertical: "center", horizontal: "left" },
+    position: BasePosition.RIGHT_CENTER,
   },
 } satisfies Meta<typeof Popover>;
 
@@ -32,16 +29,11 @@ export const DefaultSample: Story = {
   name: "默认样例",
   render: (args) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const popover = usePopover();
+    const { isOpen, anchorEl, handleClose, handleOpen } = usePopover();
     return (
       <>
-        <Button onClick={popover.handleOpen}>open</Button>
-        <Popover
-          isOpen={popover.isOpen}
-          anchorEl={popover.anchorEl}
-          handleClose={popover.handleClose}
-          {...args}
-        >
+        <Button onClick={handleOpen}>open</Button>
+        <Popover {...args} {...{ isOpen, anchorEl, handleClose }}>
           <div>xxx</div>
           <div>xxx</div>
           <div>xxx</div>

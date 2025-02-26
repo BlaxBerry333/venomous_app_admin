@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import MuiStack from "@mui/material/Stack";
 
+import { BaseColor } from "~/ui/_helpers";
 import { Button } from "../button";
 import { IconButton } from "../iconbutton";
-import Badge from "./Badge";
+import Badge, { BadgePosition } from "./Badge";
 
 const meta = {
   title: "Components/Base ( MUI ) /Badge",
@@ -16,9 +17,21 @@ const meta = {
       description: "是否显示",
       control: "boolean",
     },
+    color: {
+      description: "颜色",
+      control: "select",
+      options: Object.values(BaseColor),
+    },
+    position: {
+      description: "位置",
+      control: "select",
+      options: Object.values(BadgePosition),
+    },
   },
   args: {
     showBadge: true,
+    color: BaseColor.ERROR,
+    position: BadgePosition.TOP_RIGHT,
   },
 } satisfies Meta<typeof Badge>;
 

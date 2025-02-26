@@ -2,24 +2,23 @@ import type { NamedExoticComponent } from "react";
 import { memo, useCallback } from "react";
 
 import type { Theme as MuiTheme } from "@mui/material/styles";
-
 import {
   GridActionsCellItem as MuiGridActionsCellItem,
   type GridActionsCellItemProps as MuiGridActionsCellItemProps,
 } from "@mui/x-data-grid";
 
-import { ButtonColor } from "../button";
+import { BaseColor } from "~/ui/_helpers";
 
 type TabItemActionProps = Omit<MuiGridActionsCellItemProps, "onClick"> & {
   onClick?: () => void;
-  color?: ButtonColor;
+  color?: BaseColor;
 };
 
 const TabItemAction: NamedExoticComponent<TabItemActionProps> = memo(
-  ({ label, color = ButtonColor.INHERIT, onClick }) => {
+  ({ label, color = BaseColor.INHERIT, onClick }) => {
     const getColor = useCallback(
       (palette: MuiTheme["palette"]): string => {
-        return color === ButtonColor.INHERIT
+        return color === BaseColor.INHERIT
           ? "inherit"
           : ((palette[color as keyof typeof palette] as { main: string }).main ?? "inherit");
       },

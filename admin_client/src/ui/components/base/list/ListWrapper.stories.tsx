@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ButtonColor } from "../button";
+import { BaseColor } from "~/ui/_helpers";
+import { CardWithLabel } from "../card";
 import { IconButton } from "../iconbutton";
-import { SectionWithLabel } from "../section-with-label";
+import { ListItemSize } from "../list-item/ListItem";
 import ListWrapper from "./ListWrapper";
 
 const meta = {
@@ -15,12 +16,18 @@ const meta = {
       description: "列表数据",
       control: "object",
     },
+    listItemSize: {
+      description: "列表项尺寸",
+      control: "select",
+      options: Object.values(ListItemSize),
+    },
     renderItem: {
       description: "渲染自定义 ListItem",
       control: "object",
     },
   },
   args: {
+    listItemSize: ListItemSize.LARGE,
     list: [],
   },
 } satisfies Meta<typeof ListWrapper>;
@@ -42,7 +49,7 @@ export const DefaultSample: Story = {
         title: "xxxxxx",
         subtitle: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         endElement: (
-          <IconButton icon="solar:trash-bin-trash-bold-duotone" color={ButtonColor.ERROR} />
+          <IconButton icon="solar:trash-bin-trash-bold-duotone" color={BaseColor.ERROR} />
         ),
       },
       {
@@ -54,11 +61,11 @@ export const DefaultSample: Story = {
   render: (args) => {
     return (
       <>
-        <SectionWithLabel title="使用默认 ListItem">
+        <CardWithLabel title="使用默认 ListItem">
           <ListWrapper {...args} list={args.list} />
-        </SectionWithLabel>
+        </CardWithLabel>
 
-        <SectionWithLabel title="使用 renderItem 属性渲染自定义 ListItem">
+        <CardWithLabel title="使用 renderItem 属性渲染自定义 ListItem">
           <ListWrapper
             {...args}
             list={args.list}
@@ -71,7 +78,7 @@ export const DefaultSample: Story = {
               </p>
             )}
           />
-        </SectionWithLabel>
+        </CardWithLabel>
       </>
     );
   },

@@ -4,16 +4,15 @@ import { memo } from "react";
 import MuiBox, { type BoxProps as MuiBoxProps } from "@mui/material/Box";
 import MuiChip from "@mui/material/Chip";
 
-export type SectionWithLabelProps = PropsWithChildren<MuiBoxProps> & {
+export type CardWithLabelProps = PropsWithChildren<MuiBoxProps> & {
   title: string;
   wrapperSx?: MuiBoxProps["sx"];
 };
 
-const SectionWithLabel: NamedExoticComponent<SectionWithLabelProps> = memo(
+const CardWithLabel: NamedExoticComponent<CardWithLabelProps> = memo(
   ({ title, children, sx, wrapperSx, ...props }) => {
     return (
       <MuiBox
-        component="section"
         sx={{
           position: "relative",
           mt: 2,
@@ -57,4 +56,4 @@ const SectionWithLabel: NamedExoticComponent<SectionWithLabelProps> = memo(
   },
 );
 
-export default SectionWithLabel;
+export default CardWithLabel;

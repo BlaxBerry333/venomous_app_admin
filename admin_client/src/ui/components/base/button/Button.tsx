@@ -5,31 +5,19 @@ import MuiLoadingButton, {
   type LoadingButtonProps as MuiLoadingButtonProps,
 } from "@mui/lab/LoadingButton";
 
+import { BaseColor, BaseSize } from "~/ui/_helpers";
+
 export enum ButtonVariant {
   CONTAINED = "contained",
   OUTLINED = "outlined",
   TEXT = "text",
 }
 
-export enum ButtonSize {
-  SMALL = "small",
-  MEDIUM = "medium",
-  LARGE = "large",
-}
-
-export enum ButtonColor {
-  INHERIT = "inherit",
-  PRIMARY = "primary",
-  SUCCESS = "success",
-  ERROR = "error",
-  WARNING = "warning",
-}
-
 export type ButtonProps = PropsWithChildren<
   Omit<MuiLoadingButtonProps, "variant" | "size" | "color" | "loading"> & {
     variant?: ButtonVariant;
-    size?: ButtonSize;
-    color?: ButtonColor;
+    size?: BaseSize;
+    color?: BaseColor;
     isLoading?: boolean;
   }
 >;
@@ -37,8 +25,8 @@ export type ButtonProps = PropsWithChildren<
 const Button: NamedExoticComponent<ButtonProps> = memo(
   ({
     variant = ButtonVariant.CONTAINED,
-    size = ButtonSize.MEDIUM,
-    color = ButtonColor.PRIMARY,
+    size = BaseSize.MEDIUM,
+    color = BaseColor.PRIMARY,
     isLoading = false,
 
     ...props

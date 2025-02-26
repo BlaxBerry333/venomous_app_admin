@@ -3,7 +3,7 @@ import { memo } from "react";
 
 import Portal from "@mui/material/Portal";
 
-import { ButtonColor } from "~/ui/components/base";
+import { BaseColor } from "~/ui/_helpers";
 import { Icon } from "~/ui/components/customs";
 import { StyledToaster } from "./StyledToaster";
 import { toasterClasses } from "./StyledToasterClasses";
@@ -50,11 +50,11 @@ const Snackbar: NamedExoticComponent<{
           },
         }}
         icons={{
-          loading: <Icon icon="eos-icons:bubble-loading" color={ButtonColor.INHERIT} />,
-          info: <Icon icon="solar:info-circle-bold" color={ButtonColor.INHERIT} />,
-          success: <Icon icon="solar:check-circle-bold" color={ButtonColor.SUCCESS} />,
-          warning: <Icon icon="solar:danger-triangle-bold" color={ButtonColor.WARNING} />,
-          error: <Icon icon="solar:danger-bold" color={ButtonColor.ERROR} />,
+          loading: <Icon icon="eos-icons:bubble-loading" color={BaseColor.INHERIT} />,
+          info: <Icon icon="solar:info-circle-bold" color={BaseColor.INHERIT} />,
+          success: <Icon icon="solar:check-circle-bold" color={BaseColor.SUCCESS} />,
+          warning: <Icon icon="solar:danger-triangle-bold" color={BaseColor.WARNING} />,
+          error: <Icon icon="solar:danger-bold" color={BaseColor.ERROR} />,
         }}
       />
     </Portal>

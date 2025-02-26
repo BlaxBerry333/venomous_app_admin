@@ -5,7 +5,7 @@ import type { Theme as MuiTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { UI_CONFIGS } from "~/ui/_configs";
-import { getColor } from "~/ui/_helpers";
+import { BasePosition, getColor } from "~/ui/_helpers";
 import { NavPosition, useLayoutStore } from "~/ui/_hooks";
 import {
   ContainerMaxBreakpoint,
@@ -76,6 +76,7 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
               key={item.title}
               {...item}
               isOmittedWithPopover={!navMenuExpandedInLargeScreen}
+              popoverPosition={BasePosition.RIGHT_BOTTOM}
             />
           ))}
         </NavMenuVerticalInPC>
@@ -99,11 +100,7 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
               {!isLargeScreen && (
                 <NavMenuVerticalInMobile>
                   {navItemsWithNestedList.map((item) => (
-                    <ListNestedItem
-                      key={item.title}
-                      {...item}
-                      isOmittedWithPopover={!navMenuExpandedInLargeScreen}
-                    />
+                    <ListNestedItem key={item.title} {...item} isOmittedWithPopover={false} />
                   ))}
                 </NavMenuVerticalInMobile>
               )}
@@ -126,7 +123,12 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
         {isLargeScreen && isHorizontalNavMenu && (
           <NavMenuHorizontalInPC>
             {navItemsWithNestedList.map((item) => (
-              <ListNestedItem key={item.title} {...item} isOmittedWithPopover />
+              <ListNestedItem
+                key={item.title}
+                {...item}
+                isOmittedWithPopover
+                popoverPosition={BasePosition.RIGHT_BOTTOM}
+              />
             ))}
           </NavMenuHorizontalInPC>
         )}

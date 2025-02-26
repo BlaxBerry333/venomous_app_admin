@@ -23,6 +23,39 @@ export const MuiOverrideComponentsOptions: MuiComponents<Omit<MuiTheme, "compone
     },
   },
 
+  MuiCard: {
+    styleOverrides: {
+      root: {
+        borderRadius: "8px",
+        padding: "0px",
+      },
+    },
+  },
+
+  MuiCardHeader: {
+    styleOverrides: {
+      root: {
+        padding: "8px 16px",
+      },
+    },
+  },
+
+  MuiCardContent: {
+    styleOverrides: {
+      root: {
+        padding: "8px 16px",
+      },
+    },
+  },
+
+  MuiCardActions: {
+    styleOverrides: {
+      root: {
+        padding: "8px 16px",
+      },
+    },
+  },
+
   MuiList: {
     styleOverrides: {
       root: {

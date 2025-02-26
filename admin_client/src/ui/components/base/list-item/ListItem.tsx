@@ -8,7 +8,13 @@ import MuiListItemButton, {
 import MuiListItemIcon from "@mui/material/ListItemIcon";
 import MuiListItemText from "@mui/material/ListItemText";
 
+import type { BaseColor } from "~/ui/_helpers";
 import { Icon, type IconProps } from "~/ui/components/customs/icons";
+
+export enum ListItemSize {
+  SMALL = "small",
+  LARGE = "large",
+}
 
 export type ListItemProps = PropsWithChildren<
   Omit<MuiListItemProps, "onClick"> &
@@ -19,11 +25,24 @@ export type ListItemProps = PropsWithChildren<
       selected?: boolean;
       onClick?: MuiListItemButtonProps["onClick"];
       endElement?: ReactNode;
+      color?: BaseColor;
+      size?: ListItemSize;
     }
 >;
 
 const ListItem: NamedExoticComponent<ListItemProps> = memo(
-  ({ onClick, title, subtitle, icon, selected, endElement, sx, ...props }) => {
+  ({
+    onClick,
+    title,
+    subtitle,
+    icon,
+    selected,
+    endElement,
+    color,
+    size = ListItemSize.LARGE,
+    sx,
+    ...props
+  }) => {
     return (
       <MuiListItem
         disablePadding
@@ -31,7 +50,7 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
         secondaryAction={endElement}
         sx={{
           my: 0.5,
-          height: "50px",
+          height: size === "small" ? "32px" : "50px",
           ".MuiListItemSecondaryAction-root": {
             display: "flex",
             alignItems: "center",
@@ -66,7 +85,7 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
                 mr: 1.5,
               }}
             >
-              <Icon icon={icon} width={24} sx={{ color: "inherit" }} />
+              <Icon icon={icon} width={24} color={color} />
             </MuiListItemIcon>
           )}
           {/* Text */}

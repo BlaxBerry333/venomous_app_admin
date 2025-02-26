@@ -9,20 +9,21 @@ export type ListWrapperProps = PropsWithChildren<
   MuiListProps & {
     list: Array<ListItemProps>;
     listItemSx?: ListItemProps["sx"];
+    listItemSize?: ListItemProps["size"];
     renderItem?: (item: ListItemProps, index: number) => JSX.Element;
   }
 >;
 
 const ListWrapper: NamedExoticComponent<ListWrapperProps> = memo(
-  ({ children, list, renderItem, listItemSx, ...props }) => {
+  ({ children, list, renderItem, listItemSize, listItemSx, sx, ...props }) => {
     return (
-      <MuiList disablePadding {...props}>
+      <MuiList disablePadding sx={{ ...sx }} {...props}>
         {/* 使用默认样式 */}
         {list.map((item, index) =>
           renderItem ? (
             renderItem(item, index)
           ) : (
-            <ListItem key={item.title} sx={{ ...listItemSx }} {...item} />
+            <ListItem key={item.title} sx={{ ...listItemSx }} size={listItemSize} {...item} />
           ),
         )}
 

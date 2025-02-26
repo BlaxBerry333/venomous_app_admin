@@ -19,7 +19,7 @@ type DrawerProps = PropsWithChildren<
 >;
 
 const Drawer: NamedExoticComponent<DrawerProps> = memo(
-  ({ isOpen, onClose, children, width, position = DrawerPosition.LEFT, ...props }) => {
+  ({ isOpen, onClose, children, width, position = DrawerPosition.LEFT, PaperProps, ...props }) => {
     const borderRadiusOfPosition = useMemo(() => {
       switch (position) {
         case DrawerPosition.RIGHT:
@@ -45,9 +45,8 @@ const Drawer: NamedExoticComponent<DrawerProps> = memo(
               p: 0,
               width,
               ...borderRadiusOfPosition,
-              ...props.PaperProps?.sx,
+              ...PaperProps?.sx,
             },
-            ...props.PaperProps,
           }}
           {...props}
         >

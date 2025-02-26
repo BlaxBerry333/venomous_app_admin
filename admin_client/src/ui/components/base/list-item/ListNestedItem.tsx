@@ -3,6 +3,7 @@ import { memo, useCallback, useMemo, useState } from "react";
 
 import MuiCollapse from "@mui/material/Collapse";
 
+import { BasePosition } from "~/ui/_helpers";
 import IconOfListitemNestedArrow from "~/ui/assets/images/icons/listitem-nested-arrow.png";
 import { ListWrapper, type ListWrapperProps } from "~/ui/components/base/list";
 import { Icon } from "~/ui/components/customs/icons";
@@ -13,10 +14,18 @@ export type ListCollapsableItemProps = ListItemProps & {
   nestList: ListWrapperProps["list"];
   nestListSx?: ListWrapperProps["sx"];
   isOmittedWithPopover?: boolean;
+  popoverPosition?: BasePosition;
 };
 
 const ListNestedItem: NamedExoticComponent<ListCollapsableItemProps> = memo(
-  ({ nestList, nestListSx, isOmittedWithPopover = false, sx, ...props }) => {
+  ({
+    nestList,
+    nestListSx,
+    isOmittedWithPopover = false,
+    sx,
+    popoverPosition = BasePosition.RIGHT_CENTER,
+    ...props
+  }) => {
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const toggleExpanded = useCallback(() => setIsExpanded((s) => !s), []);
 
@@ -74,13 +83,19 @@ const ListNestedItem: NamedExoticComponent<ListCollapsableItemProps> = memo(
           isOpen={popover.isOpen}
           anchorEl={popover.anchorEl}
           handleClose={popover.handleClose}
-          anchorOrigin={{ vertical: "center", horizontal: "right" }}
-          transformOrigin={{ vertical: "center", horizontal: "left" }}
+          position={popoverPosition}
         >
           <ListWrapper component="div" list={nestList} listItemSx={{ my: 0, ...nestListSx }} />
         </Popover>
       );
-    }, [popover.isOpen, popover.anchorEl, popover.handleClose, nestList, nestListSx]);
+    }, [
+      popover.isOpen,
+      popover.anchorEl,
+      popover.handleClose,
+      nestList,
+      nestListSx,
+      popoverPosition,
+    ]);
 
     // ----------------------------------------------------------------------------------------------------
 

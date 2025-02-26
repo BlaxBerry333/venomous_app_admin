@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ButtonColor } from "../button";
+import { BaseColor, BasePosition } from "~/ui/_helpers";
 import { IconButton } from "../iconbutton";
 import ListItemMeta from "./ListItem.stories";
 import ListNestedItem from "./ListNestedItem";
@@ -16,10 +16,16 @@ const meta = {
       description: "是否省略显示并通过 tooltip 展示 nestedList",
       control: "boolean",
     },
+    popoverPosition: {
+      description: "位置",
+      control: "select",
+      options: Object.values(BasePosition),
+    },
   },
   args: {
     ...ListItemMeta.args,
     isOmittedWithPopover: false,
+    popoverPosition: BasePosition.RIGHT_CENTER,
   },
 } satisfies Meta<typeof ListNestedItem>;
 
@@ -40,7 +46,7 @@ export const DefaultSample: Story = {
         title: "xxxxxx",
         subtitle: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         endElement: (
-          <IconButton icon="solar:trash-bin-trash-bold-duotone" color={ButtonColor.ERROR} />
+          <IconButton icon="solar:trash-bin-trash-bold-duotone" color={BaseColor.ERROR} />
         ),
       },
       {

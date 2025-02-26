@@ -4,10 +4,9 @@ import { memo, useCallback, useMemo, useState } from "react";
 import MuiBox from "@mui/material/Box";
 import MuiGrid from "@mui/material/Grid2";
 import MuiStack from "@mui/material/Stack";
-import MuiSwitch from "@mui/material/Switch";
 
 import { UI_CONFIGS } from "~/ui/_configs";
-import { getColor, ThemePaletteColors } from "~/ui/_helpers";
+import { BaseColor, getColor, ThemePaletteColors } from "~/ui/_helpers";
 import {
   DEFAULT_NAV_POSITION,
   DEFAULT_PALETTE_COLOR_NAME,
@@ -21,16 +20,16 @@ import IconOfNavPositionHorizontal from "~/ui/assets/images/icons/nav-position-h
 import IconOfNavPositionVertical from "~/ui/assets/images/icons/nav-position-vertical.png";
 import {
   Badge,
-  ButtonColor,
+  CardClickable,
+  CardWithLabel,
   Drawer,
   DrawerPosition,
   Image,
-  SectionClickable,
-  SectionWithLabel,
+  Switch,
   Typography,
 } from "~/ui/components/base";
 import { AnimationIconButton, Icon } from "~/ui/components/customs";
-import { Header, HeaderDesign } from "../header";
+import { Header, HeaderDesign } from "~/ui/components/layouts/header";
 
 const SettingsDrawer: NamedExoticComponent<{
   showOptionBlocks: {
@@ -61,11 +60,11 @@ const SettingsDrawer: NamedExoticComponent<{
 
   return (
     <>
-      <Badge showBadge={isSettingsOptionsChanged}>
+      <Badge showBadge={isSettingsOptionsChanged} color={BaseColor.ERROR}>
         <AnimationIconButton
           icon={"solar:settings-bold-duotone"}
           onClick={toggleIsOpen(true)}
-          color={ButtonColor.INHERIT}
+          color={BaseColor.INHERIT}
           sx={{
             animation: "spin 30s linear infinite",
             "@keyframes spin": {
@@ -88,17 +87,17 @@ const SettingsDrawer: NamedExoticComponent<{
           sx={{ backgroundColor: "transparent !important" }}
           renderActions={
             <MuiStack direction="row" spacing={1}>
-              <Badge showBadge={isSettingsOptionsChanged}>
+              <Badge showBadge={isSettingsOptionsChanged} color={BaseColor.ERROR}>
                 <AnimationIconButton
                   icon={"solar:restart-bold-duotone"}
-                  color={ButtonColor.INHERIT}
+                  color={BaseColor.INHERIT}
                   onClick={isSettingsOptionsChanged ? reset : undefined}
                   disabled={!isSettingsOptionsChanged}
                 />
               </Badge>
               <AnimationIconButton
                 icon={"solar:close-circle-line-duotone"}
-                color={ButtonColor.INHERIT}
+                color={BaseColor.INHERIT}
                 onClick={toggleIsOpen(false)}
               />
             </MuiStack>
@@ -114,10 +113,7 @@ const SettingsDrawer: NamedExoticComponent<{
             px: 1,
           }}
         >
-          <MuiStack
-            spacing={6}
-            sx={{ py: 2, "& .MuiSwitch-track": { transition: "background-color 0s" } }}
-          >
+          <MuiStack spacing={6} sx={{ py: 2 }}>
             {/* Theme Mode */}
             {showOptionBlocks.themeMode && <BlockOfThemeMode title="Mode" />}
 
@@ -141,8 +137,8 @@ export const BlockOfThemeMode: NamedExoticComponent<{ title: string }> = memo(({
   const { mode, toggleMode } = useThemeStore();
   const isDarkMode: boolean = mode === ThemeMode.DARK;
   return (
-    <SectionWithLabel title={title} sx={{ p: 0 }}>
-      <SectionClickable
+    <CardWithLabel title={title} sx={{ p: 0 }}>
+      <CardClickable
         onClick={toggleMode}
         sx={{
           display: "flex",
@@ -157,22 +153,22 @@ export const BlockOfThemeMode: NamedExoticComponent<{ title: string }> = memo(({
           <Icon icon={isDarkMode ? "solar:moon-bold-duotone" : "solar:sun-2-bold-duotone"} />
           {mode === ThemeMode.LIGHT ? "Light" : "Dark"}
         </Typography>
-        <MuiSwitch color="primary" checked={isDarkMode} />
-      </SectionClickable>
-    </SectionWithLabel>
+        <Switch checked={isDarkMode} />
+      </CardClickable>
+    </CardWithLabel>
   );
 });
 
 export const BlockOfPalettes: NamedExoticComponent<{ title: string }> = memo(({ title }) => {
   const { paletteColorName, setPaletteColorName } = useThemeStore();
   return (
-    <SectionWithLabel title={title}>
+    <CardWithLabel title={title}>
       <MuiGrid container spacing={1}>
         {ThemePaletteColors.map(({ name, colors: { primary: primaryColor } }) => {
           const isSelected: boolean = name === paletteColorName;
           return (
             <MuiGrid key={name} size={4}>
-              <SectionClickable
+              <CardClickable
                 onClick={() => setPaletteColorName(name)}
                 sx={{
                   display: "flex",
@@ -183,12 +179,12 @@ export const BlockOfPalettes: NamedExoticComponent<{ title: string }> = memo(({ 
                 }}
               >
                 <Icon icon="solar:siderbar-bold-duotone" width={32} sx={{ color: "inherit" }} />
-              </SectionClickable>
+              </CardClickable>
             </MuiGrid>
           );
         })}
       </MuiGrid>
-    </SectionWithLabel>
+    </CardWithLabel>
   );
 });
 
@@ -201,7 +197,7 @@ export const BlockOfDashboardNavPositions: NamedExoticComponent<{ title: string 
       return null;
     }
     return (
-      <SectionWithLabel title={title}>
+      <CardWithLabel title={title}>
         <MuiGrid container spacing={1}>
           {[
             { name: NavPosition.VerticalNavPosition, imageModule: IconOfNavPositionVertical },
@@ -210,7 +206,7 @@ export const BlockOfDashboardNavPositions: NamedExoticComponent<{ title: string 
             const isSelected: boolean = name === navMenuPosition;
             return (
               <MuiGrid key={name} size={6}>
-                <SectionClickable
+                <CardClickable
                   onClick={() => setNavMenuPosition(name)}
                   sx={{
                     display: "flex",
@@ -230,12 +226,12 @@ export const BlockOfDashboardNavPositions: NamedExoticComponent<{ title: string 
                       borderColor: "divider",
                     }}
                   />
-                </SectionClickable>
+                </CardClickable>
               </MuiGrid>
             );
           })}
         </MuiGrid>
-      </SectionWithLabel>
+      </CardWithLabel>
     );
   },
 );

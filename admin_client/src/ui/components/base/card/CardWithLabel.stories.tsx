@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import SectionWithLabel from "./SectionWithLabel";
+import CardWithLabel from "./CardWithLabel";
 
 const meta = {
-  title: "Components/Base ( MUI ) /SectionWithLabel",
-  component: SectionWithLabel,
+  title: "Components/Base ( MUI ) /CardWithLabel",
+  component: CardWithLabel,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
   argTypes: {
@@ -21,7 +21,7 @@ const meta = {
     title: "title xxx",
     children: "content xxx",
   },
-} satisfies Meta<typeof SectionWithLabel>;
+} satisfies Meta<typeof CardWithLabel>;
 
 export default meta;
 

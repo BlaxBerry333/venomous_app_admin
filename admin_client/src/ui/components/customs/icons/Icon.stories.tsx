@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ButtonColor } from "~/ui/components/base";
+import { BaseColor } from "~/ui/_helpers";
 import Icon from "./Icon";
 
 const meta = {
@@ -12,7 +12,7 @@ const meta = {
     color: {
       description: "图标颜色",
       control: "select",
-      options: Object.values(ButtonColor),
+      options: Object.values(BaseColor),
     },
     icon: {
       description: "图标名称 ( https://icon-sets.iconify.design/ )",
@@ -26,7 +26,7 @@ const meta = {
     },
   },
   args: {
-    color: ButtonColor.PRIMARY,
+    color: BaseColor.PRIMARY,
     icon: "solar:box-minimalistic-bold-duotone",
   },
 } satisfies Meta<typeof Icon>;

@@ -31,3 +31,7 @@ dist-ssr
 
 # Ignore rollup build stats directory
 .build_stats/
+
+# Storybook
+*storybook.log
+storybook-static

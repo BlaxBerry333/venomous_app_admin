@@ -2,7 +2,7 @@ import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 
 import { BaseColor } from "~/ui/_helpers";
-import { Typography } from "~/ui/components/base/typographies";
+import { Typography } from "~/ui/components/base/typography";
 import { Icon } from "~/ui/components/customs";
 import Mask, { MaskCursor } from "./Mask";
 

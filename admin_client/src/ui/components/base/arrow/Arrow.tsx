@@ -7,16 +7,26 @@ import { BasePosition, getPositionOfArrow } from "~/ui/_helpers";
 
 const Arrow: NamedExoticComponent<{
   size?: number;
-  position?: BasePosition;
-}> = memo(({ size = 16, position = BasePosition.RIGHT_CENTER }) => {
-  const placementAttributes = useMemo(() => getPositionOfArrow(position), [position]);
+  anchorEl?: null | Element;
+  backgroundPosition?: BasePosition;
+}> = memo(({ size = 16, anchorEl, backgroundPosition = BasePosition.RIGHT_CENTER }) => {
+  const anchorElWidth: number = anchorEl?.getBoundingClientRect()?.width || 0;
+  const anchorElHeight: number = anchorEl?.getBoundingClientRect()?.height || 0;
+
+  const placementAttributes = useMemo(() => {
+    return getPositionOfArrow({
+      size,
+      anchorEl: { width: anchorElWidth, height: anchorElHeight },
+      backgroundPosition,
+    });
+  }, [size, anchorElWidth, anchorElHeight, backgroundPosition]);
 
   return (
     <MuiBox
       className="arrow"
       component="span"
       sx={{
-        display: "inline-block",
+        display: anchorEl ? "block" : "none",
         width: size,
         height: size,
         position: "absolute",

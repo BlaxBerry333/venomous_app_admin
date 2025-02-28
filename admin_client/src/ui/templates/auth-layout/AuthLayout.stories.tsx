@@ -19,11 +19,5 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultSample: Story = {
   name: "默认样例",
-  render: (args) => (
-    <AuthLayout {...args}>
-      <div style={{ height: "500px" }}>AAA</div>
-      <div style={{ height: "500px" }}>BBB</div>
-      <div style={{ height: "500px" }}>CCC</div>
-    </AuthLayout>
-  ),
+  render: (args) => <AuthLayout {...args}>xxxxx</AuthLayout>,
 };

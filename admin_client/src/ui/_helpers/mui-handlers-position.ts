@@ -17,7 +17,10 @@ export enum BasePosition {
   LEFT_BOTTOM = "left-bottom",
 }
 
-export function getPositionOfMuiPopover(position: BasePosition): {
+export function getPositionOfMuiPopover(
+  position: BasePosition,
+  hasArrow: boolean,
+): {
   anchorOrigin?: MuiPopoverProps["anchorOrigin"];
   transformOrigin?: MuiPopoverProps["transformOrigin"];
   slotPaperSx?: MuiPaperProps["sx"];
@@ -28,42 +31,42 @@ export function getPositionOfMuiPopover(position: BasePosition): {
      */
     case BasePosition.TOP_LEFT:
       return {
-        anchorOrigin: { vertical: "top", horizontal: "center" },
+        anchorOrigin: { vertical: "top", horizontal: "right" },
         transformOrigin: { vertical: "bottom", horizontal: "right" },
-        slotPaperSx: { transform: "translateY(-10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateY(-10px) !important" },
       };
     case BasePosition.TOP_CENTER:
       return {
         anchorOrigin: { vertical: "top", horizontal: "center" },
         transformOrigin: { vertical: "bottom", horizontal: "center" },
-        slotPaperSx: { transform: "translateY(-10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateY(-10px) !important" },
       };
     case BasePosition.TOP_RIGHT:
       return {
-        anchorOrigin: { vertical: "top", horizontal: "center" },
+        anchorOrigin: { vertical: "top", horizontal: "left" },
         transformOrigin: { vertical: "bottom", horizontal: "left" },
-        slotPaperSx: { transform: "translateY(-10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateY(-10px) !important" },
       };
     /**
      * Bottom
      */
     case BasePosition.BOTTOM_LEFT:
       return {
-        anchorOrigin: { vertical: "bottom", horizontal: "center" },
+        anchorOrigin: { vertical: "bottom", horizontal: "right" },
         transformOrigin: { vertical: "top", horizontal: "right" },
-        slotPaperSx: { transform: "translateY(10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateY(10px) !important" },
       };
     case BasePosition.BOTTOM_CENTER:
       return {
         anchorOrigin: { vertical: "bottom", horizontal: "center" },
         transformOrigin: { vertical: "top", horizontal: "center" },
-        slotPaperSx: { transform: "translateY(10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateY(10px) !important" },
       };
     case BasePosition.BOTTOM_RIGHT:
       return {
-        anchorOrigin: { vertical: "bottom", horizontal: "center" },
+        anchorOrigin: { vertical: "bottom", horizontal: "left" },
         transformOrigin: { vertical: "top", horizontal: "left" },
-        slotPaperSx: { transform: "translateY(10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateY(10px) !important" },
       };
     /**
      * Left
@@ -72,19 +75,19 @@ export function getPositionOfMuiPopover(position: BasePosition): {
       return {
         anchorOrigin: { vertical: "bottom", horizontal: "left" },
         transformOrigin: { vertical: "bottom", horizontal: "right" },
-        slotPaperSx: { transform: "translateX(-10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateX(-10px) !important" },
       };
     case BasePosition.LEFT_CENTER:
       return {
         anchorOrigin: { vertical: "center", horizontal: "left" },
         transformOrigin: { vertical: "center", horizontal: "right" },
-        slotPaperSx: { transform: "translateX(-10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateX(-10px) !important" },
       };
     case BasePosition.LEFT_BOTTOM:
       return {
         anchorOrigin: { vertical: "top", horizontal: "left" },
         transformOrigin: { vertical: "top", horizontal: "right" },
-        slotPaperSx: { transform: "translateX(-10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateX(-10px) !important" },
       };
     /**
      * Right
@@ -93,33 +96,41 @@ export function getPositionOfMuiPopover(position: BasePosition): {
       return {
         anchorOrigin: { vertical: "bottom", horizontal: "right" },
         transformOrigin: { vertical: "bottom", horizontal: "left" },
-        slotPaperSx: { transform: "translateX(10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateX(10px) !important" },
       };
     case BasePosition.RIGHT_BOTTOM:
       return {
         anchorOrigin: { vertical: "top", horizontal: "right" },
         transformOrigin: { vertical: "top", horizontal: "left" },
-        slotPaperSx: { transform: "translateX(10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateX(10px) !important" },
       };
     case BasePosition.RIGHT_CENTER:
     default:
       return {
         anchorOrigin: { vertical: "center", horizontal: "right" },
         transformOrigin: { vertical: "center", horizontal: "left" },
-        slotPaperSx: { transform: "translateX(10px) !important" },
+        slotPaperSx: { transform: !hasArrow ? undefined : "translateX(10px) !important" },
       };
   }
 }
 
-export function getPositionOfArrow(position: BasePosition): MuiBoxProps["sx"] {
-  switch (position) {
+export function getPositionOfArrow({
+  size,
+  anchorEl,
+  backgroundPosition,
+}: {
+  size: number;
+  anchorEl: { width: number; height: number };
+  backgroundPosition: BasePosition;
+}): MuiBoxProps["sx"] {
+  switch (backgroundPosition) {
     /*
      * Top
      */
     case BasePosition.TOP_LEFT:
       return {
         bottom: "-4px !important",
-        right: "4px !important",
+        right: `${anchorEl.width / 2 - size / 2}px !important`,
         transform: "rotate(45deg) !important",
       };
     case BasePosition.TOP_CENTER:
@@ -131,7 +142,7 @@ export function getPositionOfArrow(position: BasePosition): MuiBoxProps["sx"] {
     case BasePosition.TOP_RIGHT:
       return {
         bottom: "-4px !important",
-        left: "4px !important",
+        left: `${anchorEl.width / 2 - size / 2}px !important`,
         transform: "rotate(45deg) !important",
       };
     /*
@@ -140,7 +151,7 @@ export function getPositionOfArrow(position: BasePosition): MuiBoxProps["sx"] {
     case BasePosition.BOTTOM_LEFT:
       return {
         top: "-4px !important",
-        right: "4px !important",
+        right: `${anchorEl.width / 2 - size / 2}px !important`,
         transform: "rotate(45deg) !important",
       };
     case BasePosition.BOTTOM_CENTER:
@@ -152,7 +163,7 @@ export function getPositionOfArrow(position: BasePosition): MuiBoxProps["sx"] {
     case BasePosition.BOTTOM_RIGHT:
       return {
         top: "-4px !important",
-        left: "4px !important",
+        left: `${anchorEl.width / 2 - size / 2}px !important`,
         transform: "rotate(45deg) !important",
       };
     /*
@@ -160,7 +171,7 @@ export function getPositionOfArrow(position: BasePosition): MuiBoxProps["sx"] {
      */
     case BasePosition.LEFT_TOP:
       return {
-        bottom: "-4px !important",
+        bottom: `${anchorEl.height / 2 - size}px !important`,
         right: "-4px !important",
         transform: "translateY(-50%) rotate(45deg) !important",
       };
@@ -172,22 +183,22 @@ export function getPositionOfArrow(position: BasePosition): MuiBoxProps["sx"] {
       };
     case BasePosition.LEFT_BOTTOM:
       return {
-        top: "12px !important",
+        top: `${anchorEl.height / 2}px !important`,
         right: "-4px !important",
         transform: "translateY(-50%) rotate(45deg) !important",
       };
     /*
      * Right
      */
-    case BasePosition.RIGHT_BOTTOM:
+    case BasePosition.RIGHT_TOP:
       return {
-        top: "12px !important",
+        bottom: `${anchorEl.height / 2 - size}px !important`,
         left: "-4px !important",
         transform: "translateY(-50%) rotate(45deg) !important",
       };
-    case BasePosition.RIGHT_TOP:
+    case BasePosition.RIGHT_BOTTOM:
       return {
-        bottom: "-4px !important",
+        top: `${anchorEl.height / 2}px !important`,
         left: "-4px !important",
         transform: "translateY(-50%) rotate(45deg) !important",
       };

@@ -10,7 +10,6 @@ const meta = {
   argTypes: {
     showOptionBlocks: {
       description: "显示选项块",
-      control: "object",
     },
   },
 } satisfies Meta<typeof SettingsDrawer>;

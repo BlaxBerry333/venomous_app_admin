@@ -27,8 +27,9 @@ const Button: NamedExoticComponent<ButtonProps> = memo(
     variant = ButtonVariant.CONTAINED,
     size = BaseSize.MEDIUM,
     color = BaseColor.PRIMARY,
+    disabled = false,
     isLoading = false,
-
+    sx,
     ...props
   }) => {
     return (
@@ -36,7 +37,13 @@ const Button: NamedExoticComponent<ButtonProps> = memo(
         variant={variant}
         size={size}
         color={color}
+        disabled={disabled}
         loading={isLoading}
+        sx={{
+          cursor: isLoading ? "wait !important" : disabled ? "not-allowed !important" : "pointer",
+          pointerEvents: "auto !important",
+          ...sx,
+        }}
         {...props}
       />
     );

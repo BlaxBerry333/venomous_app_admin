@@ -16,8 +16,8 @@ export enum ListItemSize {
   LARGE = "large",
 }
 
-export type ListItemProps = PropsWithChildren<
-  Omit<MuiListItemProps, "onClick"> &
+export type ListItemProps<V = string | number> = PropsWithChildren<
+  Omit<MuiListItemProps, "onClick" | "value"> &
     MuiListItemButtonProps & {
       title: string;
       subtitle?: string;
@@ -27,6 +27,7 @@ export type ListItemProps = PropsWithChildren<
       endElement?: ReactNode;
       color?: BaseColor;
       size?: ListItemSize;
+      value?: V;
     }
 >;
 
@@ -47,14 +48,13 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
       <MuiListItem
         disablePadding
         disableGutters
-        secondaryAction={endElement}
         sx={{
           my: 0.5,
+          width: "100%",
           height: size === "small" ? "32px" : "50px",
           ".MuiListItemSecondaryAction-root": {
             display: "flex",
             alignItems: "center",
-            paddingRight: endElement ? "16px !important" : "0 !important",
           },
           ...sx,
         }}
@@ -68,6 +68,7 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
             height: "100%",
             borderRadius: 2,
             padding: "16px !important",
+            paddingRight: endElement ? "8px !important" : "16px !important",
             color: ({ palette: { primary } }) => {
               return selected ? primary.main : "inherit";
             },
@@ -96,6 +97,8 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
             secondaryTypographyProps={{ variant: "caption", noWrap: true, mt: -1 }}
             sx={{ m: 0, px: 0 }}
           />
+          {/* End Element */}
+          {endElement}
         </MuiListItemButton>
       </MuiListItem>
     );

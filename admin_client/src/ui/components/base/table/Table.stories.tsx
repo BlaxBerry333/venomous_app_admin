@@ -24,11 +24,9 @@ const meta = {
     },
     dataSource: {
       description: "数据源",
-      control: "object",
     },
     columns: {
       description: "列配置",
-      control: "object",
     },
     disableColumnMenu: {
       description: "禁用列菜单",

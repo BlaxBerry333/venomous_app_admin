@@ -7,31 +7,26 @@ import MuiCardContent, {
 } from "@mui/material/CardContent";
 import MuiCardHeader from "@mui/material/CardHeader";
 
-import { BaseColor, BasePosition } from "~/ui/_helpers";
+import { BasePosition } from "~/ui/_helpers";
+import { ListItemSize } from "~/ui/components/base/list-item";
+import { MaskWithBlocked, MaskWithLoading } from "~/ui/components/base/mask";
 import {
-  IconButton,
-  ListItemSize,
-  ListWrapper,
-  MaskWithBlocked,
-  MaskWithLoading,
-  Popover,
-  Typography,
-  usePopover,
-  type ListItemProps,
-} from "~/ui/components/base";
+  MenuInsideActionPopover,
+  type MenuInsideActionPopoverProps,
+} from "~/ui/components/base/menu";
+import { Typography } from "~/ui/components/base/typography";
 
 type CardWithActionsProps = PropsWithChildren<
-  Omit<MuiCardProps, "sx"> & {
-    isLoading?: boolean;
-    isBlocked?: boolean;
-    isCustomCardContent?: boolean;
-    title?: string;
-    subTitle?: string;
-    actionItemList?: ListItemProps[];
-    actionIsNotAllowed?: boolean;
-    wrapperSx?: MuiCardProps["sx"];
-    sx?: MuiCardContentProps["sx"];
-  }
+  Omit<MuiCardProps, "sx"> &
+    Pick<MenuInsideActionPopoverProps, "actionItemList" | "actionIsNotAllowed"> & {
+      isLoading?: boolean;
+      isBlocked?: boolean;
+      isCustomCardContent?: boolean;
+      title?: string;
+      subTitle?: string;
+      wrapperSx?: MuiCardProps["sx"];
+      sx?: MuiCardContentProps["sx"];
+    }
 >;
 
 const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
@@ -48,7 +43,6 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
     sx,
     ...props
   }) => {
-    const popover = usePopover();
     const headerWithPopover = useMemo<JSX.Element | null>(() => {
       if (isCustomCardContent) return null;
       return (
@@ -67,40 +61,18 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
             }
             avatar={null}
             action={
-              <IconButton
-                disabled={actionIsNotAllowed}
-                icon={
-                  actionIsNotAllowed
-                    ? "solar:lock-keyhole-minimalistic-bold-duotone"
-                    : "solar:menu-dots-line-duotone"
-                }
-                color={actionIsNotAllowed ? BaseColor.ERROR : BaseColor.INHERIT}
-                onClick={popover.handleOpen}
+              // Card Actions List Popover
+              <MenuInsideActionPopover
+                actionItemList={actionItemList}
+                actionIsNotAllowed={actionIsNotAllowed}
+                popoverPosition={BasePosition.BOTTOM_LEFT}
+                listItemSize={ListItemSize.SMALL}
               />
             }
           />
-          {/* Card Actions List Popover */}
-          <Popover
-            isOpen={popover.isOpen}
-            anchorEl={popover.anchorEl}
-            handleClose={popover.handleClose}
-            position={BasePosition.BOTTOM_CENTER}
-            sx={{ display: actionIsNotAllowed ? "none" : "block" }}
-          >
-            <ListWrapper
-              listItemSize={ListItemSize.SMALL}
-              list={actionItemList.map((item) => ({
-                ...item,
-                onClick: (e) => {
-                  item.onClick?.(e);
-                  popover.handleClose();
-                },
-              }))}
-            />
-          </Popover>
         </>
       );
-    }, [isCustomCardContent, title, subTitle, actionItemList, actionIsNotAllowed, popover]);
+    }, [isCustomCardContent, title, subTitle, actionItemList, actionIsNotAllowed]);
 
     return (
       <MuiCard elevation={3} sx={{ position: "relative", ...wrapperSx }} {...props}>

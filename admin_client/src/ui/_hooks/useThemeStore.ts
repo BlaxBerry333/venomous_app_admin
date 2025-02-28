@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
+import { IsSystemDarkMode } from "~/utils/broswer";
 import { UI_CONFIGS } from "../_configs";
 import { ThemePaletteColorName } from "../_helpers";
 
@@ -9,7 +10,7 @@ export enum ThemeMode {
   DARK = "dark",
 }
 
-export const DEFAULT_THEME_MODE = ThemeMode.LIGHT;
+export const DEFAULT_THEME_MODE = IsSystemDarkMode() ? ThemeMode.DARK : ThemeMode.LIGHT;
 
 export const DEFAULT_PALETTE_COLOR_NAME = ThemePaletteColorName.BlueGrey;
 

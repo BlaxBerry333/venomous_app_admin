@@ -15,9 +15,24 @@ const meta = {
       control: "select",
       options: Object.values(BasePosition),
     },
+    arrow: {
+      description: "是否显示箭头",
+      control: "boolean",
+    },
+    escapeKeyDown: {
+      description: "是否会自动关闭 ( Esc 按键、点击内容后 )",
+      control: "boolean",
+    },
+    autoWidth: {
+      description: "是否自动调整宽度为 Anchor 元素宽度",
+      control: "boolean",
+    },
   },
   args: {
-    position: BasePosition.RIGHT_CENTER,
+    position: BasePosition.BOTTOM_CENTER,
+    arrow: true,
+    escapeKeyDown: false,
+    autoWidth: false,
   },
 } satisfies Meta<typeof Popover>;
 
@@ -34,9 +49,16 @@ export const DefaultSample: Story = {
       <>
         <Button onClick={handleOpen}>open</Button>
         <Popover {...args} {...{ isOpen, anchorEl, handleClose }}>
-          <div>xxx</div>
-          <div>xxx</div>
-          <div>xxx</div>
+          <div style={{ height: 200, width: 150 }}>
+            <pre style={{ margin: 0 }}>
+              {`
+ style: {
+   height: 200,
+   width: 100,
+ }
+              `}
+            </pre>
+          </div>
         </Popover>
       </>
     );

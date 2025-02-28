@@ -8,7 +8,7 @@ import {
 } from "@mui/x-data-grid";
 
 import { Icon } from "~/ui/components/customs/icons";
-import { ContentType, ImageOfContent } from "../image";
+import { BlankContentImage } from "~/ui/components/design";
 
 type TableBaseItemType = {
   id: string | number;
@@ -103,8 +103,8 @@ const Table = <T extends TableBaseItemType>({
         ...props.slotProps,
       }}
       slots={{
-        noRowsOverlay: () => <ImageOfContent contentType={ContentType.DATA} />,
-        noResultsOverlay: () => <ImageOfContent contentType={ContentType.DATA} />,
+        noRowsOverlay: () => <BlankContentImage />,
+        noResultsOverlay: () => <BlankContentImage />,
         moreActionsIcon: (props) => <Icon icon="solar:menu-dots-bold" {...props} />,
         exportIcon: (props) => <Icon icon="solar:eye-closed-bold-duotone" {...props} />,
 

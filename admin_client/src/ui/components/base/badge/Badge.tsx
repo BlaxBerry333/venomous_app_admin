@@ -2,6 +2,7 @@ import type { CSSProperties, NamedExoticComponent, PropsWithChildren } from "rea
 import { memo, useMemo } from "react";
 
 import MuiBadge, { type BadgeProps as MuiBadgeProps } from "@mui/material/Badge";
+
 import { BaseColor } from "~/ui/_helpers";
 
 export enum BadgePosition {

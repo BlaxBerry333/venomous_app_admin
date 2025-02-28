@@ -1,7 +1,9 @@
 import type { NamedExoticComponent, PropsWithChildren } from "react";
 import { memo } from "react";
-import { UI_CONFIGS } from "~/ui/_configs";
 
+import MuiBox from "@mui/material/Box";
+
+import { UI_CONFIGS } from "~/ui/_configs";
 import { getColor } from "~/ui/_helpers";
 import {
   ContainerMaxBreakpoint,
@@ -37,7 +39,17 @@ const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) 
         }
       />
 
-      {children}
+      <MuiBox
+        sx={{
+          height: `calc(100svh - ${UI_CONFIGS.size.HEADER_HEIGHT}px)`,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {children}
+      </MuiBox>
     </ContainerWrapper>
   );
 });

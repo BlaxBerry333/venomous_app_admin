@@ -11,10 +11,15 @@ const meta = {
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
   argTypes: {
+    src: {
+      description: "头像链接",
+      control: "text",
+    },
     size: {
       description: "尺寸",
       control: "radio",
       options: Object.values(BaseSize),
+      type: "string",
     },
     showBadge: BadgeMeta.argTypes.showBadge,
     badgeColor: BadgeMeta.argTypes.color,

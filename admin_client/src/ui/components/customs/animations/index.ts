@@ -1,3 +1,5 @@
-export * from "./animation-button";
+export { default as AnimationAvatar } from "./AnimationAvatar";
 
-export * from "./animation-iconbutton";
+export { default as AnimationButton } from "./AnimationButton";
+
+export { default as AnimationIconButton } from "./AnimationIconButton";

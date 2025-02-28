@@ -56,6 +56,15 @@ export const MuiOverrideComponentsOptions: MuiComponents<Omit<MuiTheme, "compone
     },
   },
 
+  MuiDialog: {
+    styleOverrides: {
+      paper: {
+        borderRadius: "8px",
+        padding: "0px",
+      },
+    },
+  },
+
   MuiList: {
     styleOverrides: {
       root: {

@@ -8,6 +8,7 @@
 |         Admin Server DB         | <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-infrastructure--docker.png?raw=true" style="width:48px;" /> <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/database--postgresql.png?raw=true" style="width:48px;" />                                                                                                                                                                             |    DB     | `5432` |
 |      Admin Server Redis DB      | <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-infrastructure--docker.png?raw=true" style="width:48px;" /> <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/database--redis.png?raw=true" style="width:48px;" />                                                                                                                                                                                  |    DB     | `6379` |
 
+
 ## 🚀 Local Setup
 
 ```shell

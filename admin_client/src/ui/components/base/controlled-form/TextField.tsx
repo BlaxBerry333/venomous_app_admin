@@ -1,9 +1,8 @@
 import type { NamedExoticComponent } from "react";
-import { memo, useCallback, useDeferredValue, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 
 import MuiTextField, { type TextFieldProps as MuiTextFieldProps } from "@mui/material/TextField";
 
-import { debounce } from "lodash-es";
 import { BaseColor, BaseSize } from "~/ui/_helpers";
 import { IconButton } from "~/ui/components/base/iconbutton";
 
@@ -29,27 +28,18 @@ const TextField: NamedExoticComponent<TextFieldProps> = memo(
     onChange,
     ...props
   }) => {
-    const [_inputValue, _setInputValue] = useState<string>("");
-    const inputValue = useDeferredValue<string>(_inputValue);
-    const setInputValue = useRef(debounce((value: string) => _setInputValue(value), 40));
-
-    useEffect(() => {
-      const debounceFunction = setInputValue.current;
-      return () => {
-        debounceFunction.cancel();
-      };
-    }, []);
+    const [inputValue, setInputValue] = useState<string>("");
 
     const handleInputChange = useCallback(
       (value: string) => {
-        setInputValue.current(value);
+        setInputValue(value);
         onChange(value);
       },
       [onChange],
     );
 
     useEffect(() => {
-      setInputValue.current(value);
+      setInputValue(value);
     }, [value]);
 
     return (
@@ -79,7 +69,7 @@ const TextField: NamedExoticComponent<TextFieldProps> = memo(
                     color={BaseColor.INHERIT}
                     sx={{ visibility: showClearButton ? "visible" : "hidden" }}
                     onClick={() => {
-                      setInputValue.current("");
+                      setInputValue("");
                       handleOnClear?.();
                     }}
                   />

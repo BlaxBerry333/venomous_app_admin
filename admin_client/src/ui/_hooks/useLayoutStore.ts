@@ -15,7 +15,7 @@ export const DEFAULT_NAV_POSITION = NavPosition.VerticalNavPosition;
  */
 const useLayoutStore = create<{
   navMenuWidthInLargeScreen: number;
-  navMenuExpandedInLargeScreen: boolean;
+  isExpandedInLargeScreen: boolean;
   setNavMenuExpandedInLargeScreen: (isExpanded: boolean) => void;
   toggleNavMenuExpandedInLargeScreen: () => void;
 
@@ -28,10 +28,10 @@ const useLayoutStore = create<{
     persist(
       (set) => ({
         navMenuWidthInLargeScreen: UI_CONFIGS.size.NAV_MENU_WIDTH.EXPANDED_IN_LARGE_SCREEN,
-        navMenuExpandedInLargeScreen: true,
+        isExpandedInLargeScreen: true,
         setNavMenuExpandedInLargeScreen: (isExpanded) => {
           set({
-            navMenuExpandedInLargeScreen: isExpanded,
+            isExpandedInLargeScreen: isExpanded,
             navMenuWidthInLargeScreen: isExpanded
               ? UI_CONFIGS.size.NAV_MENU_WIDTH.EXPANDED_IN_LARGE_SCREEN
               : UI_CONFIGS.size.NAV_MENU_WIDTH.COLLAPSED_IN_LARGE_SCREEN,
@@ -39,8 +39,8 @@ const useLayoutStore = create<{
         },
         toggleNavMenuExpandedInLargeScreen: () => {
           set((state) => ({
-            navMenuExpandedInLargeScreen: !state.navMenuExpandedInLargeScreen,
-            navMenuWidthInLargeScreen: !state.navMenuExpandedInLargeScreen
+            isExpandedInLargeScreen: !state.isExpandedInLargeScreen,
+            navMenuWidthInLargeScreen: !state.isExpandedInLargeScreen
               ? UI_CONFIGS.size.NAV_MENU_WIDTH.EXPANDED_IN_LARGE_SCREEN
               : UI_CONFIGS.size.NAV_MENU_WIDTH.COLLAPSED_IN_LARGE_SCREEN,
           }));

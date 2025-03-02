@@ -1,16 +1,13 @@
-import { HelmetProvider } from "react-helmet-async";
-
-import { LanguageProvider, RouterProvider } from "~/app/_providers";
 import { ThemeProvider } from "~/ui/_providers";
+import { LanguageProvider } from "~/utils/libs/i18n";
+import { Router } from "~/utils/libs/router";
 
 export default function App() {
   return (
     <LanguageProvider>
-      <HelmetProvider>
-        <ThemeProvider>
-          <RouterProvider>{/* RouteView */}</RouterProvider>
-        </ThemeProvider>
-      </HelmetProvider>
+      <ThemeProvider>
+        <Router />
+      </ThemeProvider>
     </LanguageProvider>
   );
 }

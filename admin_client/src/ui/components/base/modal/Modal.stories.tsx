@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import React from "react";
-import { sleep } from "~/utils/process";
+import { sleep } from "~/utils/custom/process";
 import Modal from "./Modal";
 
 const meta = {

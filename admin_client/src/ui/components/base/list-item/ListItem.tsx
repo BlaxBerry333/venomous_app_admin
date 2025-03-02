@@ -1,4 +1,4 @@
-import type { NamedExoticComponent, PropsWithChildren, ReactNode } from "react";
+import type { NamedExoticComponent, ReactNode } from "react";
 import { memo } from "react";
 
 import MuiListItem, { type ListItemProps as MuiListItemProps } from "@mui/material/ListItem";
@@ -8,7 +8,7 @@ import MuiListItemButton, {
 import MuiListItemIcon from "@mui/material/ListItemIcon";
 import MuiListItemText from "@mui/material/ListItemText";
 
-import type { BaseColor } from "~/ui/_helpers";
+import { BaseColor } from "~/ui/_helpers";
 import { Icon, type IconProps } from "~/ui/components/customs/icons";
 
 export enum ListItemSize {
@@ -16,20 +16,18 @@ export enum ListItemSize {
   LARGE = "large",
 }
 
-export type ListItemProps<V = string | number> = PropsWithChildren<
-  Omit<MuiListItemProps, "onClick" | "value"> &
-    MuiListItemButtonProps & {
-      title: string;
-      subtitle?: string;
-      icon?: IconProps["icon"];
-      selected?: boolean;
-      onClick?: MuiListItemButtonProps["onClick"];
-      endElement?: ReactNode;
-      color?: BaseColor;
-      size?: ListItemSize;
-      value?: V;
-    }
->;
+export type ListItemProps<V = string | number> = Omit<MuiListItemProps, "onClick" | "value"> &
+  MuiListItemButtonProps & {
+    title: string;
+    subtitle?: string;
+    icon?: IconProps["icon"];
+    selected?: boolean;
+    onClick?: MuiListItemButtonProps["onClick"];
+    endElement?: ReactNode;
+    color?: BaseColor;
+    size?: ListItemSize;
+    value?: V;
+  };
 
 const ListItem: NamedExoticComponent<ListItemProps> = memo(
   ({
@@ -49,7 +47,6 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
         disablePadding
         disableGutters
         sx={{
-          my: 0.5,
           width: "100%",
           height: size === "small" ? "32px" : "50px",
           ".MuiListItemSecondaryAction-root": {
@@ -69,8 +66,8 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
             borderRadius: 2,
             padding: "16px !important",
             paddingRight: endElement ? "8px !important" : "16px !important",
-            color: ({ palette: { primary } }) => {
-              return selected ? primary.main : "inherit";
+            color: ({ palette: { mode, primary } }) => {
+              return selected ? (mode === "dark" ? primary.light : primary.main) : "inherit";
             },
           }}
         >
@@ -83,10 +80,14 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
                 display: "flex",
                 justifyContent: "center",
                 color: "inherit",
-                mr: 1.5,
+                mr: 2,
               }}
             >
-              <Icon icon={icon} width={24} color={color} />
+              <Icon
+                icon={icon}
+                width={24}
+                color={color || selected ? BaseColor.PRIMARY : BaseColor.INHERIT}
+              />
             </MuiListItemIcon>
           )}
           {/* Text */}
@@ -94,7 +95,7 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
             primary={title}
             secondary={subtitle}
             primaryTypographyProps={{ variant: "subtitle2", noWrap: true, fontWeight: "bold" }}
-            secondaryTypographyProps={{ variant: "caption", noWrap: true, mt: -1 }}
+            secondaryTypographyProps={{ variant: "caption", noWrap: true, mt: -0.5 }}
             sx={{ m: 0, px: 0 }}
           />
           {/* End Element */}

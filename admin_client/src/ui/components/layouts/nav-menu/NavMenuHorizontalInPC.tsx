@@ -19,15 +19,13 @@ const NavMenuHorizontalInPC: NamedExoticComponent<PropsWithChildren<MuiBoxProps>
           position: "sticky",
           top: UI_CONFIGS.size.HEADER_HEIGHT,
           overflowX: "scroll",
+          overflowY: "hidden",
           px: 1,
           borderTop: 1,
           borderBottom: 1,
           borderColor: "divider",
           backgroundColor: ({ palette }) => palette.background.paper,
-          "& li.MuiListItem-root": {
-            width: `${size}px !important`,
-            margin: "0 !important",
-          },
+          "& ul.MuiList-root": { display: "flex" },
           ...sx,
         }}
         {...props}

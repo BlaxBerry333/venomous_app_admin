@@ -16,7 +16,7 @@ export type PopoverProps = PropsWithChildren<Omit<MuiPopoverProps, "open" | "onC
 };
 
 /**
- * Popover 组件是通过定位浮动，其触发元素在显示期间无法被操作
+ * Popover 组件在展示期间，页面其它元素无法被操作
  */
 const Popover: NamedExoticComponent<PopoverProps> = memo(
   ({

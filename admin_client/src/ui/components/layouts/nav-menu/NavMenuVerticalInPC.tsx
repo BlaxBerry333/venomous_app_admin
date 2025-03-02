@@ -14,7 +14,7 @@ const NavMenuVerticalInPC: NamedExoticComponent<PropsWithChildren<MuiBoxProps>> 
   ({ children, sx, ...props }) => {
     const {
       navMenuWidthInLargeScreen,
-      navMenuExpandedInLargeScreen,
+      isExpandedInLargeScreen,
       toggleNavMenuExpandedInLargeScreen,
     } = useLayoutStore();
 
@@ -40,13 +40,20 @@ const NavMenuVerticalInPC: NamedExoticComponent<PropsWithChildren<MuiBoxProps>> 
         {/* Nav Menu Header */}
         <Header
           design={HeaderDesign.GLASS}
-          renderLogo={<Logo sx={{ ml: 1.5 }} />}
+          renderLogo={
+            <Logo
+              sx={{
+                ml: isExpandedInLargeScreen ? 1.5 : 3,
+                transition: "margin-left 0.2s ease-in-out",
+              }}
+            />
+          }
           renderActions={
             <AnimationIconButton
               size={BaseSize.SMALL}
               onClick={toggleNavMenuExpandedInLargeScreen}
               icon={
-                navMenuExpandedInLargeScreen
+                isExpandedInLargeScreen
                   ? "solar:alt-arrow-left-bold-duotone"
                   : "solar:alt-arrow-right-bold-duotone"
               }

@@ -1,18 +1,15 @@
 import type { NamedExoticComponent } from "react";
-import { memo, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 
-import { debounce } from "lodash-es";
-
-import MuiClickAwayListener from "@mui/material/ClickAwayListener";
-import MuiPopper, { type PopperProps as MuiPopperProps } from "@mui/material/Popper";
-
-import { Menu, type MenuProps } from "~/ui/components/base/menu";
+import { Menu } from "~/ui/components/base/menu";
 import { Icon } from "~/ui/components/customs";
 import { BlankContentImage } from "~/ui/components/design";
+import type { ListItemProps } from "../list-item";
+import { Popper, PopperPlacement } from "../popper";
 import type { TextFieldProps } from "./TextField";
 import TextField from "./TextField";
 
-type OptionType = MenuProps["list"][number];
+type OptionType = ListItemProps<string | number>;
 
 export type SelectProps = Omit<TextFieldProps, "select" | "value" | "onChange"> & {
   options: OptionType[];
@@ -22,9 +19,7 @@ export type SelectProps = Omit<TextFieldProps, "select" | "value" | "onChange"> 
 
 const Select: NamedExoticComponent<SelectProps> = memo(
   ({ options = [], value: propsValue = "", onChange: propsOnChange, helperText, ...props }) => {
-    const [_inputTitle, _setInputTitle] = useState<string>("");
-    const inputTitle = useDeferredValue<string>(_inputTitle);
-    const setInputTitle = useRef(debounce((value: string) => _setInputTitle(value), 40));
+    const [inputTitle, setInputTitle] = useState<string>("");
 
     // ----------------------------------------------------------------------------------------------------
 
@@ -52,47 +47,41 @@ const Select: NamedExoticComponent<SelectProps> = memo(
     // ----------------------------------------------------------------------------------------------------
 
     useEffect(() => {
-      const debounceFunction = setInputTitle.current;
-      return () => {
-        debounceFunction.cancel();
-      };
-    }, []);
-
-    useEffect(() => {
-      _setInputTitle(getOptionSelectedByValue(propsValue)?.title || "");
-    }, [propsValue, _setInputTitle, getOptionSelectedByValue]);
+      setInputTitle(getOptionSelectedByValue(propsValue)?.title || "");
+    }, [propsValue, setInputTitle, getOptionSelectedByValue]);
 
     // ----------------------------------------------------------------------------------------------------
 
     const handleValueChange = useCallback(
       (title: string) => {
         if (title === "") {
-          _setInputTitle("");
-          setInputTitle.current.cancel();
+          setInputTitle("");
         } else {
-          setInputTitle.current(title);
+          setInputTitle(title);
         }
         setShowAllOptions(false);
         propsOnChange?.(getOptionSelectedByTitle(title));
       },
-      [_setInputTitle, setShowAllOptions, propsOnChange, getOptionSelectedByTitle],
+      [setInputTitle, setShowAllOptions, propsOnChange, getOptionSelectedByTitle],
     );
 
     const handleOptionSelect = useCallback(
       (option: OptionType, callback: VoidFunction) => {
-        _setInputTitle(String(option.title));
+        setInputTitle(String(option.title));
         setShowAllOptions(true);
         propsOnChange?.(option);
         callback?.();
       },
-      [_setInputTitle, setShowAllOptions, propsOnChange],
+      [setInputTitle, setShowAllOptions, propsOnChange],
     );
 
     // ----------------------------------------------------------------------------------------------------
 
     return (
       <Popper
-        sx={{ marginTop: helperText ? "-24px !important" : "0 !important" }}
+        placement={PopperPlacement.bottom}
+        autoWidth
+        popperContentSx={{ marginTop: helperText ? "-24px !important" : "0 !important" }}
         handleOnClose={() => setShowAllOptions(true)}
         renderPopperTrigger={(params) => (
           <TextField
@@ -102,7 +91,7 @@ const Select: NamedExoticComponent<SelectProps> = memo(
             clearable
             showClearButton={Boolean(inputTitle)}
             handleOnClear={() => {
-              _setInputTitle("");
+              setInputTitle("");
               setShowAllOptions(true);
             }}
             endElement={
@@ -137,78 +126,3 @@ const Select: NamedExoticComponent<SelectProps> = memo(
 );
 
 export default Select;
-
-// ----------------------------------------------------------------------------------------------------
-
-type PopperProps = Omit<MuiPopperProps, "open" | "anchorEl"> & {
-  renderPopperTrigger: (popper: ReturnType<typeof usePopper>) => React.ReactNode;
-  renderPopperContent: (popper: ReturnType<typeof usePopper>) => React.ReactNode;
-  handleOnClose?: () => void;
-};
-
-/**
- * Popover 组件是通过 Modal 显现，其触发元素在显示期间仍可被操作
- */
-const Popper: NamedExoticComponent<PopperProps> = memo(
-  ({ renderPopperTrigger, renderPopperContent, handleOnClose, sx, ...props }) => {
-    const popper = usePopper();
-    const anchorElementWidth = useMemo(
-      () => (popper.anchorEl as Element)?.getBoundingClientRect()?.width || 0,
-      [popper.anchorEl],
-    );
-
-    useEffect(() => {
-      if (!popper.isOpen) {
-        handleOnClose?.();
-      }
-    }, [popper.isOpen, handleOnClose]);
-
-    return (
-      <MuiClickAwayListener onClickAway={popper.handleClose}>
-        <div>
-          {/* Popper Trigger */}
-          {renderPopperTrigger(popper)}
-
-          {/* Popper Content */}
-          <MuiPopper
-            open={popper.isOpen}
-            anchorEl={popper.anchorEl}
-            sx={{
-              width: anchorElementWidth,
-              maxHeight: 300,
-              overflowY: "scroll",
-              borderRadius: "8px",
-              border: 1,
-              borderColor: "divider",
-              backgroundColor: "background.paper",
-              px: "4px",
-              zIndex: 1100,
-              ...sx,
-            }}
-            {...props}
-          >
-            {renderPopperContent(popper)}
-          </MuiPopper>
-        </div>
-      </MuiClickAwayListener>
-    );
-  },
-);
-
-function usePopper() {
-  const [anchorEl, setAnchorEl] = useState<MuiPopperProps["anchorEl"]>(null);
-  const handleOpen = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(e.currentTarget);
-  }, []);
-  const handleClose = useCallback(() => {
-    setAnchorEl(null);
-  }, []);
-
-  return {
-    isOpen: !!anchorEl,
-    anchorEl,
-    setAnchorEl,
-    handleOpen,
-    handleClose,
-  };
-}

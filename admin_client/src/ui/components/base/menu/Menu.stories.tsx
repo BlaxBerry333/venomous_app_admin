@@ -57,11 +57,11 @@ export const DefaultSample: Story = {
           <Menu {...args} list={args.list} />
         </CardWithLabel>
 
-        <CardWithLabel title="使用 renderItem 属性渲染自定义 ListItem">
+        <CardWithLabel title="使用 renderListItem 属性自定义渲染">
           <Menu
             {...args}
             list={args.list}
-            renderItem={(item, index) => (
+            renderListItem={(item, index) => (
               <p key={item.title}>
                 <span>------</span>
                 <strong>{`<${index}>`}</strong>

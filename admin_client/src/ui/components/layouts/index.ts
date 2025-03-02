@@ -1,3 +1,5 @@
+export * from "./contents";
+
 export * from "./header";
 
 export * from "./logo";

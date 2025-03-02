@@ -1,60 +1,32 @@
 import type { NamedExoticComponent, PropsWithChildren } from "react";
-import { memo, useMemo } from "react";
+import { memo } from "react";
 
 import type { Theme as MuiTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { UI_CONFIGS } from "~/ui/_configs";
-import { BasePosition, getColor } from "~/ui/_helpers";
+import { getColor } from "~/ui/_helpers";
 import { NavPosition, useLayoutStore } from "~/ui/_hooks";
 import {
   ContainerMaxBreakpoint,
   ContainerWrapper,
   Header,
   HeaderDesign,
-  ListNestedItem,
   Logo,
   NavMenuHorizontalInPC,
   NavMenuVerticalInMobile,
   NavMenuVerticalInPC,
   SettingsDrawer,
-  type ListCollapsableItemProps,
 } from "~/ui/components";
+import DashboardLayoutNavMenu from "./DashboardLayoutNavMenu";
 
 const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
-  const { navMenuExpandedInLargeScreen, navMenuWidthInLargeScreen, navMenuPosition } =
-    useLayoutStore();
+  const isLargeScreen: boolean = useMediaQuery((theme: MuiTheme) => theme.breakpoints.up("sm"));
+
+  const { isExpandedInLargeScreen, navMenuWidthInLargeScreen, navMenuPosition } = useLayoutStore();
 
   const isVerticalNavMenu: boolean = navMenuPosition === NavPosition.VerticalNavPosition;
   const isHorizontalNavMenu: boolean = navMenuPosition === NavPosition.HorizontalNavPosition;
-
-  const isLargeScreen: boolean = useMediaQuery((theme: MuiTheme) => theme.breakpoints.up("sm"));
-
-  // ----------------------------------------------------------------------------------------------------
-
-  const navItemsWithNestedList = useMemo<Array<ListCollapsableItemProps>>(() => {
-    return [
-      {
-        icon: "solar:box-minimalistic-bold-duotone",
-        title: "XXX",
-        nestList: [
-          { title: "AAA", subtitle: "aaa" },
-          { title: "BBB", subtitle: "bbb" },
-        ],
-      },
-      {
-        icon: "solar:box-minimalistic-bold-duotone",
-        title: "XXXXX",
-        nestList: [
-          { title: "AAA", subtitle: "aaa" },
-          { title: "BBB", subtitle: "bbb" },
-          { title: "CCC" },
-          { title: "DDD" },
-          { title: "EEE" },
-        ],
-      },
-    ];
-  }, []);
 
   // ----------------------------------------------------------------------------------------------------
 
@@ -71,14 +43,10 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
     >
       {isLargeScreen && isVerticalNavMenu && (
         <NavMenuVerticalInPC>
-          {navItemsWithNestedList.map((item) => (
-            <ListNestedItem
-              key={item.title}
-              {...item}
-              isOmittedWithPopover={!navMenuExpandedInLargeScreen}
-              popoverPosition={BasePosition.RIGHT_BOTTOM}
-            />
-          ))}
+          {isExpandedInLargeScreen && <DashboardLayoutNavMenu.ParentCollapsable />}
+          {!isExpandedInLargeScreen && (
+            <DashboardLayoutNavMenu.ParentIconOnly isVertical showChildItemTitleUnderIcon />
+          )}
         </NavMenuVerticalInPC>
       )}
 
@@ -99,9 +67,7 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
             <>
               {!isLargeScreen && (
                 <NavMenuVerticalInMobile>
-                  {navItemsWithNestedList.map((item) => (
-                    <ListNestedItem key={item.title} {...item} isOmittedWithPopover={false} />
-                  ))}
+                  <DashboardLayoutNavMenu.ParentCollapsable />
                 </NavMenuVerticalInMobile>
               )}
               {isHorizontalNavMenu && <Logo sx={{ ml: 1.5 }} />}
@@ -122,14 +88,10 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
 
         {isLargeScreen && isHorizontalNavMenu && (
           <NavMenuHorizontalInPC>
-            {navItemsWithNestedList.map((item) => (
-              <ListNestedItem
-                key={item.title}
-                {...item}
-                isOmittedWithPopover
-                popoverPosition={BasePosition.RIGHT_BOTTOM}
-              />
-            ))}
+            <DashboardLayoutNavMenu.ParentIconOnly
+              isVertical={false}
+              showChildItemTitleUnderIcon={false}
+            />
           </NavMenuHorizontalInPC>
         )}
 

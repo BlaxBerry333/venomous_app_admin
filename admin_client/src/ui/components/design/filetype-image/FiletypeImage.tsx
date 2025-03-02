@@ -3,7 +3,7 @@ import { memo, useMemo } from "react";
 
 import MuiBox from "@mui/material/Box";
 
-import { getFiletypeColor, type SupportedFileExtensionsType } from "~/utils/file";
+import { getFiletypeColor, type SupportedFileExtensionsType } from "~/utils/custom/file";
 
 const FiletypeImage: NamedExoticComponent<{
   fileType: SupportedFileExtensionsType;

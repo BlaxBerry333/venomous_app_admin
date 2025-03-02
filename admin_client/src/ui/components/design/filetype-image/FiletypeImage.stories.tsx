@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { SUPPORTED_FILE_EXTENSIONS } from "~/utils/file";
+import { SUPPORTED_FILE_EXTENSIONS } from "~/utils/custom/file";
 import FiletypeImage from "./FiletypeImage";
 
 const meta = {

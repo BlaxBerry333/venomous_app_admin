@@ -68,9 +68,7 @@ venomous_app_admin/
 │       │
 │       ├── app/
 │       │   ├── _configs/                       # configuration of project
-│       │   ├── _providers/
 │       │   ├── pages/
-│       │   ├── router/
 │       │   │
 │       │   └── App.tsx                         # main App component of project
 │       │
@@ -119,6 +117,11 @@ venomous_app_admin/
 │       │
 │       │
 │       ├── utils/                              # common utils of project
+│       │   ├── custom/                         # custom tools
+│       │   │
+│       │   └── libs/                           # 3rd-party libraries
+│       │       ├── ...
+│       │       └── <module_name>
 │       │
 │       └── ...
 │

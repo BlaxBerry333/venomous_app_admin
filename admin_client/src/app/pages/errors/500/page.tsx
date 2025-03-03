@@ -5,7 +5,12 @@ import { ErrorLayout } from "~/ui/templates";
 export default function Error500Page() {
   return (
     <PageContent helmet={{ title: "500" }}>
-      <ErrorLayout errorCode={ErrorCode.SERVER_ERROR} />
+      <ErrorLayout
+        errorCode={ErrorCode.SERVER_ERROR}
+        title="Server Error"
+        subtitle="Something went wrong on our side"
+        hideNavigationButton
+      />
     </PageContent>
   );
 }

@@ -24,7 +24,6 @@ const Icon = forwardRef<SVGElement, IconProps>(
           height: width,
           flexShrink: 0,
           display: "inline-flex",
-          transition: "color 0.2s ease-in-out",
           color: ({ palette }) => {
             return color === BaseColor.INHERIT
               ? palette.mode === "dark"

@@ -69,7 +69,7 @@ const ParentCollapsableNavMenu: NamedExoticComponent = memo(() => {
                   selected={isSelected}
                   triggerSx={{ mb: 0.5 }}
                   nestList={nestList}
-                  nestListSx={{ overflow: "hidden", pl: 5.5 }}
+                  nestListSx={{ overflow: "hidden", pl: 5.5, mb: 0.5 }}
                   renderListItem={(_item) => (
                     <DashboardLayoutNavMenuItem key={_item.title} {..._item} isInsideOfNested />
                   )}
@@ -106,7 +106,7 @@ const ParentIconOnlyNavMenu: NamedExoticComponent<{
   }, [isVertical]);
 
   const popperStyle = useMemo<CSSProperties>(() => {
-    if (isVertical) return { marginLeft: "24px !important" };
+    if (isVertical) return { marginLeft: "26px !important" };
     return { marginTop: "4px !important" };
   }, [isVertical]);
 
@@ -123,44 +123,57 @@ const ParentIconOnlyNavMenu: NamedExoticComponent<{
             sx={{ display: "flex", flexDirection: "column", alignItems: "center", mx: "1px" }}
           >
             {/* Parent Icon */}
-            <MuiBox sx={{ width: "50px" }}>
+            <MuiBox sx={{ position: "relative", width: "50px", mb: isVertical ? 3 : 0 }}>
               <ListItemWithIconPopper
                 {...item}
                 popperPlacement={popperPlacement}
                 popperContentSx={popperStyle}
                 renderTrigger={(params) => (
-                  <DashboardLayoutNavMenuItem
-                    {...itemWithoutNestList}
-                    selected={isSelected}
-                    onClick={(e) => {
-                      if (item.path) item.onClick?.(e);
-                      params.handleOpen(e);
-                    }}
-                    sx={{
-                      "& .MuiListItemIcon-root": { margin: 0, transform: "translate(-2px, 0)" },
-                      ...item.sx,
-                    }}
-                  />
+                  <>
+                    <DashboardLayoutNavMenuItem
+                      {...itemWithoutNestList}
+                      selected={isSelected}
+                      onClick={(e) => {
+                        if (item.path) item.onClick?.(e);
+                        params.handleOpen(e);
+                      }}
+                      sx={{
+                        "& .MuiListItemIcon-root": {
+                          margin: 0,
+                          transform: "translate(-2px, 0)",
+                        },
+                        "& svg": {
+                          color: ({ palette: { primary } }) =>
+                            params.isOpen ? `${primary.light} !important` : "inherit",
+                        },
+                        ...item.sx,
+                      }}
+                    />
+                    {/* Parent Title */}
+                    {showChildItemTitleUnderIcon && (
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          fontWeight: "bold",
+                          fontSize: 10,
+                          position: "absolute",
+                          bottom: -12,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          color: ({ palette: { primary } }) =>
+                            isSelected || params.isOpen ? `${primary.light} !important` : "inherit",
+                        }}
+                      >
+                        {item.title}
+                      </Typography>
+                    )}
+                  </>
                 )}
                 renderNestListItem={(_item) => (
                   <DashboardLayoutNavMenuItem key={_item.title} {..._item} />
                 )}
               />
             </MuiBox>
-            {/* Parent Title */}
-            {showChildItemTitleUnderIcon && (
-              <Typography
-                variant="caption"
-                sx={{
-                  transition: "color 0.2s ease-in-out",
-                  color: !isSelected ? "primary.secondary" : "primary.light",
-                  fontSize: 10,
-                  mb: 1,
-                }}
-              >
-                {item.title}
-              </Typography>
-            )}
           </MuiBox>
         );
       })}
@@ -196,33 +209,33 @@ function useDashboardNavMenuItems() {
           nestList: [
             {
               title: "List",
-              icon: "solar:layers-minimalistic-line-duotone",
+              icon: "solar:list-bold-duotone",
               path: "/dashboard/workflow/list",
             },
             {
               title: "Create",
-              icon: "solar:add-square-line-duotone",
+              icon: "solar:add-circle-line-duotone",
               path: "/dashboard/workflow/create",
             },
           ],
         },
-        {
-          title: "Chat",
-          icon: "solar:chat-line-bold-duotone",
-          subtitle: "Developing...",
-          nestList: [
-            {
-              title: "List",
-              icon: "solar:layers-minimalistic-line-duotone",
-              path: "/dashboard/chat/list",
-            },
-            {
-              title: "Create",
-              icon: "solar:add-square-line-duotone",
-              path: "/dashboard/chat/create",
-            },
-          ],
-        },
+        // {
+        //   title: "Chat",
+        //   icon: "solar:chat-line-bold-duotone",
+        //   subtitle: "Developing...",
+        //   nestList: [
+        //     {
+        //       title: "List",
+        //       icon: "solar:list-bold-duotone",
+        //       path: "/dashboard/chat/list",
+        //     },
+        //     {
+        //       title: "Create",
+        //       icon: "solar:add-circle-line-duotone",
+        //       path: "/dashboard/chat/create",
+        //     },
+        //   ],
+        // },
       ],
     };
   }, []);

@@ -3,6 +3,7 @@ import { memo } from "react";
 
 import MuiBox from "@mui/material/Box";
 
+import { Link } from "react-router-dom";
 import { UI_CONFIGS } from "~/ui/_configs";
 import { getColor } from "~/ui/_helpers";
 import {
@@ -18,64 +19,80 @@ import {
   Typography,
 } from "~/ui/components";
 
-const ErrorLayout: NamedExoticComponent<{
+type ErrorLayoutProps = {
   errorCode: ErrorCode;
   title?: string;
   subtitle?: string;
-}> = memo(({ errorCode, title, subtitle }) => {
-  return (
-    <ContainerWrapper
-      maxWidth={ContainerMaxBreakpoint.FULL_WIDTH}
-      sx={{
-        backgroundColor: ({ palette }) => getColor(palette.background.default).opacity(1),
-      }}
-    >
-      <Header
-        design={HeaderDesign.GLASS}
-        height={UI_CONFIGS.size.HEADER_HEIGHT}
-        renderLogo={<Logo sx={{ ml: 1.5 }} />}
-        renderActions={
-          <>
-            <SettingsDrawer
-              showOptionBlocks={{
-                themeMode: true,
-                themePaletteColorName: true,
-                dashboardNavMenuPosition: false,
-              }}
-            />
-          </>
-        }
-      />
+  hideNavigationButton?: boolean;
+  navigationButtonText?: string;
+  navigationUrl?: string;
+};
 
-      <MuiBox
+const ErrorLayout: NamedExoticComponent<ErrorLayoutProps> = memo(
+  ({
+    errorCode,
+    title,
+    subtitle,
+    hideNavigationButton = false,
+    navigationButtonText = "Back To Home",
+    navigationUrl = "/",
+  }) => {
+    return (
+      <ContainerWrapper
+        maxWidth={ContainerMaxBreakpoint.FULL_WIDTH}
         sx={{
-          height: `calc(100svh - ${UI_CONFIGS.size.HEADER_HEIGHT}px)`,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          backgroundColor: ({ palette }) => getColor(palette.background.default).opacity(1),
         }}
       >
-        {/* Titles */}
-        <MuiBox sx={{ textAlign: "center", mb: 5 }}>
-          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            {title || errorCode}
-          </Typography>
-          <Typography variant="subtitle1" sx={{ color: "text.secondary" }}>
-            {subtitle || errorCode}
-          </Typography>
+        <Header
+          design={HeaderDesign.GLASS}
+          height={UI_CONFIGS.size.HEADER_HEIGHT}
+          renderLogo={<Logo sx={{ ml: 1.5 }} />}
+          renderActions={
+            <>
+              <SettingsDrawer
+                showOptionBlocks={{
+                  themeMode: true,
+                  themePaletteColorName: true,
+                  dashboardNavMenuPosition: false,
+                }}
+              />
+            </>
+          }
+        />
+
+        <MuiBox
+          sx={{
+            height: `calc(100svh - ${UI_CONFIGS.size.HEADER_HEIGHT}px)`,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {/* Titles */}
+          <MuiBox sx={{ textAlign: "center", mb: 5 }}>
+            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+              {title || errorCode}
+            </Typography>
+            <Typography variant="subtitle1" sx={{ color: "text.secondary" }}>
+              {subtitle || errorCode}
+            </Typography>
+          </MuiBox>
+
+          {/* Error Code Image */}
+          <ErrorImage errorCode={errorCode} />
+
+          {/* Navigation Button */}
+          {!hideNavigationButton && (
+            <Link to={navigationUrl} replace>
+              <Button sx={{ mt: 5 }}>{navigationButtonText}</Button>
+            </Link>
+          )}
         </MuiBox>
-
-        {/* Error Code Image */}
-        <ErrorImage errorCode={errorCode} />
-
-        {/* Navigation Button */}
-        <Button href="/" sx={{ mt: 5 }}>
-          Back To Home
-        </Button>
-      </MuiBox>
-    </ContainerWrapper>
-  );
-});
+      </ContainerWrapper>
+    );
+  },
+);
 
 export default ErrorLayout;

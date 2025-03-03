@@ -5,7 +5,7 @@ import type { Preview } from "@storybook/react";
 import { ThemePaletteColorName } from "../src/ui/_helpers";
 import { ThemeMode, useThemeStore } from "../src/ui/_hooks";
 import { ThemeProvider } from "../src/ui/_providers";
-import { Router } from "../src/utils/libs/router";
+import { RouterProvider } from "../src/utils/libs/router/_providers";
 
 const preview: Preview = {
   parameters: {
@@ -67,9 +67,9 @@ const preview: Preview = {
       return (
         <React.Fragment>
           <ThemeProvider>
-            <Router>
+            <RouterProvider>
               <Story />
-            </Router>
+            </RouterProvider>
           </ThemeProvider>
         </React.Fragment>
       );

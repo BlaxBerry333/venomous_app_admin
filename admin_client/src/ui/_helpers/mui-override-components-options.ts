@@ -1,6 +1,14 @@
 import type { Components as MuiComponents, Theme as MuiTheme } from "@mui/material/styles";
 
 export const MuiOverrideComponentsOptions: MuiComponents<Omit<MuiTheme, "components">> = {
+  MuiAlert: {
+    styleOverrides: {
+      root: {
+        borderRadius: "8px",
+      },
+    },
+  },
+
   MuiButtonBase: {
     styleOverrides: {
       root: {

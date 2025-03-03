@@ -1,9 +1,12 @@
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 
 import { FullPageLoading } from "~/ui/components";
-import { DashboardLayout } from "~/ui/templates";
 import { autoImportedLazyRoutes, type AutoImportedRoutesModulesType } from "../_helpers";
+
+const DashboardLayout = lazy(() =>
+  import("~/ui/templates").then((m) => ({ default: m.DashboardLayout })),
+);
 
 const DASHBOARD_ROUTES_AUTO_IMPORTED: RouteObject[] = autoImportedLazyRoutes(
   import.meta.glob("~/app/pages/dashboard/**/page.tsx", {
@@ -29,11 +32,11 @@ export const DashboardRoutes: RouteObject[] = [
   {
     path: `/${DASHBOARD_ROUTE_PATH.BASE}`,
     element: (
-      <DashboardLayout>
-        <Suspense fallback={<FullPageLoading />}>
+      <Suspense fallback={<FullPageLoading />}>
+        <DashboardLayout>
           <Outlet />
-        </Suspense>
-      </DashboardLayout>
+        </DashboardLayout>
+      </Suspense>
     ),
     children: [
       {

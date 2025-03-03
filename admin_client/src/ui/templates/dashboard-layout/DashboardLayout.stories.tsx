@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import DashboardLayoutNavMenu from "./DashboardLayoutNavMenu";
+import DashboardLayout from "./DashboardLayout";
 
 const meta = {
-  title: "App Templates/DashboardLayout/NavMenu.ParentIconOnly",
-  component: DashboardLayoutNavMenu.ParentIconOnly,
+  title: "App Templates/DashboardLayout",
+  component: DashboardLayout,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
     controls: { disable: true },
     actions: { disable: true },
   },
   // tags: ["autodocs"],
-} satisfies Meta<typeof DashboardLayoutNavMenu.ParentIconOnly>;
+} satisfies Meta<typeof DashboardLayout>;
 
 export default meta;
 

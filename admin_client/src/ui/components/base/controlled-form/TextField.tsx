@@ -89,7 +89,7 @@ const TextField: NamedExoticComponent<TextFieldProps> = memo(
               display: helperText ? "block" : "none",
               m: 0,
               mx: 0.5,
-              mb: 0.5,
+              mb: 1,
             },
           },
         }}

@@ -40,6 +40,7 @@ const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) 
       />
 
       <MuiBox
+        component="main"
         sx={{
           height: `calc(100svh - ${UI_CONFIGS.size.HEADER_HEIGHT}px)`,
           display: "flex",
@@ -48,7 +49,10 @@ const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) 
           alignItems: "center",
         }}
       >
-        {children}
+        <MuiBox sx={{ width: { xs: 300, sm: 400 } }}>
+          {/* Content */}
+          {children}
+        </MuiBox>
       </MuiBox>
     </ContainerWrapper>
   );

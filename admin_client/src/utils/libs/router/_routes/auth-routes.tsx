@@ -1,9 +1,10 @@
-import { Suspense } from "react";
+import { Fragment, lazy, Suspense } from "react";
 import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 
 import { FullPageLoading } from "~/ui/components";
-import { AuthLayout } from "~/ui/templates";
 import { autoImportedLazyRoutes, type AutoImportedRoutesModulesType } from "../_helpers";
+
+const AuthLayout = lazy(() => import("~/ui/templates").then((m) => ({ default: m.AuthLayout })));
 
 const AUTH_ROUTES_AUTO_IMPORTED: RouteObject[] = autoImportedLazyRoutes(
   import.meta.glob("~/app/pages/auth/**/page.tsx", {
@@ -25,11 +26,13 @@ export const AuthRoutes: RouteObject[] = [
   {
     path: `/${AUTH_ROUTE_PATH.BASE}`,
     element: (
-      <AuthLayout>
+      <Fragment>
         <Suspense fallback={<FullPageLoading />}>
-          <Outlet />
+          <AuthLayout>
+            <Outlet />
+          </AuthLayout>
         </Suspense>
-      </AuthLayout>
+      </Fragment>
     ),
     children: [
       {

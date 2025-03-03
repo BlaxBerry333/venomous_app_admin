@@ -3,16 +3,28 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "~/ui/components/base";
-import { Form } from ".";
+import { RHF } from ".";
 
 const meta = {
   title: "Components/Customs ( 3rd-party ) /UncontrolledForm",
-  component: Form.Provider,
+  component: RHF.Form,
   parameters: {
     layout: "centered",
   },
   // tags: ["autodocs"],
-} satisfies Meta<typeof Form.Provider>;
+  argTypes: {
+    form: {
+      description: "表单实例对象",
+    },
+    onSubmit: {
+      description: "提交处理函数",
+    },
+  },
+  args: {
+    form: undefined,
+    onSubmit: undefined,
+  },
+} satisfies Meta<typeof RHF.Form>;
 
 export default meta;
 
@@ -32,20 +44,19 @@ export const DefaultSample: Story = {
     };
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const form = useForm<FormDataType>();
-    const { handleSubmit } = form;
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = (data: FormDataType) => {
       console.log(data);
-    });
+    };
 
     return (
-      <Form.Provider<FormDataType> form={form} onSubmit={onSubmit}>
-        <Form.Text name="name" label="文本" />
-        <Form.Password name="password" label="密码/文本" />
-        <Form.Number name="age" label="数字" />
-        <Form.Switch name="isActive" startLabel="Yes" endLabel="No" />
-        <Form.Checkbox name="isActive" startLabel="Yes" endLabel="No" />
-        <Form.OneTimeInput name="code" />
-        <Form.Select
+      <RHF.Form<FormDataType> form={form} onSubmit={onSubmit}>
+        <RHF.Text name="name" label="文本" />
+        <RHF.Password name="password" label="密码/文本" />
+        <RHF.Number name="age" label="数字" />
+        <RHF.Switch name="isActive" startLabel="Yes" endLabel="No" />
+        <RHF.Checkbox name="isActive" startLabel="Yes" endLabel="No" />
+        <RHF.OneTimeInput name="code" />
+        <RHF.Select
           name="country"
           label="选项"
           options={[
@@ -59,7 +70,7 @@ export const DefaultSample: Story = {
           ]}
         />
         <Button type="submit">提交</Button>
-      </Form.Provider>
+      </RHF.Form>
     );
   },
 };

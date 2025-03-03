@@ -1,3 +1,5 @@
+export * from "./alert";
+
 export * from "./arrow";
 
 export * from "./avatar";
@@ -19,6 +21,8 @@ export * from "./drawer";
 export * from "./iconbutton";
 
 export * from "./image";
+
+export * from "./link";
 
 export * from "./list-item";
 

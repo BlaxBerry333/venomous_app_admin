@@ -3,7 +3,6 @@ import { memo } from "react";
 
 import MuiBox from "@mui/material/Box";
 
-import { Link } from "react-router-dom";
 import { UI_CONFIGS } from "~/ui/_configs";
 import { getColor } from "~/ui/_helpers";
 import {
@@ -14,6 +13,7 @@ import {
   ErrorImage,
   Header,
   HeaderDesign,
+  Link,
   Logo,
   SettingsDrawer,
   Typography,
@@ -85,7 +85,7 @@ const ErrorLayout: NamedExoticComponent<ErrorLayoutProps> = memo(
 
           {/* Navigation Button */}
           {!hideNavigationButton && (
-            <Link to={navigationUrl} replace>
+            <Link to={navigationUrl} replace underline="none">
               <Button sx={{ mt: 5 }}>{navigationButtonText}</Button>
             </Link>
           )}

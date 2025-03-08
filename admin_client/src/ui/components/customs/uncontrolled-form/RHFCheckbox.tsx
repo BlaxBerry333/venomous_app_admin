@@ -20,14 +20,12 @@ const RHFCheckbox: NamedExoticComponent<RHFCheckboxProps> = memo(
         control={control}
         defaultValue={defaultValue}
         render={({ field }) => (
-          <>
-            <Checkbox
-              inputRef={field.ref}
-              checked={Boolean(field.value) || defaultValue}
-              onChange={(checked: boolean) => field.onChange(checked)}
-              {...props}
-            />
-          </>
+          <Checkbox
+            inputRef={field.ref}
+            checked={Boolean(field.value) || defaultValue}
+            onChange={(checked: boolean) => field.onChange(checked)}
+            {...props}
+          />
         )}
       />
     );

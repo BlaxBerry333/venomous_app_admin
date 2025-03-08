@@ -14,6 +14,7 @@ const AnimationWrapper: NamedExoticComponent<
           whileHover={{ scale: noAnimation ? 1 : 1.1 }}
           whileTap={{ scale: noAnimation ? 1 : 0.9 }}
           transition={{ duration: 0.2 }}
+          style={{ lineHeight: 0 }}
         >
           {children}
         </m.div>

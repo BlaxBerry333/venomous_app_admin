@@ -20,14 +20,12 @@ const RHFSwitch: NamedExoticComponent<RHFSwitchProps> = memo(
         control={control}
         defaultValue={defaultValue}
         render={({ field }) => (
-          <>
-            <Switch
-              inputRef={field.ref}
-              checked={Boolean(field.value) || defaultValue}
-              onChange={(checked: boolean) => field.onChange(checked)}
-              {...props}
-            />
-          </>
+          <Switch
+            inputRef={field.ref}
+            checked={Boolean(field.value) || defaultValue}
+            onChange={(checked: boolean) => field.onChange(checked)}
+            {...props}
+          />
         )}
       />
     );

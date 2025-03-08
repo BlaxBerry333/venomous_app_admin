@@ -1,18 +1,37 @@
 export type IAuthSignupParams = {
-  username: string;
   email: string;
+  username: string;
   password: string;
 };
 
 export type IAuthLoginParams = {
-  email: string;
+  username: string;
   password: string;
 };
 
+export type IAuthResetPasswordParams = {
+  email: string;
+};
+
+export type IAuthVerifyPasswordParams = {
+  email: string;
+  code: string;
+};
+
 export type IAuthSignupResponse = {
-  token: string;
+  access_token: string;
+  refresh_token: string;
 };
 
 export type IAuthLoginResponse = {
-  token: string;
+  access_token: string;
+  refresh_token: string;
+};
+
+export type IAuthResetPasswordResponse = {
+  message: string;
+};
+
+export type IAuthVerifyPasswordResponse = {
+  message: string;
 };

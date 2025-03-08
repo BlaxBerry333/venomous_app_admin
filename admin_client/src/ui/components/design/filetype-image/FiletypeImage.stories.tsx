@@ -9,7 +9,7 @@ const meta = {
   parameters: { layout: "centered" },
   // tags: ["autodocs"],
   argTypes: {
-    fileType: {
+    extension: {
       description: "文件类型",
       control: "select",
       options: [...SUPPORTED_FILE_EXTENSIONS],
@@ -24,7 +24,7 @@ const meta = {
     },
   },
   args: {
-    fileType: ".pdf",
+    extension: ".pdf",
     width: 40,
     height: 40,
   },

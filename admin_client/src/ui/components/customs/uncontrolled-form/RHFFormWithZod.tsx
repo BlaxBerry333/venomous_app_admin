@@ -7,28 +7,6 @@ import { z } from "zod";
 
 import { RHF } from "~/ui/components";
 
-/**
- * 基于现有的数据类型创建 Zod Schema 以避免数据结构不一致
- *
- * @example
- * ```ts
- * type APIParamsType = {
- *   username: string;
- *   password: string;
- * };
- *
- * const formSchemas = createZodSchema<APIParamsType>()(
- *   z.object({
- *     username: z.string().min(4, "Username must be at least 4 characters long"),
- *     password: z.string().min(4, "Password must be at least 4 characters long"),
- *   }),
- * );
- * ```
- */
-export function createZodSchema<T>() {
-  return <SchemaType extends z.ZodType<T>>(schema: SchemaType) => schema;
-}
-
 type RHFFormWithZodProps<S extends ReturnType<typeof z.object>> = PropsWithChildren<{
   zodSchema: S;
   defaultValues: DefaultValues<z.infer<S>>;
@@ -36,6 +14,19 @@ type RHFFormWithZodProps<S extends ReturnType<typeof z.object>> = PropsWithChild
   style?: CSSProperties;
 }>;
 
+/**
+ * @example
+ * ```tsx
+ * <RHFFormWithZod
+ *   zodSchema={z.object({ username: z.string(), email: z.string() })}
+ *   defaultValues={{ username: "", email: "" }}
+ *   onSubmit={(data) => console.log(data)}
+ * >
+ *   <RHF.Text name="username" label="Username" />
+ *   <RHF.Text name="email" label="Email" />
+ *   <RHF.Action isLoading={isLoading} />
+ * </>
+ */
 function RHFFormWithZod<S extends ReturnType<typeof z.object>>({
   children,
   zodSchema,

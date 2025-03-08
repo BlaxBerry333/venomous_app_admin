@@ -1,6 +1,8 @@
 import { lazy, Suspense } from "react";
 import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 
+import { DashboardLayoutAccount } from "~/app/features/auth/_components";
+import { AuthGuard } from "~/app/features/dashboard/_providers";
 import { FullPageLoading } from "~/ui/components";
 import { autoImportedLazyRoutes, type AutoImportedRoutesModulesType } from "../_helpers";
 
@@ -32,16 +34,23 @@ export const DashboardRoutes: RouteObject[] = [
   {
     path: `/${DASHBOARD_ROUTE_PATH.BASE}`,
     element: (
-      <Suspense fallback={<FullPageLoading />}>
+      <AuthGuard>
         <DashboardLayout>
-          <Outlet />
+          <Suspense fallback={<FullPageLoading />}>
+            <DashboardLayoutAccount />
+            <Outlet />
+          </Suspense>
         </DashboardLayout>
-      </Suspense>
+      </AuthGuard>
     ),
     children: [
       {
         index: true,
         element: <Navigate to={DASHBOARD_ROUTE_PATH.ROOT} replace />,
+        loader: () => {
+          console.log("loader");
+          return null;
+        },
       },
 
       ...DASHBOARD_ROUTES_AUTO_IMPORTED,

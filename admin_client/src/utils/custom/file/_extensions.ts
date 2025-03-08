@@ -23,8 +23,8 @@ export const SUPPORTED_FILE_EXTENSIONS = [
 
 export type SupportedFileExtensionsType = (typeof SUPPORTED_FILE_EXTENSIONS)[number];
 
-export function getFiletypeColor(filetype: SupportedFileExtensionsType) {
-  switch (filetype) {
+export function getFiletypeColor(extension: SupportedFileExtensionsType) {
+  switch (extension) {
     case ".jpg":
     case ".jpeg":
     case ".png":
@@ -33,7 +33,7 @@ export function getFiletypeColor(filetype: SupportedFileExtensionsType) {
       return "#4A90E2"; // 蓝色
 
     case ".svg":
-      return "#FFD700"; // 金色
+      return "#F0DB4F"; // 黄色
 
     case ".pdf":
       return "#E94848"; // 红色
@@ -46,7 +46,7 @@ export function getFiletypeColor(filetype: SupportedFileExtensionsType) {
 
     case ".js":
     case ".json":
-      return "#F0DB4F"; // 黄色
+      return "#FED866"; // 黄色
 
     case ".xls":
     case ".xlsx":

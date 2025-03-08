@@ -7,7 +7,7 @@ export default function AuthLoginPage() {
   return (
     <PageContent helmet={{ title: "Login" }}>
       <AuthLayoutTitle
-        title={"Welcome Back"}
+        title={"Login"}
         subtitle={"Don't have an account?"}
         subTitleExtraText={"Create Account"}
         subTitleExtraUrl={"/auth/signup"}

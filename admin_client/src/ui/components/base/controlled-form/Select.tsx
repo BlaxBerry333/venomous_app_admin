@@ -81,7 +81,7 @@ const Select: NamedExoticComponent<SelectProps> = memo(
       <Popper
         placement={PopperPlacement.bottom}
         autoWidth
-        popperContentSx={{ marginTop: helperText ? "-24px !important" : "0 !important" }}
+        popperContentSx={{ marginTop: helperText ? "-28px !important" : "0 !important" }}
         handleOnClose={() => setShowAllOptions(true)}
         renderPopperTrigger={(params) => (
           <TextField

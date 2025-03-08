@@ -31,14 +31,7 @@ const Menu: NamedExoticComponent<MenuProps> = memo(
           // 使用自定义渲染
           if (renderListItem) return renderListItem(item, index);
           // 使用默认渲染
-          return (
-            <ListItem
-              key={item.title}
-              sx={{ my: 0.5, ...listItemSx }}
-              size={listItemSize}
-              {...item}
-            />
-          );
+          return <ListItem key={item.title} sx={listItemSx} size={listItemSize} {...item} />;
         })}
 
         {/* 使用自定义内容 */}

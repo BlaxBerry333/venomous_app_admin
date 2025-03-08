@@ -16,15 +16,18 @@ export enum ListItemSize {
   LARGE = "large",
 }
 
-export type ListItemProps<V = string | number> = Omit<MuiListItemProps, "onClick" | "value"> &
-  MuiListItemButtonProps & {
+export type ListItemProps<V = string | number> = Omit<
+  MuiListItemProps,
+  "onClick" | "value" | "color"
+> &
+  Omit<MuiListItemButtonProps, "color"> & {
     title: string;
     subtitle?: string;
     icon?: IconProps["icon"];
     selected?: boolean;
     onClick?: MuiListItemButtonProps["onClick"];
     endElement?: ReactNode;
-    color?: BaseColor;
+    iconColor?: BaseColor;
     size?: ListItemSize;
     value?: V;
   };
@@ -37,7 +40,7 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
     icon,
     selected,
     endElement,
-    color,
+    iconColor,
     size = ListItemSize.LARGE,
     sx,
     ...props
@@ -86,7 +89,7 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
               <Icon
                 icon={icon}
                 width={24}
-                color={color || selected ? BaseColor.PRIMARY : BaseColor.INHERIT}
+                color={iconColor || selected ? BaseColor.PRIMARY : BaseColor.INHERIT}
               />
             </MuiListItemIcon>
           )}

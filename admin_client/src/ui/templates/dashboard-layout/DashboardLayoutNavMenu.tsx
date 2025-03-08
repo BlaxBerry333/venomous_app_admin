@@ -249,21 +249,21 @@ function useDashboardNavMenuItems() {
         //   icon: "solar:users-group-rounded-bold-duotone",
         //   path: "/dashboard/management/users",
         // },
-        // {
-        //   title: "APIs",
-        //   icon: "solar:ufo-2-bold-duotone",
-        //   path: "/dashboard/management/users",
-        // },
-        // {
-        //   title: "Files",
-        //   icon: "solar:folder-with-files-bold-duotone",
-        //   path: "/dashboard/management/users",
-        // },
         {
-          title: "404",
-          icon: "solar:box-minimalistic-bold-duotone",
-          path: "/errors/404",
+          title: "API",
+          icon: "solar:ufo-2-bold-duotone",
+          path: "/dashboard/management/users",
         },
+        {
+          title: "Files",
+          icon: "solar:folder-with-files-bold-duotone",
+          path: "/dashboard/management/users",
+        },
+        // {
+        //   title: "404",
+        //   icon: "solar:box-minimalistic-bold-duotone",
+        //   path: "/errors/404",
+        // },
       ],
     };
   }, []);

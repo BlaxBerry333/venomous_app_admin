@@ -1,4 +1,4 @@
-import { Fragment, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 
 import { FullPageLoading } from "~/ui/components";
@@ -18,7 +18,8 @@ const AUTH_ROUTE_PATH = {
   SEGMENT: {
     LOGIN: "login",
     SIGNUP: "signup",
-    VERIFY: "verify",
+    VERIFY_EMAIL: "verify-email",
+    RESET_PASSWORD: "reset-password",
   },
 } as const;
 
@@ -26,13 +27,11 @@ export const AuthRoutes: RouteObject[] = [
   {
     path: `/${AUTH_ROUTE_PATH.BASE}`,
     element: (
-      <Fragment>
+      <AuthLayout>
         <Suspense fallback={<FullPageLoading />}>
-          <AuthLayout>
-            <Outlet />
-          </AuthLayout>
+          <Outlet />
         </Suspense>
-      </Fragment>
+      </AuthLayout>
     ),
     children: [
       {

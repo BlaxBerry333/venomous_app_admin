@@ -61,9 +61,11 @@ const Modal: NamedExoticComponent<ModalProps> = memo(
           {...props}
         >
           {/* Title */}
-          <MuiDialogTitle sx={{ typography: "h6", fontWeight: "bold", pb: 0, px: 3 }}>
-            {title}
-          </MuiDialogTitle>
+          {title && (
+            <MuiDialogTitle sx={{ typography: "h6", fontWeight: "bold", pb: 0, px: 3 }}>
+              {title}
+            </MuiDialogTitle>
+          )}
 
           {/* Main Content */}
           <MuiDialogContent sx={{ pt: "16px !important", px: 3 }}>

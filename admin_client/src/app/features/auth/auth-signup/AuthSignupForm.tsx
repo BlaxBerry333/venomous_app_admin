@@ -1,15 +1,16 @@
 import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 import { z } from "zod";
+
 import type { IAuthSignupParams } from "~/app/types";
-
 import { RHF } from "~/ui/components";
+import { createZodSchema, ZOD_I18N_ERROR_CODES } from "~/utils/libs/tools/zod";
 
-const formSchemas = RHF.createZodSchema<IAuthSignupParams>()(
+const formSchemas = createZodSchema<IAuthSignupParams>()(
   z.object({
-    username: z.string().min(4, "Username must be at least 4 characters long"),
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(4, "Password must be at least 4 characters long"),
+    username: z.string().min(4, ZOD_I18N_ERROR_CODES.TOO_SHORT),
+    email: z.string().email(ZOD_I18N_ERROR_CODES.INVALID_EMAIL_ADDRESS),
+    password: z.string().min(4, ZOD_I18N_ERROR_CODES.TOO_SHORT),
   }),
 );
 
@@ -21,9 +22,12 @@ const AuthSignupForm: NamedExoticComponent<{
   ({ defaultValues = { username: "", email: "", password: "" }, isLoading = false, onSubmit }) => {
     return (
       <RHF.FormWithZod zodSchema={formSchemas} defaultValues={defaultValues} onSubmit={onSubmit}>
-        <RHF.Text name="username" label="Username" />
+        {/* Username */}
+        <RHF.Text name="username" label="Username" placeholder="4+ characters" />
+        {/* Email Address */}
         <RHF.Text name="email" label="Email" />
-        <RHF.Password name="password" label="Password" />
+        {/* Password */}
+        <RHF.Password name="password" label="Password" placeholder="4+ characters" />
 
         <RHF.Action isLoading={isLoading} />
       </RHF.FormWithZod>

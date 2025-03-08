@@ -1,7 +1,7 @@
 import RHFCheckbox from "./RHFCheckbox";
 import RHFForm from "./RHFForm";
 import RHFFormAction from "./RHFFormAction";
-import RHFFormWithZod, { createZodSchema } from "./RHFFormWithZod";
+import RHFFormWithZod from "./RHFFormWithZod";
 import RHFNumber from "./RHFNumber";
 import RHFOneTimeInput from "./RHFOneTimeInput";
 import RHFPassword from "./RHFPassword";
@@ -23,7 +23,4 @@ export const RHF = {
   Select: RHFSelect,
   Switch: RHFSwitch,
   Text: RHFText,
-
-  // Tools
-  createZodSchema,
 };

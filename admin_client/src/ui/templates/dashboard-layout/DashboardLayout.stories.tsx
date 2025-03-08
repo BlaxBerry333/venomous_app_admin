@@ -19,4 +19,11 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultSample: Story = {
   name: "默认样例",
+  render: (args) => {
+    return (
+      <DashboardLayout {...args}>
+        <div style={{ height: "300vh" }} />
+      </DashboardLayout>
+    );
+  },
 };

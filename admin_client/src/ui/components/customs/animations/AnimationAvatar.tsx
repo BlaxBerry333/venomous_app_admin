@@ -12,7 +12,7 @@ const AnimationAvatar: NamedExoticComponent<
   AvatarProps & {
     wrapperStyle?: CSSProperties;
   }
-> = memo(({ wrapperStyle, ...props }) => {
+> = memo(({ wrapperStyle, onClick, ...props }) => {
   return (
     <AnimationWrapper style={{ display: "inline-block", ...wrapperStyle }}>
       <MuiBox
@@ -26,6 +26,7 @@ const AnimationAvatar: NamedExoticComponent<
           cursor: "pointer",
           p: 0.25,
         }}
+        onClick={onClick}
       >
         <Avatar {...props} />
 

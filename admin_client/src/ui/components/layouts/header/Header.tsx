@@ -6,6 +6,7 @@ import { throttle } from "lodash-es";
 import MuiBox, { type BoxProps as MuiBoxProps } from "@mui/material/Box";
 import type { Theme as MuiTheme } from "@mui/material/styles";
 
+import { Stack } from "@mui/material";
 import { UI_CONFIGS } from "~/ui/_configs";
 import { getColor } from "~/ui/_helpers";
 
@@ -66,7 +67,11 @@ const Header: NamedExoticComponent<HeaderProps> = memo(
             <div style={{ flexGrow: 1 }} />
 
             {/* Actions */}
-            {renderActions}
+            {renderActions && (
+              <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                {renderActions}
+              </Stack>
+            )}
           </>
         )}
       </MuiBox>

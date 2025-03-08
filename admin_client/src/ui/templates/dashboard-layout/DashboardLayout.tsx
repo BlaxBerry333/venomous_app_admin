@@ -18,6 +18,7 @@ import {
   NavMenuVerticalInPC,
   SettingsDrawer,
 } from "~/ui/components";
+import DashboardLayoutContent from "./DashboardLayoutContent";
 import DashboardLayoutNavMenu from "./DashboardLayoutNavMenu";
 
 const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
@@ -75,6 +76,7 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
           }
           renderActions={
             <>
+              <div id="dashboard-layout-account" />
               <SettingsDrawer
                 showOptionBlocks={{
                   themeMode: true,
@@ -102,18 +104,3 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
 });
 
 export default DashboardLayout;
-
-const DashboardLayoutContent: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
-  return (
-    <ContainerWrapper
-      maxWidth={ContainerMaxBreakpoint.LG}
-      sx={{
-        pt: 1,
-        px: 2,
-        pb: 0,
-      }}
-    >
-      {children}
-    </ContainerWrapper>
-  );
-});

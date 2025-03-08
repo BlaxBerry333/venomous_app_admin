@@ -12,11 +12,17 @@ export default defineConfig(({ mode }) => {
       port: parseInt(ENV.VITE_ADMIN_CLIENT_PORT),
       strictPort: true,
       proxy: {
-        // "/drf/api" → "http://localhost:8000"
-        "/drf/api": {
+        // "/admin-server-api/*/**" → "http://localhost:8000/*/**"
+        "/admin-server-api": {
           target: ENV.VITE_DOMAIN_ADMIN_SERVER,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/drf\/api/, ""),
+          rewrite: (path) => path.replace(/^\/admin-server-api/, ""),
+        },
+        // "/admin-server-auth/*/**" → "http://localhost:8000/*/**"
+        "/admin-server-auth": {
+          target: ENV.VITE_DOMAIN_ADMIN_SERVER,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/admin-server-auth/, ""),
         },
         // "/bff/api" → "http://localhost:9000
         "/bff/api": {

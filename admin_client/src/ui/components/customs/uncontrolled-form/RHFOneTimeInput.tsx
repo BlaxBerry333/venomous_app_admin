@@ -20,15 +20,13 @@ const RHFOneTimeInput: NamedExoticComponent<RHFOneTimeProps> = memo(
         control={control}
         defaultValue={defaultValue}
         render={({ field, fieldState: { error } }) => (
-          <>
-            <OneTimeInput
-              value={field.value || defaultValue}
-              onChange={(value: string) => field.onChange(value)}
-              error={!!error}
-              helperText={error?.message || " "}
-              {...props}
-            />
-          </>
+          <OneTimeInput
+            value={field.value || defaultValue}
+            onChange={(value: string) => field.onChange(value)}
+            error={!!error}
+            helperText={error?.message || " "}
+            {...props}
+          />
         )}
       />
     );

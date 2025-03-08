@@ -6,12 +6,12 @@ import MuiBox from "@mui/material/Box";
 import { getFiletypeColor, type SupportedFileExtensionsType } from "~/utils/custom/file";
 
 const FiletypeImage: NamedExoticComponent<{
-  fileType: SupportedFileExtensionsType;
+  extension: SupportedFileExtensionsType;
   width?: number;
   height?: number;
-}> = memo(({ fileType, width = 40, height = 40 }) => {
+}> = memo(({ extension, width = 40, height = 40 }) => {
   const textColor = "#fff";
-  const color = useMemo(() => getFiletypeColor(fileType), [fileType]);
+  const color = useMemo(() => getFiletypeColor(extension), [extension]);
 
   return (
     <MuiBox
@@ -40,16 +40,16 @@ const FiletypeImage: NamedExoticComponent<{
 
       {/* 文字标识 */}
       <text
-        x="45%"
+        x="50%"
         y="60%"
-        fontSize="8"
+        fontSize="10"
         fontWeight="bold"
         fill={textColor}
         fontFamily="Arial"
         textAnchor="middle"
         dominantBaseline="middle"
       >
-        {fileType}
+        {extension.slice(1)}
       </text>
 
       {/* 阴影滤镜定义 */}

@@ -1,4 +1,4 @@
-import { Fragment, Suspense } from "react";
+import { Suspense } from "react";
 import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 
 import { FullPageLoading } from "~/ui/components";
@@ -24,11 +24,9 @@ export const ErrorsRoutes: RouteObject[] = [
   {
     path: `/${ERRORS_ROUTE_PATH.BASE}`,
     element: (
-      <Fragment>
-        <Suspense fallback={<FullPageLoading />}>
-          <Outlet />
-        </Suspense>
-      </Fragment>
+      <Suspense fallback={<FullPageLoading />}>
+        <Outlet />
+      </Suspense>
     ),
     children: [
       {

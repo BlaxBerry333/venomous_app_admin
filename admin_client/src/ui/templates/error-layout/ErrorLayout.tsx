@@ -47,7 +47,7 @@ const ErrorLayout: NamedExoticComponent<ErrorLayoutProps> = memo(
         <Header
           design={HeaderDesign.GLASS}
           height={UI_CONFIGS.size.HEADER_HEIGHT}
-          renderLogo={<Logo sx={{ ml: 1.5 }} />}
+          renderLogo={<Logo to="/" sx={{ ml: 3 }} />}
           renderActions={
             <>
               <SettingsDrawer

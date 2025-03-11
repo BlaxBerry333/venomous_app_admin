@@ -25,7 +25,7 @@ const Modal: NamedExoticComponent<ModalProps> = memo(
   ({
     renderModalTrigger,
     renderModalContent,
-    escapeKeyDown,
+    escapeKeyDown = false,
     isConfirmLoading = false,
     handleOnCancel,
     handleOnConfirm,

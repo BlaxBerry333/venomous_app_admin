@@ -2,7 +2,7 @@ import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 import { z } from "zod";
 
-import type { IAuthVerifyPasswordParams } from "~/app/types";
+import type { IAuthVerifyPasswordParams } from "~/app/types/_auth";
 import { RHF } from "~/ui/components";
 import { createZodSchema, ZOD_I18N_ERROR_CODES } from "~/utils/libs/tools/zod";
 
@@ -13,7 +13,7 @@ const formSchemas = createZodSchema<IAuthVerifyPasswordParams>()(
   }),
 );
 
-const AuthVerifyPasswordForm: NamedExoticComponent<{
+const AuthVerifyEmailForm: NamedExoticComponent<{
   defaultValues?: IAuthVerifyPasswordParams;
   isLoading: boolean;
   onSubmit: (data: IAuthVerifyPasswordParams) => void;
@@ -30,4 +30,4 @@ const AuthVerifyPasswordForm: NamedExoticComponent<{
   );
 });
 
-export default AuthVerifyPasswordForm;
+export default AuthVerifyEmailForm;

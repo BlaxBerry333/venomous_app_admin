@@ -42,6 +42,7 @@ const NavMenuVerticalInPC: NamedExoticComponent<PropsWithChildren<MuiBoxProps>> 
           design={HeaderDesign.GLASS}
           renderLogo={
             <Logo
+              to="/dashboard/analysis"
               sx={{
                 ml: isExpandedInLargeScreen ? 1.5 : 3,
                 transition: "margin-left 0.2s ease-in-out",

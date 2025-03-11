@@ -36,8 +36,8 @@ export function validateTokenExpires(token: string | undefined): boolean {
       return false;
     }
 
-    const currentTime = Date.now() / 1000;
-    return decoded.exp > currentTime;
+    const currentTime = Math.floor(Date.now() / 1000);
+    return decoded.exp - 10 > currentTime; // 提前 10 秒预留时间容差
   } catch {
     throw new Error("[ERROR] Invalid JWT token");
   }

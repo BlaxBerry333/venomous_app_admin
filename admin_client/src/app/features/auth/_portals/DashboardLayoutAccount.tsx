@@ -2,6 +2,8 @@ import type { NamedExoticComponent } from "react";
 import { memo, useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
+import MuiStack from "@mui/material/Stack";
+
 import type { ICurrentUserProfileResponse } from "~/app/types/_user";
 import { BaseColor, BasePosition, BaseSize } from "~/ui/_helpers";
 import {
@@ -50,7 +52,8 @@ const DashboardLayoutAccount: NamedExoticComponent = memo(() => {
         handleClose={popover.handleClose}
         position={BasePosition.BOTTOM_LEFT}
       >
-        <Menu subheader={<PopoverItemOfCurrentUserProfile />}>
+        <Menu>
+          <PopoverItemOfCurrentUserProfile />
           <PopoverItemOfAuthLogout callback={popover.handleClose} />
         </Menu>
       </Popover>
@@ -68,7 +71,6 @@ const PopoverItemOfCurrentUserProfile: NamedExoticComponent = memo(() => {
   if (!data) {
     return null;
   }
-
   return (
     <Modal
       renderModalTrigger={(params) => (
@@ -79,43 +81,48 @@ const PopoverItemOfCurrentUserProfile: NamedExoticComponent = memo(() => {
         />
       )}
       renderModalContent={() => (
-        <>
-          <Typography
-            component="div"
-            variant="h6"
-            noWrap
-            sx={{ display: "flex", alignItems: "center" }}
-          >
-            <Typography variant="h6" noWrap>
-              {data.username}
+        <MuiStack spacing={2}>
+          <div>
+            <Typography component="div" noWrap sx={{ display: "flex", alignItems: "center" }}>
+              <Typography variant="h6" noWrap>
+                {data.username}
+              </Typography>
+              {data.is_superuser && (
+                <Icon
+                  icon="solar:crown-line-bold-duotone"
+                  color={BaseColor.PRIMARY}
+                  sx={{ mx: 1 }}
+                />
+              )}
             </Typography>
-            {data.is_superuser && (
-              <Icon icon="solar:crown-line-bold-duotone" color={BaseColor.PRIMARY} sx={{ mx: 1 }} />
-            )}
-          </Typography>
 
-          <Typography variant="subtitle1" noWrap color="text.secondary" sx={{ mb: 2 }}>
-            {data.email}
-          </Typography>
+            <Typography variant="subtitle1" noWrap color="text.secondary">
+              {data.email}
+            </Typography>
+          </div>
 
           {data.last_login && (
-            <>
+            <div>
               <Typography variant="subtitle2" color="text.secondary">
                 上次登录:
               </Typography>
-              <Typography variant="subtitle2" noWrap sx={{ mb: 1 }}>
+              <Typography variant="subtitle2" noWrap>
                 {formateFromNow(data.last_login)}
               </Typography>
-            </>
+            </div>
           )}
 
-          <Typography variant="subtitle2" color="text.secondary">
-            注册时间:
-          </Typography>
-          <Typography variant="subtitle2" noWrap>
-            {data.last_login ? formateDateTime(data.date_joined) : formateFromNow(data.date_joined)}
-          </Typography>
-        </>
+          <div>
+            <Typography variant="subtitle2" color="text.secondary">
+              注册时间:
+            </Typography>
+            <Typography variant="subtitle2" noWrap>
+              {data.last_login
+                ? formateDateTime(data.date_joined)
+                : formateFromNow(data.date_joined)}
+            </Typography>
+          </div>
+        </MuiStack>
       )}
     />
   );
@@ -125,9 +132,9 @@ const PopoverItemOfAuthLogout: NamedExoticComponent<{ callback: VoidFunction }> 
   ({ callback }) => {
     const { replace } = useRouteNavigate();
 
-    const { mutateAsync } = useAPIAuthLogout();
+    const { mutateAsync, isPending } = useAPIAuthLogout();
 
-    const handleLogout = useCallback(() => {
+    const handleLogout = useCallback(async () => {
       mutateAsync()
         .then(() => {
           toast.success("LOGOUT SUCCESS");
@@ -142,6 +149,20 @@ const PopoverItemOfAuthLogout: NamedExoticComponent<{ callback: VoidFunction }> 
         });
     }, [mutateAsync, replace, callback]);
 
-    return <ListItem title="退出登录" icon="solar:logout-2-line-duotone" onClick={handleLogout} />;
+    return (
+      <Modal
+        escapeKeyDown
+        title="确定要退出登录吗?"
+        handleOnConfirm={() => handleLogout()}
+        isConfirmLoading={isPending}
+        renderModalTrigger={(params) => (
+          <ListItem
+            title="退出登录"
+            icon="solar:logout-2-line-duotone"
+            onClick={params.handleOpen}
+          />
+        )}
+      />
+    );
   },
 );

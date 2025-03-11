@@ -68,7 +68,9 @@ venomous_app_admin/
 │       │
 │       ├── app/
 │       │   ├── _configs/                       # configuration of project
+│       │   ├── features/
 │       │   ├── pages/
+│       │   ├── types/
 │       │   │
 │       │   └── App.tsx                         # main App component of project
 │       │

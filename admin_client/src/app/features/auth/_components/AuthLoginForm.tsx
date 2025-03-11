@@ -2,7 +2,7 @@ import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 import { z } from "zod";
 
-import type { IAuthLoginParams } from "~/app/types";
+import type { IAuthLoginParams } from "~/app/types/_auth";
 import { BlankFieldWrapper, Link, RHF } from "~/ui/components";
 import { createZodSchema, ZOD_I18N_ERROR_CODES } from "~/utils/libs/tools/zod";
 

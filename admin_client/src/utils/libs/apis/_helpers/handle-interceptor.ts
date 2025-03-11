@@ -30,7 +30,15 @@ export async function handleTokenRefresh({
     const newTokens = await getRefreshAccessToken();
 
     // 刷新 Token 成功
-    failedQueue.forEach((promise) => promise.resolve(interceptorConfigs));
+    failedQueue.forEach((promise) => {
+      promise.resolve({
+        ...interceptorConfigs,
+        headers: {
+          ...interceptorConfigs.headers,
+          Authorization: `Bearer ${newTokens.access_token}`,
+        },
+      });
+    });
     failedQueue = [];
 
     onSuccess(newTokens);

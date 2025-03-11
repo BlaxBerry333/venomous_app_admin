@@ -1,7 +1,7 @@
 import type { NamedExoticComponent } from "react";
 import { memo, useState } from "react";
 
-import { AuthResetPasswordForm } from "~/app/features/auth/auth-reset-password";
+import { AuthResetPasswordForm } from "~/app/features/auth/_components";
 import type { IAuthResetPasswordParams } from "~/app/types";
 import { sleep } from "~/utils/custom/process";
 

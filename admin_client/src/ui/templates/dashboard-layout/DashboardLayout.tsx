@@ -71,7 +71,7 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
                   <DashboardLayoutNavMenu.ParentCollapsable />
                 </NavMenuVerticalInMobile>
               )}
-              {isHorizontalNavMenu && <Logo sx={{ ml: 1.5 }} />}
+              {isHorizontalNavMenu && <Logo to="/dashboard/analysis" sx={{ ml: 1.5 }} />}
             </>
           }
           renderActions={

@@ -1,11 +1,11 @@
 import type { NamedExoticComponent } from "react";
 import { memo, useState } from "react";
 
-import { AuthVerifyPasswordForm } from "~/app/features/auth/auth-verify-password";
+import { AuthVerifyEmailForm } from "~/app/features/auth/_components";
 import type { IAuthVerifyPasswordParams } from "~/app/types";
 import { sleep } from "~/utils/custom/process";
 
-const AuthVerifyPasswordView: NamedExoticComponent = memo(() => {
+const AuthVerifyEmailView: NamedExoticComponent = memo(() => {
   const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (formValue: IAuthVerifyPasswordParams) => {
     setIsLoading(true);
@@ -14,7 +14,7 @@ const AuthVerifyPasswordView: NamedExoticComponent = memo(() => {
     setIsLoading(false);
   };
 
-  return <AuthVerifyPasswordForm isLoading={isLoading} onSubmit={handleSubmit} />;
+  return <AuthVerifyEmailForm isLoading={isLoading} onSubmit={handleSubmit} />;
 });
 
-export default AuthVerifyPasswordView;
+export default AuthVerifyEmailView;

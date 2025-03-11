@@ -59,11 +59,20 @@ ADMIN_SERVER_API_INSTANCE.interceptors.response.use(
   (res) => {
     return res;
   },
-  (error) => {
+  async (error) => {
     const code = error?.response?.status;
+    const config = error?.config;
+
+    if (code === 401 && !config._retry) {
+      config._retry = true;
+      await handleTokenRefresh(config);
+      return ADMIN_SERVER_API_INSTANCE(config);
+    }
+
     if (code === 500) {
       return redirectToErrorsPage(500);
     }
+
     return Promise.reject(error);
   },
 );

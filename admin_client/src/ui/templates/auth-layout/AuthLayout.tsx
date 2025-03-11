@@ -25,7 +25,7 @@ const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) 
       <Header
         design={HeaderDesign.GLASS}
         height={UI_CONFIGS.size.HEADER_HEIGHT}
-        renderLogo={<Logo sx={{ ml: 1.5 }} />}
+        renderLogo={<Logo to="/auth/login" sx={{ ml: 3 }} />}
         renderActions={
           <>
             <SettingsDrawer

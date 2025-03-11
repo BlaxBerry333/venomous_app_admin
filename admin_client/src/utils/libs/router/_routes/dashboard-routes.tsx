@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
 import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 
-import { DashboardLayoutAccount } from "~/app/features/auth/_components";
-import { AuthGuard } from "~/app/features/dashboard/_providers";
+import { DashboardLayoutAccount } from "~/app/features/auth/_portals";
+import { AuthGuard } from "~/app/features/auth/_providers";
 import { FullPageLoading } from "~/ui/components";
 import { autoImportedLazyRoutes, type AutoImportedRoutesModulesType } from "../_helpers";
 

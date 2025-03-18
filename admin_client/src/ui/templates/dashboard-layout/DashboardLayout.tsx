@@ -18,8 +18,11 @@ import {
   NavMenuVerticalInPC,
   SettingsDrawer,
 } from "~/ui/components";
+import { DASHBOARD_PATHS } from "~/utils/libs/router";
 import DashboardLayoutContent from "./DashboardLayoutContent";
 import DashboardLayoutNavMenu from "./DashboardLayoutNavMenu";
+
+export const elementID = "dashboard-layout-account";
 
 const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
   const isLargeScreen: boolean = useMediaQuery((theme: MuiTheme) => theme.breakpoints.up("sm"));
@@ -35,6 +38,7 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
     <ContainerWrapper
       maxWidth={ContainerMaxBreakpoint.FULL_WIDTH}
       sx={{
+        height: "100svh !important",
         backgroundColor: ({ palette }) => getColor(palette.background.default).opacity(1),
         ...(isVerticalNavMenu && {
           display: "flex",
@@ -71,12 +75,12 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
                   <DashboardLayoutNavMenu.ParentCollapsable />
                 </NavMenuVerticalInMobile>
               )}
-              {isHorizontalNavMenu && <Logo to="/dashboard/analysis" sx={{ ml: 1.5 }} />}
+              {isHorizontalNavMenu && <Logo to={DASHBOARD_PATHS.analysis} sx={{ ml: 1.5 }} />}
             </>
           }
           renderActions={
             <>
-              <div id="dashboard-layout-account" />
+              <div id={elementID} />
               <SettingsDrawer
                 showOptionBlocks={{
                   themeMode: true,

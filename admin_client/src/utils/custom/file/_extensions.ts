@@ -39,7 +39,7 @@ export function getFiletypeColor(extension: SupportedFileExtensionsType) {
       return "#E94848"; // 红色
 
     case ".html":
-      return "#E34F26"; // 橙色
+      return "#E34F26"; // 橙红色
 
     case ".css":
       return "#563d7c"; // 紫色
@@ -62,7 +62,7 @@ export function getFiletypeColor(extension: SupportedFileExtensionsType) {
 
     case ".mp4":
     case ".avi":
-      return "#FF5722"; // 橙色
+      return "#fd7e00"; // 橙色
 
     case ".txt":
     default:

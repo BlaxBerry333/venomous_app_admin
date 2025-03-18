@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { BaseColor } from "~/ui/_helpers";
 import CardWithActions from "./CardWithActions";
 
 const meta = {
@@ -17,6 +16,10 @@ const meta = {
       description: "副标题",
       control: "text",
     },
+    avatar: {
+      description: "头像",
+      control: "text",
+    },
     isLoading: {
       description: "是否加载中",
       control: "boolean",
@@ -29,6 +32,10 @@ const meta = {
       description: "是否使用自定义内容",
       control: "boolean",
     },
+    isCustomCardAction: {
+      description: "是否使用自定义操作",
+      control: "boolean",
+    },
     actionIsNotAllowed: {
       description: "是否禁用操作按钮",
       control: "boolean",
@@ -38,8 +45,11 @@ const meta = {
     isLoading: false,
     isBlocked: false,
     isCustomCardContent: false,
+    isCustomCardAction: false,
     title: "Aaa",
     subTitle: "BbbbbbbbbbBbbbbbbbbb",
+    avatar: "x",
+    action: "xx",
     actionIsNotAllowed: false,
   },
 } satisfies Meta<typeof CardWithActions>;
@@ -55,13 +65,11 @@ export const DefaultSample: Story = {
       {
         title: "Details",
         icon: "solar:info-square-line-duotone",
-        color: BaseColor.INHERIT,
         onClick: () => console.log("Details"),
       },
       {
         title: "Delete",
         icon: "solar:trash-bin-trash-bold-duotone",
-        color: BaseColor.ERROR,
         onClick: () => console.log("Delete"),
       },
     ],

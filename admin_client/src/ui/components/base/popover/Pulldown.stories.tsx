@@ -6,7 +6,7 @@ import { Button } from "~/ui/components/base/button";
 import Pulldown from "./Pulldown";
 
 const meta = {
-  title: "Components/Base ( MUI ) /PopoverForPulldown",
+  title: "Components/Base ( MUI ) /PopoverPulldown",
   component: Pulldown,
   parameters: { layout: "centered" },
   // tags: ["autodocs"],

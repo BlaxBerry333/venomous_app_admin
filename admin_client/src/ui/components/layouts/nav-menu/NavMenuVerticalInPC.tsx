@@ -8,6 +8,7 @@ import { BaseSize } from "~/ui/_helpers";
 import { useLayoutStore } from "~/ui/_hooks";
 import { AnimationIconButton } from "~/ui/components/customs";
 import { Header, HeaderDesign } from "~/ui/components/layouts";
+import { DASHBOARD_PATHS } from "~/utils/libs/router";
 import { Logo } from "../logo";
 
 const NavMenuVerticalInPC: NamedExoticComponent<PropsWithChildren<MuiBoxProps>> = memo(
@@ -42,9 +43,9 @@ const NavMenuVerticalInPC: NamedExoticComponent<PropsWithChildren<MuiBoxProps>> 
           design={HeaderDesign.GLASS}
           renderLogo={
             <Logo
-              to="/dashboard/analysis"
+              to={DASHBOARD_PATHS.analysis}
               sx={{
-                ml: isExpandedInLargeScreen ? 1.5 : 3,
+                ml: isExpandedInLargeScreen ? 1.5 : 2,
                 transition: "margin-left 0.2s ease-in-out",
               }}
             />

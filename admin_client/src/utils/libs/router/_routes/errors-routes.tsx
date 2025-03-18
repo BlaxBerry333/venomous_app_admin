@@ -20,6 +20,12 @@ const ERRORS_ROUTE_PATH = {
   },
 } as const;
 
+export const ERRORS_PATHS = {
+  403: `/${ERRORS_ROUTE_PATH.BASE}/${ERRORS_ROUTE_PATH.SEGMENT[403]}`,
+  404: `/${ERRORS_ROUTE_PATH.BASE}/${ERRORS_ROUTE_PATH.SEGMENT[404]}`,
+  500: `/${ERRORS_ROUTE_PATH.BASE}/${ERRORS_ROUTE_PATH.SEGMENT[500]}`,
+} as const;
+
 export const ErrorsRoutes: RouteObject[] = [
   {
     path: `/${ERRORS_ROUTE_PATH.BASE}`,

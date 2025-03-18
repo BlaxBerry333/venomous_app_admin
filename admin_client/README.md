@@ -36,7 +36,7 @@
 % yarn start:[mode] [--force]
 % yarn build:[mode]
 % yarn preview
-% yarn storybook
+% yarn dev:storybook
 
 # Test & Lint
 % yarn check-all

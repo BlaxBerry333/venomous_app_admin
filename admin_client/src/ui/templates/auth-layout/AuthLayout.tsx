@@ -13,6 +13,7 @@ import {
   Logo,
   SettingsDrawer,
 } from "~/ui/components";
+import { AUTH_PATHS } from "~/utils/libs/router";
 
 const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
   return (
@@ -25,7 +26,7 @@ const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) 
       <Header
         design={HeaderDesign.GLASS}
         height={UI_CONFIGS.size.HEADER_HEIGHT}
-        renderLogo={<Logo to="/auth/login" sx={{ ml: 3 }} />}
+        renderLogo={<Logo to={AUTH_PATHS.login} sx={{ ml: 3 }} />}
         renderActions={
           <>
             <SettingsDrawer

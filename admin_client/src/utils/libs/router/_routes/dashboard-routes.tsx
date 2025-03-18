@@ -21,12 +21,21 @@ const DASHBOARD_ROUTE_PATH = {
   ROOT: "analysis",
   LEAF: {
     LIST: "list",
-    DETAIL: "detail",
     CREATE: "create",
+    PLAYGROUND: "playground",
   },
   SEGMENT: {
     ANALYSIS: "analysis",
-    WORKFLOW: "workflow",
+    WORKFLOWS: "workflows",
+  },
+} as const;
+
+export const DASHBOARD_PATHS = {
+  analysis: `/${DASHBOARD_ROUTE_PATH.BASE}/${DASHBOARD_ROUTE_PATH.ROOT}`,
+  workflows: {
+    list: `/${DASHBOARD_ROUTE_PATH.BASE}/${DASHBOARD_ROUTE_PATH.SEGMENT.WORKFLOWS}/${DASHBOARD_ROUTE_PATH.LEAF.LIST}`,
+    create: `/${DASHBOARD_ROUTE_PATH.BASE}/${DASHBOARD_ROUTE_PATH.SEGMENT.WORKFLOWS}/${DASHBOARD_ROUTE_PATH.LEAF.CREATE}`,
+    playground: `/${DASHBOARD_ROUTE_PATH.BASE}/${DASHBOARD_ROUTE_PATH.SEGMENT.WORKFLOWS}/${DASHBOARD_ROUTE_PATH.LEAF.PLAYGROUND}`, // :id
   },
 } as const;
 

@@ -2,7 +2,7 @@ import type { CSSProperties, PropsWithChildren } from "react";
 import { memo, useCallback } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, type DefaultValues } from "react-hook-form";
+import { useForm, type DefaultValues, type UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 
 import { RHF } from "~/ui/components";
@@ -12,6 +12,8 @@ type RHFFormWithZodProps<S extends ReturnType<typeof z.object>> = PropsWithChild
   defaultValues: DefaultValues<z.infer<S>>;
   onSubmit: (data: z.infer<S>) => void;
   style?: CSSProperties;
+  hideDevTool?: boolean;
+  instance?: UseFormReturn<z.TypeOf<S>>;
 }>;
 
 /**
@@ -33,6 +35,8 @@ function RHFFormWithZod<S extends ReturnType<typeof z.object>>({
   defaultValues,
   onSubmit,
   style,
+  hideDevTool,
+  instance,
 }: RHFFormWithZodProps<S>) {
   type FormValueType = z.infer<S>;
 
@@ -50,7 +54,12 @@ function RHFFormWithZod<S extends ReturnType<typeof z.object>>({
   );
 
   return (
-    <RHF.Form<FormValueType> form={formInstance} onSubmit={handleFormSubmit} style={style}>
+    <RHF.Form<FormValueType>
+      form={instance || formInstance}
+      onSubmit={handleFormSubmit}
+      style={style}
+      hideDevTool={hideDevTool}
+    >
       {children}
     </RHF.Form>
   );

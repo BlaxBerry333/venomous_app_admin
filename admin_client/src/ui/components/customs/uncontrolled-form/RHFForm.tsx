@@ -14,9 +14,16 @@ type RHFFormProps<T extends RHFFieldValues> = PropsWithChildren<{
   form: undefined | RHFUseFormReturn<T>;
   onSubmit: undefined | ((data: T) => void);
   style?: CSSProperties;
+  hideDevTool?: boolean;
 }>;
 
-function RHFForm<T extends BaseFormValue>({ children, form, onSubmit, style }: RHFFormProps<T>) {
+function RHFForm<T extends BaseFormValue>({
+  children,
+  form,
+  onSubmit,
+  style,
+  hideDevTool,
+}: RHFFormProps<T>) {
   if (!form) {
     return null;
   }
@@ -24,7 +31,7 @@ function RHFForm<T extends BaseFormValue>({ children, form, onSubmit, style }: R
   return (
     <RHFProvider {...form}>
       {/* Devtools */}
-      {process.env.NODE_ENV !== "production" && (
+      {!hideDevTool && process.env.NODE_ENV !== "production" && (
         <RHFDevTool control={form.control} placement="bottom-right" />
       )}
 

@@ -4,7 +4,7 @@ import type { IAuthSignupParams, IAuthSignupResponse } from "~/app/types/_auth";
 import { toast } from "~/ui/components";
 import { setAuthTokensAsStored } from "~/utils/libs/apis/_helpers";
 import { useAPIAuthSignup } from "~/utils/libs/apis/_hooks/auth";
-import { useRouteNavigate } from "~/utils/libs/router";
+import { DASHBOARD_PATHS, useRouteNavigate } from "~/utils/libs/router";
 
 function useAuthSignupView() {
   const { replace } = useRouteNavigate();
@@ -20,7 +20,7 @@ function useAuthSignupView() {
             refreshToken: refresh_token,
           });
           toast.success("SIGNUP SUCCESS");
-          replace("/dashboard/");
+          replace(DASHBOARD_PATHS.analysis);
         })
         .catch((error) => {
           const message: string = error.response.data.error || "SIGNUP FAILED";

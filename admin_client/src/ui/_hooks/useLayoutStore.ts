@@ -28,7 +28,7 @@ const useLayoutStore = create<{
     persist(
       (set) => ({
         navMenuWidthInLargeScreen: UI_CONFIGS.size.NAV_MENU_WIDTH.COLLAPSED_IN_LARGE_SCREEN,
-        isExpandedInLargeScreen: true,
+        isExpandedInLargeScreen: false,
         setNavMenuExpandedInLargeScreen: (isExpanded) => {
           set({
             isExpandedInLargeScreen: isExpanded,

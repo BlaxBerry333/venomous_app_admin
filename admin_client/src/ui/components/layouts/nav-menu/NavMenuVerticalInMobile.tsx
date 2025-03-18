@@ -7,6 +7,7 @@ import { UI_CONFIGS } from "~/ui/_configs";
 import { BaseColor } from "~/ui/_helpers";
 import { Drawer, DrawerPosition, IconButton } from "~/ui/components/base";
 import { Header, HeaderDesign } from "~/ui/components/layouts";
+import { DASHBOARD_PATHS } from "~/utils/libs/router";
 import { Logo } from "../logo";
 
 const NavMenuVerticalInMobile: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
@@ -32,7 +33,7 @@ const NavMenuVerticalInMobile: NamedExoticComponent<PropsWithChildren> = memo(({
         {/* Nav Menu Header */}
         <Header
           design={HeaderDesign.GLASS}
-          renderLogo={<Logo sx={{ ml: 1.5 }} />}
+          renderLogo={<Logo to={DASHBOARD_PATHS.analysis} sx={{ ml: 1.5 }} />}
           sx={{ backgroundColor: "transparent !important" }}
         />
 

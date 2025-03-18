@@ -14,7 +14,7 @@ import {
   Typography,
   type ListItemProps,
 } from "~/ui/components";
-import { useRouteIsMatched, useRouteNavigate } from "~/utils/libs/router";
+import { DASHBOARD_PATHS, useRouteIsMatched, useRouteNavigate } from "~/utils/libs/router";
 
 type DashboardNavMenuItem = ListItemProps & { path?: string };
 
@@ -26,7 +26,12 @@ const DashboardLayoutNavMenuItem: NamedExoticComponent<
 
   // 嵌套的子元素
   if (isInsideOfNested) {
-    return <ListItemInsideOfNest {...props} selected={isActive} />;
+    return (
+      <ListItemInsideOfNest
+        sx={{ bgcolor: isActive ? "action.selected" : "transparent" }}
+        {...props}
+      />
+    );
   }
 
   // 普通的子元素
@@ -106,12 +111,12 @@ const ParentIconOnlyNavMenu: NamedExoticComponent<{
   }, [isVertical]);
 
   const popperStyle = useMemo<CSSProperties>(() => {
-    if (isVertical) return { marginLeft: "26px !important" };
+    if (isVertical) return { marginLeft: "16px !important" };
     return { marginTop: "4px !important" };
   }, [isVertical]);
 
   return (
-    <Menu sx={{ my: isVertical ? 1.5 : 0 }}>
+    <Menu>
       {[...foundationGroup.list, ...managementGroup.list].map((item) => {
         const { nestList, ...itemWithoutNestList } = item;
         const isSelected: boolean = nestList
@@ -142,10 +147,6 @@ const ParentIconOnlyNavMenu: NamedExoticComponent<{
                           margin: 0,
                           transform: "translate(-2px, 0)",
                         },
-                        "& svg": {
-                          color: ({ palette: { primary } }) =>
-                            params.isOpen ? `${primary.light} !important` : "inherit",
-                        },
                         ...item.sx,
                       }}
                     />
@@ -160,8 +161,6 @@ const ParentIconOnlyNavMenu: NamedExoticComponent<{
                           bottom: -12,
                           left: "50%",
                           transform: "translateX(-50%)",
-                          color: ({ palette: { primary } }) =>
-                            isSelected || params.isOpen ? `${primary.light} !important` : "inherit",
                         }}
                       >
                         {item.title}
@@ -201,21 +200,21 @@ function useDashboardNavMenuItems() {
         {
           title: "Analysis",
           icon: "solar:pie-chart-2-bold-duotone",
-          path: "/dashboard/analysis",
+          path: DASHBOARD_PATHS.analysis,
         },
         {
-          title: "Workflow",
+          title: "Workflows",
           icon: "solar:routing-3-bold-duotone",
           nestList: [
             {
               title: "List",
               icon: "solar:list-bold-duotone",
-              path: "/dashboard/workflow/list",
+              path: DASHBOARD_PATHS.workflows.list,
             },
             {
               title: "Create",
               icon: "solar:add-circle-line-duotone",
-              path: "/dashboard/workflow/create",
+              path: DASHBOARD_PATHS.workflows.create,
             },
           ],
         },

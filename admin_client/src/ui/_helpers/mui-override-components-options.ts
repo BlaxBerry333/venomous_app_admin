@@ -43,7 +43,7 @@ export const MuiOverrideComponentsOptions: MuiComponents<Omit<MuiTheme, "compone
   MuiCardHeader: {
     styleOverrides: {
       root: {
-        padding: "8px 16px",
+        padding: "0px",
       },
     },
   },
@@ -51,7 +51,7 @@ export const MuiOverrideComponentsOptions: MuiComponents<Omit<MuiTheme, "compone
   MuiCardContent: {
     styleOverrides: {
       root: {
-        padding: "8px 16px",
+        padding: "0px",
       },
     },
   },
@@ -59,7 +59,7 @@ export const MuiOverrideComponentsOptions: MuiComponents<Omit<MuiTheme, "compone
   MuiCardActions: {
     styleOverrides: {
       root: {
-        padding: "8px 16px",
+        padding: "0px",
       },
     },
   },

@@ -1,3 +1,6 @@
+import { AUTH_PATHS } from "../_routes/auth-routes";
+import { ERRORS_PATHS } from "../_routes/errors-routes";
+
 /**
  * 强制跳转到登录页面
  */
@@ -6,7 +9,7 @@ export const redirectToLoginPage = (params?: { hasRedirect?: boolean }): void =>
     ? `?redirect=${window.location.pathname + window.location.search}`
     : "";
 
-  return window.location.replace("/auth/login" + redirectUrl);
+  return window.location.replace(AUTH_PATHS.login + redirectUrl);
 };
 
 /**
@@ -15,11 +18,11 @@ export const redirectToLoginPage = (params?: { hasRedirect?: boolean }): void =>
 export const redirectToErrorsPage = (errorCode: number): void => {
   switch (errorCode) {
     case 403:
-      return window.location.replace("/errors/403");
+      return window.location.replace(ERRORS_PATHS[403]);
     case 500:
-      return window.location.replace("/errors/500");
+      return window.location.replace(ERRORS_PATHS[500]);
     case 404:
     default:
-      return window.location.replace("/errors/404");
+      return window.location.replace(ERRORS_PATHS[404]);
   }
 };

@@ -105,7 +105,7 @@ const Table = <T extends TableBaseItemType>({
       slots={{
         noRowsOverlay: () => <BlankContentImage />,
         noResultsOverlay: () => <BlankContentImage />,
-        moreActionsIcon: (props) => <Icon icon="solar:menu-dots-bold" {...props} />,
+        moreActionsIcon: (props) => <Icon icon="solar:menu-dots-bold-duotone" {...props} />,
         exportIcon: (props) => <Icon icon="solar:eye-closed-bold-duotone" {...props} />,
 
         columnMenuSortAscendingIcon: () => <Icon icon="solar:alt-arrow-up-bold-duotone" />,

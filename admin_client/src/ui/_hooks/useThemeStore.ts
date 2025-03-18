@@ -12,7 +12,7 @@ export enum ThemeMode {
 
 export const DEFAULT_THEME_MODE = IsSystemDarkMode() ? ThemeMode.DARK : ThemeMode.LIGHT;
 
-export const DEFAULT_PALETTE_COLOR_NAME = ThemePaletteColorName.Teal;
+export const DEFAULT_PALETTE_COLOR_NAME = ThemePaletteColorName.SkyBlue;
 
 /**
  * UI主题配色

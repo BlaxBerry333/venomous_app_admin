@@ -1,12 +1,7 @@
 import axios from "axios";
 
 import { redirectToErrorsPage, redirectToLoginPage } from "~/utils/libs/router/_helpers";
-import {
-  getStoredAuthTokens,
-  handleTokenRefresh,
-  setAuthTokensAsStored,
-  validateTokenExpires,
-} from "../_helpers";
+import { getStoredAuthTokens, handleTokenRefresh } from "../_helpers";
 
 const ADMIN_SERVER_API_INSTANCE = axios.create({
   baseURL: "/admin-server-api",
@@ -31,20 +26,7 @@ ADMIN_SERVER_API_INSTANCE.interceptors.request.use(
     }
 
     // 有本地缓存的 token，但过期了
-    if (!validateTokenExpires(accessToken)) {
-      await handleTokenRefresh({
-        interceptorConfigs: configs,
-        onSuccess: ({ access_token, refresh_token }) => {
-          setAuthTokensAsStored({ accessToken: access_token, refreshToken: refresh_token });
-          configs.headers.Authorization = `Bearer ${access_token}`;
-          return configs;
-        },
-        onError: () => {
-          redirectToLoginPage();
-          return Promise.reject("[ERROR] Token Refresh Failed");
-        },
-      });
-    }
+    // 请求拦截器中不做处理，在响应拦截器中会自动刷新 token
 
     // token 有效
     configs.headers.Authorization = `Bearer ${accessToken}`;
@@ -63,14 +45,33 @@ ADMIN_SERVER_API_INSTANCE.interceptors.response.use(
     const code = error?.response?.status;
     const config = error?.config;
 
-    if (code === 401 && !config._retry) {
-      config._retry = true;
-      await handleTokenRefresh(config);
-      return ADMIN_SERVER_API_INSTANCE(config);
-    }
-
     if (code === 500) {
       return redirectToErrorsPage(500);
+    }
+
+    if (code === 401) {
+      if (!config._retry) {
+        config._retry = true;
+        try {
+          await handleTokenRefresh({
+            interceptorConfigs: config,
+            onSuccess: ({ access_token }) => {
+              config.headers.Authorization = `Bearer ${access_token}`;
+            },
+            onError: () => {
+              redirectToLoginPage();
+            },
+          });
+          // 使用新的Token重新发送当前请求
+          return ADMIN_SERVER_API_INSTANCE(config);
+        } catch (refreshError) {
+          return Promise.reject(refreshError);
+        }
+      } else {
+        // 已重试过仍失败，跳转登录
+        redirectToLoginPage();
+        return Promise.reject(error);
+      }
     }
 
     return Promise.reject(error);

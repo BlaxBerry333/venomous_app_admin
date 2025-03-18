@@ -1,6 +1,5 @@
 import type { NamedExoticComponent } from "react";
-import { memo, useCallback, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { memo, useCallback } from "react";
 
 import MuiStack from "@mui/material/Stack";
 
@@ -11,36 +10,24 @@ import {
   Icon,
   ListItem,
   Menu,
-  Modal,
+  ModalWrapper,
   Popover,
+  Portal,
   toast,
   Typography,
   usePopover,
 } from "~/ui/components";
+import { elementID } from "~/ui/templates";
 import { useAPIAuthLogout } from "~/utils/libs/apis/_hooks/auth";
 import { useAPIUserProfile } from "~/utils/libs/apis/_hooks/user";
-import { useRouteNavigate } from "~/utils/libs/router";
+import { AUTH_PATHS, useRouteNavigate } from "~/utils/libs/router";
 import { formateDateTime, formateFromNow } from "~/utils/libs/tools/datetime";
 
 const DashboardLayoutAccount: NamedExoticComponent = memo(() => {
   const popover = usePopover();
 
-  // ----------------------------------------------------------------------------------------------------
-
-  const [targetElement, setTargetElement] = useState<HTMLElement | null>(null);
-  useEffect(() => {
-    const element = document.getElementById("dashboard-layout-account");
-    setTargetElement(element);
-  }, []);
-
-  // ----------------------------------------------------------------------------------------------------
-
-  if (!targetElement) {
-    return null;
-  }
-
-  return createPortal(
-    <>
+  return (
+    <Portal targetElementID={elementID}>
       <AnimationAvatar
         src="https://avatars.githubusercontent.com/u/166675080?v=4"
         size={BaseSize.SMALL}
@@ -57,9 +44,7 @@ const DashboardLayoutAccount: NamedExoticComponent = memo(() => {
           <PopoverItemOfAuthLogout callback={popover.handleClose} />
         </Menu>
       </Popover>
-    </>,
-    targetElement,
-    "dashboard-layout-account",
+    </Portal>
   );
 });
 
@@ -72,7 +57,8 @@ const PopoverItemOfCurrentUserProfile: NamedExoticComponent = memo(() => {
     return null;
   }
   return (
-    <Modal
+    <ModalWrapper
+      escapeKeyDown
       renderModalTrigger={(params) => (
         <ListItem
           title="个人信息"
@@ -138,22 +124,21 @@ const PopoverItemOfAuthLogout: NamedExoticComponent<{ callback: VoidFunction }> 
       mutateAsync()
         .then(() => {
           toast.success("LOGOUT SUCCESS");
-          replace("/auth/login");
         })
         .catch(() => {
           toast.error("LOGOUT FAILED");
-          replace("/auth/login");
         })
         .finally(() => {
+          replace(AUTH_PATHS.login);
           callback();
         });
     }, [mutateAsync, replace, callback]);
 
     return (
-      <Modal
+      <ModalWrapper
         escapeKeyDown
         title="确定要退出登录吗?"
-        handleOnConfirm={() => handleLogout()}
+        handleConfirm={() => handleLogout()}
         isConfirmLoading={isPending}
         renderModalTrigger={(params) => (
           <ListItem

@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import type { IAuthLoginParams } from "~/app/types/_auth";
 import { BlankFieldWrapper, Link, RHF } from "~/ui/components";
+import { AUTH_PATHS } from "~/utils/libs/router";
 import { createZodSchema, ZOD_I18N_ERROR_CODES } from "~/utils/libs/tools/zod";
 
 const formSchemas = createZodSchema<IAuthLoginParams>()(
@@ -26,7 +27,7 @@ const AuthLoginForm: NamedExoticComponent<{
       <RHF.Password name="password" label="Password" placeholder="4+ characters" />
       {/* Password Reset */}
       <BlankFieldWrapper>
-        <Link to="/auth/reset-password" sx={{ transform: "translateY(-8px)" }}>
+        <Link to={AUTH_PATHS.resetPassword} sx={{ transform: "translateY(-8px)" }}>
           Forgot Password?
         </Link>
       </BlankFieldWrapper>

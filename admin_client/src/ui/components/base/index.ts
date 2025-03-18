@@ -38,6 +38,8 @@ export * from "./popover";
 
 export * from "./popper";
 
+export * from "./portal";
+
 export * from "./table";
 
 export * from "./typography";

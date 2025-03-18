@@ -2,7 +2,7 @@ import { Navigate, useRoutes } from "react-router-dom";
 
 import { AuthRoutes } from "./auth-routes";
 import { DashboardRoutes } from "./dashboard-routes";
-import { ErrorsRoutes } from "./errors-routes";
+import { ERRORS_PATHS, ErrorsRoutes } from "./errors-routes";
 
 export function RouterViews(): React.ReactElement | null {
   return useRoutes([
@@ -19,7 +19,7 @@ export function RouterViews(): React.ReactElement | null {
 
     {
       path: "*",
-      element: <Navigate to={"/errors/404"} replace />,
+      element: <Navigate to={ERRORS_PATHS[404]} replace />,
     },
   ]);
 }

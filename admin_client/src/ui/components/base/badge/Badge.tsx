@@ -37,14 +37,14 @@ const Badge: NamedExoticComponent<BadgeProps> = memo(
     >(() => {
       switch (position) {
         case BadgePosition.TOP_LEFT:
-          return { vertical: "top", horizontal: "left", transform: "translate(-2px, -2px)" };
+          return { vertical: "top", horizontal: "left", transform: "translate(2px, 2px)" };
         case BadgePosition.BOTTOM_LEFT:
-          return { vertical: "bottom", horizontal: "left", transform: "translate(-2px, 2px)" };
+          return { vertical: "bottom", horizontal: "left", transform: "translate(2px, -2px)" };
         case BadgePosition.BOTTOM_RIGHT:
-          return { vertical: "bottom", horizontal: "right", transform: "translate(2px, 2px)" };
+          return { vertical: "bottom", horizontal: "right", transform: "translate(-2px, -2px)" };
         case BadgePosition.TOP_RIGHT:
         default:
-          return { vertical: "top", horizontal: "right", transform: "translate(2px, -2px)" };
+          return { vertical: "top", horizontal: "right", transform: "translate(-2px, 2px)" };
       }
     }, [position]);
 
@@ -62,9 +62,9 @@ const Badge: NamedExoticComponent<BadgeProps> = memo(
               ? {
                   transform: badgePlacementAttributes.transform,
                   color: ({ palette }) =>
-                    color === BaseColor.INHERIT ? palette.text.primary : palette[color].light,
+                    color === BaseColor.INHERIT ? palette.text.primary : palette[color].main,
                   backgroundColor: ({ palette }) =>
-                    color === BaseColor.INHERIT ? palette.text.primary : palette[color].light,
+                    color === BaseColor.INHERIT ? palette.text.primary : palette[color].main,
                   boxShadow: "0 0 0 2px transparent",
                   "&::after": {
                     position: "absolute",

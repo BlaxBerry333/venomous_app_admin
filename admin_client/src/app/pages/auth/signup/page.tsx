@@ -1,5 +1,6 @@
 import { PageContent } from "~/ui/components/layouts";
 import { AuthLayoutTitle } from "~/ui/templates";
+import { AUTH_PATHS } from "~/utils/libs/router";
 
 import AuthSignupView from "./view";
 
@@ -10,7 +11,7 @@ export default function AuthSignupPage() {
         title={"Create Account"}
         subtitle={"Already have an account?"}
         subTitleExtraText={"Login"}
-        subTitleExtraUrl={"/auth/login"}
+        subTitleExtraUrl={AUTH_PATHS.login}
       />
 
       <AuthSignupView />

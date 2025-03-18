@@ -4,7 +4,7 @@ import type { IAuthLoginParams, IAuthLoginResponse } from "~/app/types/_auth";
 import { toast } from "~/ui/components";
 import { setAuthTokensAsStored } from "~/utils/libs/apis/_helpers";
 import { useAPIAuthLogin } from "~/utils/libs/apis/_hooks/auth";
-import { useRouteNavigate, useRouteSearchParams } from "~/utils/libs/router";
+import { DASHBOARD_PATHS, useRouteNavigate, useRouteSearchParams } from "~/utils/libs/router";
 
 function useAuthLoginView() {
   const { replace } = useRouteNavigate();
@@ -27,7 +27,7 @@ function useAuthLoginView() {
           }
           // 初次登录
           toast.success("LOGIN SUCCESS");
-          replace("/dashboard/");
+          replace(DASHBOARD_PATHS.analysis);
         })
         .catch((error) => {
           const message: string = error.response.data.error || "LOGIN FAILED";

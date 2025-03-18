@@ -10,7 +10,14 @@ const AnimationIconButton: NamedExoticComponent<
   }
 > = memo(({ disabled, wrapperStyle, ...props }) => {
   return (
-    <AnimationWrapper noAnimation={disabled} style={{ display: "inline-block", ...wrapperStyle }}>
+    <AnimationWrapper
+      noAnimation={disabled}
+      style={{
+        display: "inline-block",
+        cursor: disabled ? "not-allowed" : "pointer",
+        ...wrapperStyle,
+      }}
+    >
       <IconButton disabled={disabled} {...props} />
     </AnimationWrapper>
   );

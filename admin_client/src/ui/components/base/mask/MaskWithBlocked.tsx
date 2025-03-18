@@ -4,7 +4,11 @@ import { memo } from "react";
 import { BaseColor } from "~/ui/_helpers";
 import { Typography } from "~/ui/components/base/typography";
 import { Icon } from "~/ui/components/customs";
-import Mask, { MaskCursor } from "./Mask";
+import Mask, { MaskCursor, type MaskProps } from "./Mask";
+
+type MaskWithBlockedProps = Omit<MaskProps, "cursor"> & {
+  message?: string;
+};
 
 /**
  * @example
@@ -14,10 +18,10 @@ import Mask, { MaskCursor } from "./Mask";
  * </div>
  * ```
  */
-const MaskWithBlocked: NamedExoticComponent<{ show?: boolean; message?: string }> = memo(
-  ({ show = true, message = "Access Denied" }) => {
+const MaskWithBlocked: NamedExoticComponent<MaskWithBlockedProps> = memo(
+  ({ show = true, message = "Access Denied", sx }) => {
     return (
-      <Mask show={show} cursor={MaskCursor.NOT_ALLOWED}>
+      <Mask show={show} cursor={MaskCursor.NOT_ALLOWED} sx={sx}>
         <div
           style={{
             position: "absolute",

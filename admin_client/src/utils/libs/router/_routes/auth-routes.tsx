@@ -23,6 +23,13 @@ const AUTH_ROUTE_PATH = {
   },
 } as const;
 
+export const AUTH_PATHS = {
+  login: `/${AUTH_ROUTE_PATH.BASE}/${AUTH_ROUTE_PATH.SEGMENT.LOGIN}`,
+  signup: `/${AUTH_ROUTE_PATH.BASE}/${AUTH_ROUTE_PATH.SEGMENT.SIGNUP}`,
+  verifyEmail: `/${AUTH_ROUTE_PATH.BASE}/${AUTH_ROUTE_PATH.SEGMENT.VERIFY_EMAIL}`,
+  resetPassword: `/${AUTH_ROUTE_PATH.BASE}/${AUTH_ROUTE_PATH.SEGMENT.RESET_PASSWORD}`,
+} as const;
+
 export const AuthRoutes: RouteObject[] = [
   {
     path: `/${AUTH_ROUTE_PATH.BASE}`,

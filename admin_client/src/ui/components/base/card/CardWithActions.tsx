@@ -1,14 +1,13 @@
-import type { NamedExoticComponent, PropsWithChildren } from "react";
+import type { NamedExoticComponent, PropsWithChildren, ReactNode } from "react";
 import { memo, useMemo } from "react";
 
+import MuiBox, { type BoxProps as MuiBoxProps } from "@mui/material/Box";
 import MuiCard, { type CardProps as MuiCardProps } from "@mui/material/Card";
 import MuiCardContent, {
   type CardContentProps as MuiCardContentProps,
 } from "@mui/material/CardContent";
-import MuiCardHeader from "@mui/material/CardHeader";
 
 import { BasePosition } from "~/ui/_helpers";
-import { ListItemSize } from "~/ui/components/base/list-item";
 import { MaskWithBlocked, MaskWithLoading } from "~/ui/components/base/mask";
 import {
   MenuInsideActionPopover,
@@ -16,16 +15,23 @@ import {
 } from "~/ui/components/base/menu";
 import { Typography } from "~/ui/components/base/typography";
 
-type CardWithActionsProps = PropsWithChildren<
+export type CardWithActionsProps = PropsWithChildren<
   Omit<MuiCardProps, "sx"> &
-    Pick<MenuInsideActionPopoverProps, "actionItemList" | "actionIsNotAllowed"> & {
+    Pick<
+      MenuInsideActionPopoverProps,
+      "actionItemList" | "actionIsNotAllowed" | "popoverPosition"
+    > & {
       isLoading?: boolean;
       isBlocked?: boolean;
       isCustomCardContent?: boolean;
+      isCustomCardAction?: boolean;
       title?: string;
       subTitle?: string;
+      avatar?: ReactNode;
+      action?: ReactNode;
       wrapperSx?: MuiCardProps["sx"];
-      sx?: MuiCardContentProps["sx"];
+      headerSx?: MuiBoxProps["sx"];
+      contentSx?: MuiCardContentProps["sx"];
     }
 >;
 
@@ -34,50 +40,106 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
     isLoading = false,
     isBlocked = false,
     isCustomCardContent = false,
+    isCustomCardAction = false,
     children,
     title,
     subTitle,
+    avatar,
+    action,
     actionItemList = [],
     actionIsNotAllowed = false,
+    popoverPosition = BasePosition.BOTTOM_LEFT,
     wrapperSx,
-    sx,
+    headerSx,
+    contentSx,
     ...props
   }) => {
-    const headerWithPopover = useMemo<JSX.Element | null>(() => {
-      if (isCustomCardContent) return null;
+    const headerTitles = useMemo<JSX.Element>(() => {
       return (
-        <>
-          {/* Card Header */}
-          <MuiCardHeader
-            title={
-              <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+        <Typography component="div" noWrap sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          {/* Card Header Icon */}
+          {avatar}
+
+          {/* Card Header Titles */}
+          <Typography component="div" noWrap>
+            {title && (
+              <Typography
+                variant="subtitle1"
+                noWrap
+                sx={{
+                  fontWeight: "bold",
+                  transform: `translateY(${subTitle ? "4px" : "0px"})`,
+                }}
+              >
                 {title}
               </Typography>
-            }
-            subheader={
-              <Typography variant="subtitle2" sx={{ color: "text.secondary" }}>
+            )}
+            {subTitle && (
+              <Typography
+                variant="subtitle2"
+                noWrap
+                sx={{
+                  color: "text.disabled",
+                  fontWeight: "bold",
+                  transform: `translateY(${title ? "-4px" : "0px"})`,
+                }}
+              >
                 {subTitle}
               </Typography>
-            }
-            avatar={null}
-            action={
-              // Card Actions List Popover
-              <MenuInsideActionPopover
-                actionItemList={actionItemList}
-                actionIsNotAllowed={actionIsNotAllowed}
-                popoverPosition={BasePosition.BOTTOM_LEFT}
-                listItemSize={ListItemSize.SMALL}
-              />
-            }
-          />
-        </>
+            )}
+          </Typography>
+        </Typography>
       );
-    }, [isCustomCardContent, title, subTitle, actionItemList, actionIsNotAllowed]);
+    }, [avatar, title, subTitle]);
+
+    const header = useMemo<JSX.Element | null>(() => {
+      if (isCustomCardContent) return null;
+      return (
+        <MuiBox
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+            ...headerSx,
+          }}
+        >
+          {/* Card Header */}
+          {headerTitles}
+
+          {/* Card Actions */}
+          {isCustomCardAction && action}
+
+          {/* Card Actions List Popover */}
+          {!isCustomCardAction && (
+            <MenuInsideActionPopover
+              actionItemList={actionItemList}
+              actionIsNotAllowed={actionIsNotAllowed}
+              popoverPosition={popoverPosition}
+            />
+          )}
+        </MuiBox>
+      );
+    }, [
+      isCustomCardContent,
+      isCustomCardAction,
+      headerTitles,
+      headerSx,
+      action,
+      actionItemList,
+      actionIsNotAllowed,
+      popoverPosition,
+    ]);
 
     return (
-      <MuiCard elevation={3} sx={{ position: "relative", ...wrapperSx }} {...props}>
+      <MuiCard
+        elevation={3}
+        sx={{ position: "relative", borderRadius: "8px", p: 1, ...wrapperSx }}
+        {...props}
+      >
         {/* NotAllowed Mask */}
-        <MaskWithBlocked show={isBlocked} />
+        <MaskWithBlocked show={isBlocked} sx={{ borderRadius: "8px" }} />
 
         {/* Loading Mask */}
         <MaskWithLoading isLoading={isLoading} />
@@ -86,18 +148,30 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
         {!isCustomCardContent && (
           <>
             {/* Card Default Header */}
-            {headerWithPopover}
+            {header}
 
             {/* Card Default Content */}
-            <MuiCardContent sx={{ typography: "body2", color: "text.secondary", ...sx }}>
+            <Typography
+              component={MuiCardContent}
+              variant="body2"
+              noWrap
+              sx={{ color: "text.secondary", overflow: "visible", ...contentSx }}
+            >
               {children}
-            </MuiCardContent>
+            </Typography>
           </>
         )}
 
         {/* Custom Content */}
         {isCustomCardContent && (
-          <MuiCardContent sx={{ p: 4, typography: "body2", ...sx }}>{children}</MuiCardContent>
+          <Typography
+            component={MuiCardContent}
+            variant="body2"
+            noWrap
+            sx={{ color: "text.secondary", overflow: "visible", p: 2, ...contentSx }}
+          >
+            {children}
+          </Typography>
         )}
       </MuiCard>
     );

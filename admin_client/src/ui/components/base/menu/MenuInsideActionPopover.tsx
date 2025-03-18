@@ -49,7 +49,7 @@ const MenuInsideActionPopover: NamedExoticComponent<MenuInsideActionPopoverProps
             icon={
               actionIsNotAllowed
                 ? "solar:lock-keyhole-minimalistic-bold-duotone"
-                : "solar:menu-dots-line-duotone"
+                : "solar:menu-dots-bold-duotone"
             }
             color={actionIsNotAllowed ? BaseColor.ERROR : BaseColor.INHERIT}
             onClick={popover.handleOpen}

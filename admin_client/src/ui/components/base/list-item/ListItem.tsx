@@ -52,6 +52,7 @@ const ListItem: NamedExoticComponent<ListItemProps> = memo(
         sx={{
           width: "100%",
           height: size === "small" ? "32px" : "50px",
+          borderRadius: 2,
           ".MuiListItemSecondaryAction-root": {
             display: "flex",
             alignItems: "center",

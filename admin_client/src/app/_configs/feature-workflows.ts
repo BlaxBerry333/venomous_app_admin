@@ -12,8 +12,10 @@ export const FEATURE_WORKFLOWS_CONFIGS = {
   },
 
   canvas: {
-    isGridLayout: false, // 是否使用 Grid 布局
     gridLayoutGap: [20, 20] as [number, number], // Grid 布局间隔
+    minZoom: 0.5, // 最小缩放比例
+    maxZoom: 2, // 最大缩放比例
+    zoomDuration: 200, // 缩放动画时长
   },
 
   history: {

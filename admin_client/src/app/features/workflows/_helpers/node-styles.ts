@@ -10,7 +10,6 @@ export function getNodeIcon(type: Workflows.NodeType) {
     case Workflows.NodeType.script:
       return "solar:code-bold";
     case Workflows.NodeType.message:
-    case Workflows.NodeType.default:
     default:
       return "solar:notebook-minimalistic-bold";
   }
@@ -26,7 +25,6 @@ export function getNodeColor(type: Workflows.NodeType) {
     case Workflows.NodeType.script:
       return "#6A5ACD"; // SlateBlue
     case Workflows.NodeType.message:
-    case Workflows.NodeType.default:
     default:
       return "#20B2AA"; // LightSeaGreen
   }

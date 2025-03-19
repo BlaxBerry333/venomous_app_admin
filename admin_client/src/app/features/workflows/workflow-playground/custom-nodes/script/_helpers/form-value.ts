@@ -1,10 +1,11 @@
 import { WorkflowsFormValue } from "~/app/features/workflows/_types";
 
-type FormValueType = WorkflowsFormValue.MessageNode;
+type FormValueType = WorkflowsFormValue.ScriptNode;
 
 const DEFAULT_FORM_VALUE: FormValueType = {
-  message: "",
   description: "",
+  language: "",
+  code: "",
 };
 
 export default {

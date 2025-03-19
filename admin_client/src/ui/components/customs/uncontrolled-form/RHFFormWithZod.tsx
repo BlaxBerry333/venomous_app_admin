@@ -1,5 +1,5 @@
 import type { CSSProperties, PropsWithChildren } from "react";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type DefaultValues, type UseFormReturn } from "react-hook-form";
@@ -19,15 +19,36 @@ type RHFFormWithZodProps<S extends ReturnType<typeof z.object>> = PropsWithChild
 /**
  * @example
  * ```tsx
+ * const zodSchema = z.object({ xxxx: z.string() })
+ * const defaultValues = { xxxx: "" }
+ * type FormValueType = z.infer<typeof zodSchema>
+ * const onSubmit = (data: FormValueType) => console.log(data)
+ * 
+ * // 写法一: 组件内部定义formInstance，灵活性较低
  * <RHFFormWithZod
- *   zodSchema={z.object({ username: z.string(), email: z.string() })}
- *   defaultValues={{ username: "", email: "" }}
- *   onSubmit={(data) => console.log(data)}
+ *   zodSchema={zodSchema}
+ *   defaultValues={defaultValues}
+ *   onSubmit={onSubmit}
  * >
- *   <RHF.Text name="username" label="Username" />
- *   <RHF.Text name="email" label="Email" />
+ *   <RHF.Text name="xxxx" label="xxxx" />
  *   <RHF.Action isLoading={isLoading} />
- * </>
+ * </RHFFormWithZod>
+ * 
+ * // 写法二: 在外部定义formInstance，灵活性更高
+ * const formInstance = useForm<FormValueType>({
+    resolver: zodResolver(formSchemas),
+    defaultValues,
+    mode: "all",
+  });
+ * <RHFFormWithZod
+ *   instance={formInstance}
+ *   zodSchema={zodSchema}
+ *   defaultValues={defaultValues}
+ *   onSubmit={onSubmit}
+ * >
+ *   <RHF.Text name="xxxx" label="xxxx" />
+ *   <RHF.Action isLoading={isLoading} />
+ * </RHFFormWithZod>
  */
 function RHFFormWithZod<S extends ReturnType<typeof z.object>>({
   children,
@@ -52,6 +73,10 @@ function RHFFormWithZod<S extends ReturnType<typeof z.object>>({
     },
     [onSubmit],
   );
+
+  useEffect(() => {
+    formInstance.trigger(); // 在初次渲染时自动触发验证
+  }, [formInstance]);
 
   return (
     <RHF.Form<FormValueType>

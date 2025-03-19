@@ -5,30 +5,35 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { WorkflowsFormValue } from "~/app/features/workflows/_types";
+import { useNodeUpdateFormInvalid } from "~/app/features/workflows/workflow-playground/_hooks/core";
 import { Button, IconButton, RHF, Typography } from "~/ui/components";
-import {
-  DEFAULT_FORM_VALUE,
-  DEFAULT_FORM_VALUE_ITEM,
-  DEFAULT_METHOD_OPTIONS,
-  formSchemas,
-} from "./_helpers";
+import { FETCH_NODE_FORM, formSchemas } from "./_helpers";
 
 export type FormValueType = WorkflowsFormValue.FetchNode;
 
 const FetchNodeDetail: NamedExoticComponent<{
+  nodeId: string;
   defaultValues?: FormValueType;
   onSubmit: (formValue: FormValueType) => void;
-}> = memo(({ defaultValues = DEFAULT_FORM_VALUE, onSubmit }) => {
+}> = memo(({ nodeId, defaultValues = FETCH_NODE_FORM.DEFAULT_FORM_VALUE, onSubmit }) => {
   const formInstance = useForm<FormValueType>({
     resolver: zodResolver(formSchemas),
     defaultValues,
     mode: "all",
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields: items,
+    append,
+    remove,
+  } = useFieldArray({
     control: formInstance.control,
     name: "items",
   });
+
+  const itemsErrorMessage = formInstance.formState.errors.items?.message;
+
+  useNodeUpdateFormInvalid(nodeId, !formInstance.formState.isValid);
 
   return (
     <RHF.FormWithZod
@@ -50,14 +55,15 @@ const FetchNodeDetail: NamedExoticComponent<{
         maxRows={2}
       />
 
-      {fields.map((field, index) => (
+      {/* Items */}
+      {items.map((field, index) => (
         <FetchNodeDetailItemWrapper key={field.id} index={index} removeItem={remove}>
           {/* Item.Method */}
           <RHF.Select
             name={`items.${index}.method`}
             label="Method"
             clearable={false}
-            options={DEFAULT_METHOD_OPTIONS.map(({ value, label }) => ({
+            options={FETCH_NODE_FORM.DEFAULT_METHOD_OPTIONS.map(({ value, label }) => ({
               title: label,
               value,
             }))}
@@ -66,9 +72,10 @@ const FetchNodeDetail: NamedExoticComponent<{
           <RHF.Text name={`items.${index}.url`} label="URL" />
         </FetchNodeDetailItemWrapper>
       ))}
-      <Button sx={{ mb: 2 }} onClick={() => append(DEFAULT_FORM_VALUE_ITEM)}>
-        Add Item
-      </Button>
+      <Button onClick={() => append(FETCH_NODE_FORM.DEFAULT_FORM_VALUE_ITEM)}>Add Item</Button>
+      <Typography color="error" variant="caption" sx={{ height: 24, pl: 0.5 }}>
+        {itemsErrorMessage}
+      </Typography>
 
       {/* Action Buttons */}
       <RHF.Action isLoading={false} />

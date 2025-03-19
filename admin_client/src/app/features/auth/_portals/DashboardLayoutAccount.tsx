@@ -60,11 +60,7 @@ const PopoverItemOfCurrentUserProfile: NamedExoticComponent = memo(() => {
     <ModalWrapper
       escapeKeyDown
       renderModalTrigger={(params) => (
-        <ListItem
-          title="个人信息"
-          icon="solar:user-circle-line-duotone"
-          onClick={params.handleOpen}
-        />
+        <ListItem title="个人信息" icon="solar:user-id-line-duotone" onClick={params.handleOpen} />
       )}
       renderModalContent={() => (
         <MuiStack spacing={2}>

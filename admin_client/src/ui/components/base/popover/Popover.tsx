@@ -13,6 +13,8 @@ export type PopoverProps = PropsWithChildren<Omit<MuiPopoverProps, "open" | "onC
   arrow?: boolean;
   position?: BasePosition;
   autoWidth?: boolean;
+  minWidth?: number;
+  maxWidth?: number;
 };
 
 /**
@@ -28,6 +30,8 @@ const Popover: NamedExoticComponent<PopoverProps> = memo(
     arrow = true,
     position = BasePosition.RIGHT_CENTER,
     autoWidth = false,
+    minWidth = 100,
+    maxWidth = 200,
     sx,
     ...props
   }) => {
@@ -54,8 +58,8 @@ const Popover: NamedExoticComponent<PopoverProps> = memo(
           paper: {
             sx: {
               overflow: "inherit !important",
-              minWidth: autoWidth ? anchorElementWidth : 100,
-              maxWidth: autoWidth ? anchorElementWidth : 200,
+              minWidth: autoWidth ? anchorElementWidth : minWidth,
+              maxWidth: autoWidth ? anchorElementWidth : maxWidth,
               width: autoWidth ? anchorElementWidth : undefined,
               ...placementAttributes.slotPaperSx,
             },
@@ -76,6 +80,7 @@ const Popover: NamedExoticComponent<PopoverProps> = memo(
             zIndex: 2,
             height: "100%",
             width: "100%",
+            padding: 4,
           }}
         >
           {children}

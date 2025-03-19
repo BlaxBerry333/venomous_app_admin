@@ -5,3 +5,5 @@ export { usePopover } from "./Popover";
 export type { PopoverProps } from "./Popover";
 
 export { default as Pulldown } from "./Pulldown";
+
+export type { PulldownProps } from "./Pulldown";

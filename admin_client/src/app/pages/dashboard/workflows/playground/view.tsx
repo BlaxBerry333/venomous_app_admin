@@ -51,7 +51,7 @@ const mock_nodes: Workflows.Node[] = [
           },
           {
             method: WorkflowsFormValue.FetchNodeMethod.POST,
-            url: "https://example.com/aaa",
+            url: "https://example.com/aaabbbcccdddeeefff",
           },
         ],
       },

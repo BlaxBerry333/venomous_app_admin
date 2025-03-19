@@ -5,13 +5,15 @@ import { ConnectionLineType, MarkerType, ReactFlow } from "@xyflow/react";
 import "@xyflow/react/dist/base.css";
 
 import { FEATURE_WORKFLOWS_CONFIGS } from "~/app/_configs/feature-workflows";
+import { useWorkflowOriginalData } from "~/app/features/workflows/_contexts";
 import { Workflows } from "~/app/features/workflows/_types";
 import { useThemeStore } from "~/ui/_hooks";
 
-import { useWorkflowOriginalData } from "../../_contexts";
-import { useEventsOfConnection } from "../_hooks/core";
+import { usePlaygroundActionStatusStore } from "../_hooks";
+import { useEdgeConnection, useNodeRegister } from "../_hooks/core";
 import { customEdgeComponents } from "../custom-edges";
 import { customNodeComponents } from "../custom-nodes";
+import { PlaygroundBackground } from "../custom-playground-actions";
 import {
   PlaygroundBottomLeftPanel,
   PlaygroundBottomRightPanel,
@@ -27,7 +29,11 @@ const WorkflowPlayground: NamedExoticComponent = memo(() => {
   const theme = useThemeStore();
   const { originalElement } = useWorkflowOriginalData();
 
-  const { isValidConnection } = useEventsOfConnection();
+  const { isGridLayout } = usePlaygroundActionStatusStore();
+
+  const { isValidConnection } = useEdgeConnection();
+
+  const { handleOnDragOver, handleOnDrop } = useNodeRegister();
 
   return (
     // prettier-ignore
@@ -39,7 +45,7 @@ const WorkflowPlayground: NamedExoticComponent = memo(() => {
       connectionLineType={ConnectionLineType.Bezier}                      /** 连接中的 Edge 的种类 */
       connectionLineStyle={{ strokeWidth: 3 }}                            /** 连接中的 Edge 的样式 */
       defaultEdgeOptions={{
-        type: Workflows.EdgeType.default,                                 /** 连接拖拽时的 Edge 的种类 */
+        type: Workflows.EdgeType.animation,                               /** 连接拖拽时的 Edge 的种类 */
         markerEnd: { type: MarkerType.ArrowClosed },                      /** 连接拖拽时的 Edge 的箭头种类 */
         style: { strokeWidth: 3 }                                         /** 连接后的 Edge 的样式，可在 EdgeProps 中覆盖 */
       }}
@@ -64,8 +70,9 @@ const WorkflowPlayground: NamedExoticComponent = memo(() => {
       // onReconnectEnd={onReconnectEnd}                                  /** Edge 重新连接结束 ( 无论连接成功或失败 ) */
       isValidConnection={isValidConnection}                               /** 判断是否可以连接 */
       // ----------------------------------------------------------------------------------------------------
-      // onDragOver={handleOnDragOver}                                    /** 将其他页面元素拖拽进入 Canvas */
-      // onDrop={handleOnDrop}                                            /** 将拖拽中的其他页面元素放入 Canvas */
+      onDragOver={handleOnDragOver}                                       /** 将其他页面元素拖拽进入 Canvas */
+      onDrop={handleOnDrop}                                               /** 将拖拽中的其他页面元素放入 Canvas */
+      // ----------------------------------------------------------------------------------------------------
       // onInit={onAfterInit}                                             /** Canvas 初始化结束 */
       // onError={onError}                                                /** Canvas 发生错误时 */
       // onBeforeDelete={onBeforeDelete}                                  /** Node 或边在被删除前 */
@@ -83,24 +90,31 @@ const WorkflowPlayground: NamedExoticComponent = memo(() => {
       nodeDragThreshold={5}                                               /** Node 被拖拽了指定 px 之后才会真正在 Canvas 上移动，可防止失误移动 */
       connectionRadius={FEATURE_WORKFLOWS_CONFIGS.styles.nodeWidth / 4}   /** Node 连接的 px 范围 */
       // ----------------------------------------------------------------------------------------------------
-      snapToGrid={FEATURE_WORKFLOWS_CONFIGS.canvas.isGridLayout}          /** Canvas 是否使用 Grid 布局 */
+      snapToGrid={isGridLayout}                                           /** Canvas 是否使用 Grid 布局 */
       snapGrid={FEATURE_WORKFLOWS_CONFIGS.canvas.gridLayoutGap}           /** Canvas Grid 布局间隔 */
+      minZoom={FEATURE_WORKFLOWS_CONFIGS.canvas.minZoom}                  /** Canvas 最小缩放比例 */
+      maxZoom={FEATURE_WORKFLOWS_CONFIGS.canvas.maxZoom}                  /** Canvas 最大缩放比例 */
+      fitViewOptions={{
+        duration: FEATURE_WORKFLOWS_CONFIGS.canvas.zoomDuration           /** Canvas 缩放动画时长 */
+      }}
       // ----------------------------------------------------------------------------------------------------
       deleteKeyCode={null}                                                /** 默认删除 Node 与 Edge 的快捷键 */
       // ----------------------------------------------------------------------------------------------------
       colorMode={theme?.mode}                                             /** 颜色模式 */
       proOptions={{ hideAttribution: true }}                              /** 隐藏版权信息 */
     >
+      {/* Background */}
+      <PlaygroundBackground />
 
       {/* Actions */}
-      <PlaygroundTopLeftPanel/>
-      <PlaygroundTopRightPanel/>
-      <PlaygroundBottomLeftPanel/>
-      <PlaygroundBottomRightPanel/>
+      <PlaygroundTopLeftPanel />
+      <PlaygroundTopRightPanel />
+      <PlaygroundBottomLeftPanel />
+      <PlaygroundBottomRightPanel />
 
       {/* Modals */}
       <Suspense fallback={null}>
-        <PlaygroundDeleteConfirmModal/>
+        <PlaygroundDeleteConfirmModal />
       </Suspense>
     </ReactFlow>
   );

@@ -30,7 +30,6 @@ export namespace Workflows {
    * Node 的类型
    */
   export enum NodeType {
-    default = "default", // message node
     message = "message",
     fetch = "fetch",
     script = "script",
@@ -41,6 +40,7 @@ export namespace Workflows {
    */
   export type NodeData<FormValue = NodeDataFormValue> = Partial<{
     isBlocked: boolean; // 是否禁用
+    isFormInvalid: boolean; // 表单是否无效
     formValue: FormValue; // 表单值
   }>;
 
@@ -61,7 +61,7 @@ export namespace Workflows {
    * 自定义 Node 组件 ( React memoized )
    */
   export type NodeComponents = {
-    [NodeType.default]: NamedExoticComponent<NodeProps<WorkflowsFormValue.MessageNode>>;
+    // [NodeType.default]: NamedExoticComponent<NodeProps<WorkflowsFormValue.MessageNode>>;
     [NodeType.message]: NamedExoticComponent<NodeProps<WorkflowsFormValue.MessageNode>>;
     [NodeType.fetch]: NamedExoticComponent<NodeProps<WorkflowsFormValue.FetchNode>>;
     [NodeType.script]: NamedExoticComponent<NodeProps<WorkflowsFormValue.ScriptNode>>;
@@ -79,7 +79,6 @@ export namespace Workflows {
    * Edge 的类型
    */
   export enum EdgeType {
-    default = "default",
     animation = "animation",
   }
 
@@ -99,18 +98,6 @@ export namespace Workflows {
    * 自定义 Edge 组件 ( React memoized )
    */
   export type EdgeComponents = Record<EdgeType, NamedExoticComponent<EdgeProps>>;
-
-  // ----------------------------------------------------------------------------------------------------
-  // ----------------------------------------------------------------------------------------------------
-
-  export type FormValue = {
-    name: string;
-    description: string;
-    items: Array<{
-      name: string;
-      value: string;
-    }>;
-  };
 
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------

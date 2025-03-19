@@ -1,19 +1,34 @@
 import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
 import type { WorkflowsFormValue } from "~/app/features/workflows/_types";
 import { RHF } from "~/ui/components";
-import { DEFAULT_FORM_VALUE, formSchemas } from "./_helpers";
+import { formSchemas, MESSAGE_NODE_FORM } from "./_helpers";
+
+import { useNodeUpdateFormInvalid } from "~/app/features/workflows/workflow-playground/_hooks/core";
 
 export type FormValueType = WorkflowsFormValue.MessageNode;
 
 const MessageNodeDetail: NamedExoticComponent<{
+  nodeId: string;
   defaultValues?: FormValueType;
   onSubmit: (formValue: FormValueType) => void;
-}> = memo(({ defaultValues = DEFAULT_FORM_VALUE, onSubmit }) => {
+}> = memo(({ nodeId, defaultValues = MESSAGE_NODE_FORM.DEFAULT_FORM_VALUE, onSubmit }) => {
+  const formInstance = useForm<FormValueType>({
+    resolver: zodResolver(formSchemas),
+    defaultValues,
+    mode: "all",
+  });
+
+  useNodeUpdateFormInvalid(nodeId, !formInstance.formState.isValid);
+
   return (
     <RHF.FormWithZod
       hideDevTool
+      instance={formInstance}
       zodSchema={formSchemas}
       defaultValues={defaultValues}
       onSubmit={onSubmit}

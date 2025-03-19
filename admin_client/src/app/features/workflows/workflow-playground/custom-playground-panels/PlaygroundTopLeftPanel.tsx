@@ -9,7 +9,7 @@ import { formateFromNow } from "~/utils/libs/tools/datetime";
 
 const PlaygroundTopLeftPanel: NamedExoticComponent = memo(() => {
   return (
-    <Panel position="top-left">
+    <Panel position="top-left" style={{ margin: "2px 4px" }}>
       <WorkflowInformation />
     </Panel>
   );

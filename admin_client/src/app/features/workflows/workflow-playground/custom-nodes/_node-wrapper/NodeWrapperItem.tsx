@@ -1,14 +1,15 @@
 import type { NamedExoticComponent, PropsWithChildren } from "react";
 import { memo } from "react";
 
-import { Typography } from "~/ui/components";
+import { Typography, type TypographyProps } from "~/ui/components";
 import NodeWrapperConnectionDots from "./NodeWrapperConnectionDots";
 
 export type NodeWrapperItemProps = PropsWithChildren<{
   id: string;
+  sx?: TypographyProps["sx"];
 }>;
 
-const NodeWrapperItem: NamedExoticComponent<NodeWrapperItemProps> = memo(({ children, id }) => {
+const NodeWrapperItem: NamedExoticComponent<NodeWrapperItemProps> = memo(({ children, id, sx }) => {
   return (
     <Typography
       component="div"
@@ -23,6 +24,7 @@ const NodeWrapperItem: NamedExoticComponent<NodeWrapperItemProps> = memo(({ chil
         alignItems: "center",
         p: 1,
         my: 0.5,
+        ...sx,
       }}
     >
       {/* item label */}

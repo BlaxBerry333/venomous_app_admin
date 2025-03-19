@@ -7,11 +7,11 @@ import {
   usePlaygroundSelectedNodeStore,
 } from "~/app/features/workflows/workflow-playground/_hooks";
 import { useNodeStyle } from "~/app/features/workflows/workflow-playground/_hooks/core";
-import { useNodeIconStyle } from "~/app/features/workflows/workflow-playground/_hooks/core/use-node-icon-style";
 import { elementID } from "~/app/features/workflows/workflow-playground/custom-nodes-detail/NodeDetail";
 import { BasePosition } from "~/ui/_helpers";
-import { CardWithActions, Icon, Portal } from "~/ui/components";
+import { CardWithActions, Portal } from "~/ui/components";
 import NodeWrapperConnectionDots from "./NodeWrapperConnectionDots";
+import NodeWrapperIcon from "./NodeWrapperIcon";
 
 interface NodeWrapperProps extends Workflows.NodeProps {
   cardContent?: ReactNode;
@@ -21,7 +21,11 @@ interface NodeWrapperProps extends Workflows.NodeProps {
 
 const NodeWrapper: NamedExoticComponent<NodeWrapperProps> = memo(
   ({ cardContent, portalDetailContent, isMultipleItems = false, ...nodeProps }) => {
-    const { id, type, nodeStyle, nodeIcon, isBlocked } = useNodeWrapperProps(nodeProps);
+    const { id, type, selected, data } = nodeProps;
+    const isFormInvalid: boolean = Boolean(data?.isFormInvalid);
+    const isBlocked: boolean = Boolean(data?.isBlocked);
+
+    const nodeStyle = useNodeStyle({ type, selected, isFormInvalid });
 
     const { selectedNode, setSelectedNode } = usePlaygroundSelectedNodeStore();
 
@@ -31,8 +35,9 @@ const NodeWrapper: NamedExoticComponent<NodeWrapperProps> = memo(
       <CardWithActions
         isBlocked={isBlocked}
         onClick={() => setSelectedNode(nodeProps)}
-        subTitle={type}
-        avatar={<Icon icon={nodeIcon.icon} width={40} sx={nodeIcon.style} />}
+        title={type}
+        subTitle={`#${id}`}
+        avatar={<NodeWrapperIcon nodeType={type} />}
         wrapperSx={nodeStyle.wrapper}
         headerSx={nodeStyle.header}
         contentSx={nodeStyle.content}
@@ -73,22 +78,3 @@ const NodeWrapper: NamedExoticComponent<NodeWrapperProps> = memo(
 );
 
 export default NodeWrapper;
-
-// ----------------------------------------------------------------------------------------------------
-
-function useNodeWrapperProps(nodeProps: Workflows.NodeProps) {
-  const { type, selected, data } = nodeProps;
-
-  const nodeIcon = useNodeIconStyle(type);
-
-  const nodeStyle = useNodeStyle({ nodeColor: nodeIcon.color, selected });
-
-  const isBlocked: boolean = Boolean(data?.isBlocked);
-
-  return {
-    ...nodeProps,
-    nodeStyle,
-    nodeIcon,
-    isBlocked,
-  };
-}

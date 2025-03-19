@@ -9,8 +9,8 @@ import { PlaygroundRunningAction, PlaygroundSaveAction } from "../custom-playgro
 
 const PlaygroundTopRightPanel: NamedExoticComponent = memo(() => {
   return (
-    <Panel position="top-right">
-      <MuiStack direction="row" spacing={1}>
+    <Panel position="top-right" style={{ margin: "2px" }}>
+      <MuiStack direction="row" spacing={0.5}>
         <PlaygroundRunningAction />
         <PlaygroundSaveAction />
       </MuiStack>

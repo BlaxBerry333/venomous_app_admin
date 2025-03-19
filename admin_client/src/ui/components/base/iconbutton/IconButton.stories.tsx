@@ -13,11 +13,21 @@ const meta = {
   argTypes: {
     ...iconMeta.argTypes,
     size: buttonMeta.argTypes.size,
+    tooltip: {
+      description: "按钮的提示信息",
+      control: { type: "text" },
+    },
+    isCircle: {
+      description: "是否为圆形按钮",
+      control: { type: "boolean" },
+    },
   },
   args: {
     onClick: fn(),
     ...iconMeta.args,
     size: buttonMeta.args.size,
+    tooltip: "按钮的提示信息",
+    isCircle: false,
   },
 } satisfies Meta<typeof IconButton>;
 

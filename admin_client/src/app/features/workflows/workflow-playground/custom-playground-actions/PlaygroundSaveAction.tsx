@@ -31,8 +31,14 @@ function usePlaygroundSaveAction() {
   const handleSave = useCallback(async () => {
     const instanceElement = getElement();
     const isNothingChanged: boolean = isEqual(instanceElement, originalElement);
+    const firstInvalidNode = instanceElement.nodes.find((n) => n.data.isFormInvalid);
+
     if (isNothingChanged) {
       toast.info("没有任何变化");
+      return;
+    }
+    if (firstInvalidNode) {
+      toast.error(`Node #${firstInvalidNode?.id} 的内容验证失败`);
       return;
     }
     console.log(instanceElement);

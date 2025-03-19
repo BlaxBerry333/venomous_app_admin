@@ -7,7 +7,7 @@ type FormValueType = WorkflowsFormValue.FetchNode;
 
 export const formSchemas = createZodSchema<FormValueType>()(
   z.object({
-    description: z.string().min(4, ZOD_I18N_ERROR_CODES.TOO_SHORT),
+    description: z.string().min(1, ZOD_I18N_ERROR_CODES.REQUIRED),
     items: z
       .array(
         z.object({

@@ -9,7 +9,7 @@ import {
 import type { Workflows } from "~/app/features/workflows/_types";
 import useInstance from "./use-instance";
 
-export default function useEventsOfConnection() {
+export default function useEdgeConnection() {
   const { getElement } = useInstance();
 
   const isValidConnection: XYFlowIsValidConnection = useCallback(

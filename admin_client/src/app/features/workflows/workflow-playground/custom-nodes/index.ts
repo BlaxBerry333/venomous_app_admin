@@ -6,7 +6,7 @@ import { ScriptNode } from "./script";
 
 export const customNodeComponents: Workflows.NodeComponents = {
   // [Workflows.NodeType.default]: memo(() => null),
-  [Workflows.NodeType.default]: MessageNode,
+  // [Workflows.NodeType.default]: MessageNode,
   [Workflows.NodeType.message]: MessageNode,
   [Workflows.NodeType.fetch]: FetchNode,
   [Workflows.NodeType.script]: ScriptNode,

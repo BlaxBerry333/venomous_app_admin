@@ -2,7 +2,7 @@ import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 
 const ScriptNodeDetail: NamedExoticComponent = memo(() => {
-  return <>xxxxxx</>;
+  return <>TODO:</>;
 });
 
 export default ScriptNodeDetail;

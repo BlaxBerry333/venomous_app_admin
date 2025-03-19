@@ -1,3 +1,3 @@
 export * from "./form-schema";
 
-export * from "./form-value";
+export { default as MESSAGE_NODE_FORM } from "./form-value";

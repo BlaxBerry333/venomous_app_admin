@@ -7,7 +7,7 @@ import { NodeDetail } from "~/app/features/workflows/workflow-playground/custom-
 
 const PlaygroundBottomRightPanel: NamedExoticComponent = memo(() => {
   return (
-    <Panel position="bottom-right" style={{ margin: 0 }}>
+    <Panel position="bottom-right" style={{ margin: "2px" }}>
       <NodeDetail />
     </Panel>
   );

@@ -1,5 +1,5 @@
 import type { NamedExoticComponent } from "react";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -12,7 +12,11 @@ type RHFPasswordProps = Omit<PasswordProps, "value" | "onChange"> & {
 
 const RHFPassword: NamedExoticComponent<RHFPasswordProps> = memo(
   ({ name, defaultValue = "", ...props }) => {
-    const { control } = useFormContext();
+    const { control, trigger } = useFormContext();
+
+    useEffect(() => {
+      trigger();
+    }, [trigger]);
 
     return (
       <Controller

@@ -1,13 +1,18 @@
 import { useMemo } from "react";
 
 import { FEATURE_WORKFLOWS_CONFIGS } from "~/app/_configs/feature-workflows";
+import { getNodeColor, getNodeIcon } from "~/app/features/workflows/_helpers";
 import { Workflows } from "~/app/features/workflows/_types";
-import type { CardWithActionsProps } from "~/ui/components";
+import { getColor } from "~/ui/_helpers";
+import type { CardWithActionsProps, IconProps } from "~/ui/components";
 
 export default function useNodeStyle({
-  nodeColor,
   selected,
-}: Pick<Workflows.NodeProps, "selected"> & { nodeColor: string }) {
+  type = Workflows.NodeType.message,
+  isFormInvalid,
+}: Pick<Workflows.NodeProps, "selected" | "type"> & Pick<Workflows.NodeData, "isFormInvalid">) {
+  const nodeColor = useMemo<string>(() => getColor(getNodeColor(type)).main, [type]);
+
   const nodeWrapperSX = useMemo<CardWithActionsProps["wrapperSx"]>(
     () => ({
       width: FEATURE_WORKFLOWS_CONFIGS.styles.nodeWidth,
@@ -16,10 +21,13 @@ export default function useNodeStyle({
       flexDirection: "column",
       padding: "8px !important",
       overflow: "visible",
-      outline: `4px solid ${selected ? nodeColor : "transparent"}`,
+      outline: `4px solid ${isFormInvalid ? "red" : selected ? nodeColor : "transparent"}`,
       outlineOffset: "-2px",
+      "&:hover": {
+        boxShadow: (theme) => theme.shadows[6],
+      },
     }),
-    [selected, nodeColor],
+    [selected, nodeColor, isFormInvalid],
   );
 
   const nodeHeaderSX = useMemo<CardWithActionsProps["headerSx"]>(
@@ -44,5 +52,29 @@ export default function useNodeStyle({
     wrapper: nodeWrapperSX,
     header: nodeHeaderSX,
     content: nodeContentSX,
+  };
+}
+
+export function useNodeIconStyle(
+  type: undefined | Workflows.NodeProps["type"] = Workflows.NodeType.message,
+) {
+  const nodeIcon = useMemo<string>(() => getNodeIcon(type), [type]);
+
+  const nodeColor = useMemo<string>(() => getColor(getNodeColor(type)).main, [type]);
+
+  const nodeIconStyle = useMemo<IconProps["sx"]>(
+    () => ({
+      backgroundColor: nodeColor,
+      borderRadius: "8px",
+      color: "#FFFFFF",
+      padding: "4px !important",
+    }),
+    [nodeColor],
+  );
+
+  return {
+    icon: nodeIcon,
+    color: nodeColor,
+    style: nodeIconStyle,
   };
 }

@@ -4,13 +4,18 @@ import { memo } from "react";
 import { BasePosition } from "~/ui/_helpers";
 import Popover, { usePopover, type PopoverProps } from "./Popover";
 
-export type PulldownProps = Omit<PopoverProps, "arrow" | "autoWidth" | "position"> & {
+export type PulldownProps = Omit<PopoverProps, "arrow" | "autoWidth"> & {
   renderPulldownTrigger: (params: ReturnType<typeof usePopover>) => JSX.Element;
   renderPulldownContent: (params: ReturnType<typeof usePopover>) => JSX.Element;
 };
 
 const Pulldown: NamedExoticComponent<PulldownProps> = memo(
-  ({ renderPulldownTrigger, renderPulldownContent, ...props }) => {
+  ({
+    renderPulldownTrigger,
+    renderPulldownContent,
+    position = BasePosition.BOTTOM_CENTER,
+    ...props
+  }) => {
     const popover = usePopover();
 
     return (
@@ -23,7 +28,7 @@ const Pulldown: NamedExoticComponent<PulldownProps> = memo(
           isOpen={popover.isOpen}
           anchorEl={popover.anchorEl}
           handleClose={popover.handleClose}
-          position={BasePosition.BOTTOM_CENTER}
+          position={position}
           arrow={false}
           autoWidth
           {...props}

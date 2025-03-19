@@ -86,6 +86,7 @@ export const MuiOverrideComponentsOptions: MuiComponents<Omit<MuiTheme, "compone
       root: {
         borderRadius: "8px",
         padding: "4px",
+        backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.119), rgba(255, 255, 255, 0.119));",
       },
     },
   },

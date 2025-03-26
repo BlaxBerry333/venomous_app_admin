@@ -134,7 +134,9 @@ const PopoverItemOfAuthLogout: NamedExoticComponent<{ callback: VoidFunction }> 
       <ModalWrapper
         escapeKeyDown
         title="确定要退出登录吗?"
-        handleConfirm={() => handleLogout()}
+        cancelText="取消"
+        confirmText="退出"
+        handleConfirm={handleLogout}
         isConfirmLoading={isPending}
         renderModalTrigger={(params) => (
           <ListItem

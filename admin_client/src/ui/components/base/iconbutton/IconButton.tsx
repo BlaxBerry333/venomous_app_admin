@@ -4,17 +4,16 @@ import { memo, useMemo } from "react";
 import MuiIconButton, {
   type IconButtonProps as MuiIconButtonProps,
 } from "@mui/material/IconButton";
-import MuiTooltip, { type TooltipProps as MuiTooltipProps } from "@mui/material/Tooltip";
 
 import { BaseColor, BaseSize, getIconSize } from "~/ui/_helpers";
-import { Button, type ButtonProps } from "~/ui/components/base";
+import { Button, Tooltip, type ButtonProps, type TooltipProps } from "~/ui/components/base";
 import { Icon, type IconProps } from "~/ui/components/customs/icons";
 
 export type IconButtonProps = Omit<MuiIconButtonProps, "children" | "color" | "size"> &
   Pick<IconProps, "icon" | "color"> &
   Pick<ButtonProps, "size"> & {
-    tooltip?: MuiTooltipProps["title"];
-    tooltipPlacement?: MuiTooltipProps["placement"];
+    tooltip?: TooltipProps["title"];
+    tooltipPlacement?: TooltipProps["placement"];
     isCircle?: boolean;
   };
 
@@ -44,6 +43,7 @@ const IconButton: NamedExoticComponent<IconButtonProps> = memo(
             overflow: "hidden",
             // p: size === BaseSize.SMALL ? 0.25 : 0.75,
             p: 0.75,
+            transition: "background-color 0s, background-image 0s",
             ...sx,
           }}
           {...props}
@@ -77,9 +77,15 @@ const IconButton: NamedExoticComponent<IconButtonProps> = memo(
     }, [iconElement, size, sx, disabled, props]);
 
     return (
-      <MuiTooltip title={tooltip} placement={tooltipPlacement} arrow>
-        <div>{isCircle ? circleButtonElement : squareButtonElement}</div>
-      </MuiTooltip>
+      <>
+        {tooltip ? (
+          <Tooltip title={tooltip} placement={tooltipPlacement}>
+            <div>{isCircle ? circleButtonElement : squareButtonElement}</div>
+          </Tooltip>
+        ) : (
+          <>{isCircle ? circleButtonElement : squareButtonElement}</>
+        )}
+      </>
     );
   },
 );

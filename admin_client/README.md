@@ -10,6 +10,7 @@
 - [tanstack query]() v5
 - [xyflow]() v12
 - [mui/material]() v6
+- [react-virtuoso]() v4
 - [iconify]() v5
 - [sass]() v1
 - [storybook]() v8

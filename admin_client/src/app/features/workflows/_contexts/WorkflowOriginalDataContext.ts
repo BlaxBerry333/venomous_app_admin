@@ -4,7 +4,7 @@ import type { Workflows } from "~/app/features/workflows/_types";
 import type { IWorkflowDataResponse } from "~/app/types/_workflow";
 
 export type WorkflowOriginalDataContextType = {
-  information: Partial<Pick<IWorkflowDataResponse, "id" | "name" | "created_at">>;
+  information: Partial<Pick<IWorkflowDataResponse, "id" | "name" | "created_at" | "element">>;
   originalElement: undefined | Workflows.Element;
 };
 

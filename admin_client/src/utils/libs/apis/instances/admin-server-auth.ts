@@ -1,5 +1,5 @@
 import axios from "axios";
-import { redirectToErrorsPage } from "../../router/_helpers";
+import { redirectToErrorsPage } from "~/utils/libs/router/_helpers";
 
 const ADMIN_SERVER_AUTH_INSTANCE = axios.create({
   baseURL: "/admin-server-auth",

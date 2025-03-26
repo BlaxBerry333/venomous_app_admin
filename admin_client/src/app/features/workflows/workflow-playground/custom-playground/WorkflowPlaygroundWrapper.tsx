@@ -1,10 +1,13 @@
 import type { NamedExoticComponent, PropsWithChildren } from "react";
 import { memo, useMemo } from "react";
 
-import MuiCard from "@mui/material/Card";
 import { ReactFlowProvider } from "@xyflow/react";
 
-import { WorkflowOriginalDataContext, type WorkflowOriginalDataContextType } from "../../_contexts";
+import {
+  WorkflowOriginalDataContext,
+  type WorkflowOriginalDataContextType,
+} from "~/app/features/workflows/_contexts";
+import { Paper } from "~/ui/components";
 
 type WorkflowPlaygroundWrapperProps = PropsWithChildren<WorkflowOriginalDataContextType>;
 
@@ -26,9 +29,12 @@ const WorkflowPlaygroundWrapper: NamedExoticComponent<WorkflowPlaygroundWrapperP
         initialEdges={defaultElement.originalElement?.edges}
       >
         <WorkflowOriginalDataContext.Provider value={defaultElement}>
-          <MuiCard variant="outlined" sx={{ height: `calc(100%) !important`, overflow: "hidden" }}>
+          <Paper
+            hasElevation={false}
+            sx={{ height: `calc(100%) !important`, overflow: "hidden", backgroundImage: "none" }}
+          >
             {children}
-          </MuiCard>
+          </Paper>
         </WorkflowOriginalDataContext.Provider>
       </ReactFlowProvider>
     );

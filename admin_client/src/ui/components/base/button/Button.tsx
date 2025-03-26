@@ -42,6 +42,7 @@ const Button: NamedExoticComponent<ButtonProps> = memo(
         sx={{
           cursor: isLoading ? "wait !important" : disabled ? "not-allowed !important" : "pointer",
           pointerEvents: "auto !important",
+          transition: "background-color 0s, background-image 0s",
           ...sx,
         }}
         {...props}

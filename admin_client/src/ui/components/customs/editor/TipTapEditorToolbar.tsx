@@ -5,11 +5,10 @@ import { Icon } from "@iconify/react";
 import { useCurrentEditor } from "@tiptap/react";
 
 import MuiDivider from "@mui/material/Divider";
-import MuiPaper from "@mui/material/Paper";
 import MuiStack from "@mui/material/Stack";
 
 import { BaseColor } from "~/ui/_helpers";
-import { Button, ButtonVariant, Pulldown } from "~/ui/components/base";
+import { Button, ButtonVariant, Paper, Pulldown } from "~/ui/components/base";
 
 const TipTapEditorToolbar: NamedExoticComponent<unknown> = memo(() => {
   const { editor } = useCurrentEditor();
@@ -19,7 +18,7 @@ const TipTapEditorToolbar: NamedExoticComponent<unknown> = memo(() => {
   }
 
   return (
-    <MuiPaper
+    <Paper
       sx={{
         position: "sticky",
         top: 0,
@@ -275,7 +274,7 @@ const TipTapEditorToolbar: NamedExoticComponent<unknown> = memo(() => {
           </Button>
         ))}
       </MuiStack>
-    </MuiPaper>
+    </Paper>
   );
 });
 

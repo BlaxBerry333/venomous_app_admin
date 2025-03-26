@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import type { IAuthLoginParams, IAuthLoginResponse } from "~/app/types/_auth";
+import type { IAuthLoginParams } from "~/app/types/_auth";
 import { toast } from "~/ui/components";
 import { setAuthTokensAsStored } from "~/utils/libs/apis/_helpers";
 import { useAPIAuthLogin } from "~/utils/libs/apis/_hooks/auth";
@@ -10,7 +10,7 @@ function useAuthLoginView() {
   const { replace } = useRouteNavigate();
   const searchParams = useRouteSearchParams<{ redirect: string }>();
 
-  const { mutateAsync, isPending } = useAPIAuthLogin<IAuthLoginResponse, IAuthLoginParams>();
+  const { mutateAsync, isPending } = useAPIAuthLogin();
 
   const handleLogin = useCallback(
     async (formValue: IAuthLoginParams) => {

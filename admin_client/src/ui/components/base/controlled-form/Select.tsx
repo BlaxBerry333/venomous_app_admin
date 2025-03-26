@@ -9,12 +9,12 @@ import { Popper, PopperPlacement } from "../popper";
 import type { TextFieldProps } from "./TextField";
 import TextField from "./TextField";
 
-type OptionType = ListItemProps<string | number>;
+export type SelectOptionType = ListItemProps<string | number>;
 
 export type SelectProps = Omit<TextFieldProps, "select" | "value" | "onChange"> & {
-  options: OptionType[];
-  value?: OptionType["value"];
-  onChange?: (option: undefined | OptionType) => void;
+  options: SelectOptionType[];
+  value?: SelectOptionType["value"];
+  onChange?: (option: undefined | SelectOptionType) => void;
 };
 
 const Select: NamedExoticComponent<SelectProps> = memo(
@@ -25,7 +25,7 @@ const Select: NamedExoticComponent<SelectProps> = memo(
 
     const [showAllOptions, setShowAllOptions] = useState<boolean>(false);
 
-    const optionsFiltered = useMemo<OptionType[]>(() => {
+    const optionsFiltered = useMemo<SelectOptionType[]>(() => {
       if (showAllOptions) return options;
       if (!options) return [];
       return options.filter((option) => {
@@ -36,11 +36,11 @@ const Select: NamedExoticComponent<SelectProps> = memo(
     }, [options, inputTitle, showAllOptions]);
 
     const getOptionSelectedByValue = useCallback(
-      (value: OptionType["value"]) => options.find((option) => option.value === value),
+      (value: SelectOptionType["value"]) => options.find((option) => option.value === value),
       [options],
     );
     const getOptionSelectedByTitle = useCallback(
-      (title: OptionType["title"]) => options.find((option) => option.title === title),
+      (title: SelectOptionType["title"]) => options.find((option) => option.title === title),
       [options],
     );
 
@@ -66,7 +66,7 @@ const Select: NamedExoticComponent<SelectProps> = memo(
     );
 
     const handleOptionSelect = useCallback(
-      (option: OptionType, callback: VoidFunction) => {
+      (option: SelectOptionType, callback: VoidFunction) => {
         setInputTitle(String(option.title));
         setShowAllOptions(true);
         propsOnChange?.(option);

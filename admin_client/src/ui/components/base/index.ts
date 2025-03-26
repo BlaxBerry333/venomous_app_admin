@@ -18,6 +18,8 @@ export * from "./controlled-form";
 
 export * from "./drawer";
 
+export * from "./file-upload";
+
 export * from "./iconbutton";
 
 export * from "./image";
@@ -34,6 +36,8 @@ export * from "./menu";
 
 export * from "./modal";
 
+export * from "./paper";
+
 export * from "./popover";
 
 export * from "./popper";
@@ -41,5 +45,7 @@ export * from "./popper";
 export * from "./portal";
 
 export * from "./table";
+
+export * from "./tooltip";
 
 export * from "./typography";

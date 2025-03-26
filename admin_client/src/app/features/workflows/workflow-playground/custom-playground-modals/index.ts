@@ -1,1 +1,1 @@
-export { default as PlaygroundDeleteConfirmModal } from "./PlaygroundDeleteConfirmModal";
+export { default as PlaygroundNodeDeleteConfirmModal } from "./PlaygroundNodeDeleteConfirmModal";

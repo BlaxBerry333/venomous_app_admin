@@ -1,4 +1,4 @@
-import packageJson from "../../../package.json";
+import packageJson from "../../../package.json"; // eslint-disable-line no-restricted-imports
 
 export const ADMIN_CLIENT_CONFIGS = {
   info: {

@@ -1,8 +1,8 @@
 import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 
-const ScriptNodeDetail: NamedExoticComponent = memo(() => {
+const ScriptNodeDetailForm: NamedExoticComponent = memo(() => {
   return <>TODO:</>;
 });
 
-export default ScriptNodeDetail;
+export default ScriptNodeDetailForm;

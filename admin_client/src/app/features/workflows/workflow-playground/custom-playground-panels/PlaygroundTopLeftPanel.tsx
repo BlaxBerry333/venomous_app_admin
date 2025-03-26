@@ -23,17 +23,28 @@ const WorkflowInformation: NamedExoticComponent = memo(() => {
   const { information } = useWorkflowOriginalData();
   return useMemo<ReactNode>(() => {
     if (!information) return null;
-    const { id, name, created_at } = information;
+    const { id, name, created_at, element: originalElement } = information;
+    const originalNodes = originalElement?.nodes || [];
     return (
       <Typography component="div" noWrap sx={{ maxWidth: "180px" }}>
-        {id && name && (
-          <Typography variant="subtitle2">
-            {`#${id}`} {name}
+        {id && (
+          <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
+            {`#${id}`}
+          </Typography>
+        )}
+        {name && (
+          <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
+            {name}
           </Typography>
         )}
         {created_at && (
-          <Typography variant="caption">Last updated: {formateFromNow(created_at)}</Typography>
+          <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
+            {`Last updated:`}&nbsp;{formateFromNow(created_at)}
+          </Typography>
         )}
+        <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
+          {`Total Nodes ( original ):`}&nbsp;{originalNodes.length}
+        </Typography>
       </Typography>
     );
   }, [information]);

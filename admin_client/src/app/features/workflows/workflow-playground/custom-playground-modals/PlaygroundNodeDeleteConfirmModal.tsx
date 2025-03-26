@@ -4,7 +4,7 @@ import { memo } from "react";
 import { Modal } from "~/ui/components";
 import { usePlaygroundActionStatusStore, usePlaygroundSelectedNodeStore } from "../_hooks";
 
-const PlaygroundDeleteConfirmModal: NamedExoticComponent = memo(() => {
+const PlaygroundNodeDeleteConfirmModal: NamedExoticComponent = memo(() => {
   const { selectedNode } = usePlaygroundSelectedNodeStore();
 
   const { isOpenNodeDeleteConfirmModal, closeNodeDeleteConfirmModal } =
@@ -27,4 +27,4 @@ const PlaygroundDeleteConfirmModal: NamedExoticComponent = memo(() => {
   );
 });
 
-export default PlaygroundDeleteConfirmModal;
+export default PlaygroundNodeDeleteConfirmModal;

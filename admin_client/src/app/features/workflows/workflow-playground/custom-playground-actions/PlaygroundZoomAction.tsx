@@ -1,12 +1,11 @@
 import type { NamedExoticComponent } from "react";
 import { memo, useMemo } from "react";
 
-import MuiPapper from "@mui/material/Paper";
 import { useViewport } from "@xyflow/react";
 
 import { FEATURE_WORKFLOWS_CONFIGS } from "~/app/_configs/feature-workflows";
 import { BaseColor, BasePosition } from "~/ui/_helpers";
-import { Button, ButtonVariant, IconButton, Menu, Pulldown } from "~/ui/components";
+import { Button, ButtonVariant, IconButton, Menu, Paper, Pulldown } from "~/ui/components";
 import { useCanvasViewport } from "../_hooks/core";
 
 const MIN_ZOOM: number = FEATURE_WORKFLOWS_CONFIGS.canvas.minZoom;
@@ -22,15 +21,13 @@ const PlaygroundZoomAction: NamedExoticComponent = memo(() => {
   const disableDecreaseZoom = useMemo<boolean>(() => zoom <= MIN_ZOOM, [zoom]);
 
   return (
-    <MuiPapper
-      elevation={0}
+    <Paper
+      hasElevation={false}
       sx={{
         width: 150,
         p: 0,
         display: "flex",
         alignItems: "center",
-        border: 1,
-        borderColor: "divider",
       }}
     >
       <IconButton
@@ -87,7 +84,7 @@ const PlaygroundZoomAction: NamedExoticComponent = memo(() => {
         disabled={disableIncreaseZoom}
         onClick={increaseZoom}
       />
-    </MuiPapper>
+    </Paper>
   );
 });
 

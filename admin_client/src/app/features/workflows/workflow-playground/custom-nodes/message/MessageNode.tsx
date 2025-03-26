@@ -4,9 +4,10 @@ import { lazy, memo, Suspense, useCallback } from "react";
 import type { Workflows, WorkflowsFormValue } from "~/app/features/workflows/_types";
 import { useNodeUpdate } from "~/app/features/workflows/workflow-playground//_hooks/core";
 import { NodeWrapper } from "~/app/features/workflows/workflow-playground/custom-nodes/_node-wrapper";
-import { type FormValueType } from "./MessageNodeDetail";
+import { toast } from "~/ui/components";
+import { type FormValueType } from "./MessageNodeDetailForm";
 
-const MessageNodeDetail = lazy(() => import("./MessageNodeDetail"));
+const MessageNodeDetailForm = lazy(() => import("./MessageNodeDetailForm"));
 
 type MessageNodeProps = Workflows.NodeProps<WorkflowsFormValue.MessageNode>;
 
@@ -17,7 +18,10 @@ const MessageNode: NamedExoticComponent<MessageNodeProps> = memo((props) => {
   const { updateSpecificNodeFormValue } = useNodeUpdate();
 
   const handleSubmit = useCallback(
-    (formValue: FormValueType) => updateSpecificNodeFormValue(id, formValue),
+    (formValue: FormValueType) => {
+      updateSpecificNodeFormValue(id, formValue);
+      toast.success("更新成功");
+    },
     [id, updateSpecificNodeFormValue],
   );
 
@@ -26,7 +30,7 @@ const MessageNode: NamedExoticComponent<MessageNodeProps> = memo((props) => {
       {...props}
       portalDetailContent={
         <Suspense fallback={null}>
-          <MessageNodeDetail nodeId={id} defaultValues={formValue} onSubmit={handleSubmit} />
+          <MessageNodeDetailForm nodeId={id} defaultValues={formValue} onSubmit={handleSubmit} />
         </Suspense>
       }
     />

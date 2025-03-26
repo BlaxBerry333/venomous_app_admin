@@ -7,10 +7,10 @@ import {
   NodeWrapper,
   NodeWrapperItem,
 } from "~/app/features/workflows/workflow-playground/custom-nodes/_node-wrapper";
-import { Typography } from "~/ui/components";
-import type { FormValueType } from "./FetchNodeDetail";
+import { toast, Typography } from "~/ui/components";
+import type { FormValueType } from "./FetchNodeDetailForm";
 
-const FetchNodeDetail = lazy(() => import("./FetchNodeDetail"));
+const FetchNodeDetailForm = lazy(() => import("./FetchNodeDetailForm"));
 
 type FetchNodeProps = Workflows.NodeProps<WorkflowsFormValue.FetchNode>;
 type FetchNodeItem = WorkflowsFormValue.FetchNode["items"][number];
@@ -22,7 +22,10 @@ const FetchNode: NamedExoticComponent<FetchNodeProps> = memo((props) => {
   const { updateSpecificNodeFormValue } = useNodeUpdate();
 
   const handleSubmit = useCallback(
-    (formValue: FormValueType) => updateSpecificNodeFormValue(id, formValue),
+    (formValue: FormValueType) => {
+      updateSpecificNodeFormValue(id, formValue);
+      toast.success("更新成功");
+    },
     [id, updateSpecificNodeFormValue],
   );
 
@@ -35,7 +38,11 @@ const FetchNode: NamedExoticComponent<FetchNodeProps> = memo((props) => {
       ))}
       portalDetailContent={
         <Suspense fallback={null}>
-          <FetchNodeDetail nodeId={id} defaultValues={data?.formValue} onSubmit={handleSubmit} />
+          <FetchNodeDetailForm
+            nodeId={id}
+            defaultValues={data?.formValue}
+            onSubmit={handleSubmit}
+          />
         </Suspense>
       }
     />

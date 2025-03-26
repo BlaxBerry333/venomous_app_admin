@@ -50,12 +50,11 @@ const Switch: NamedExoticComponent<SwitchProps> = memo(
             "& .MuiSwitch-track": {
               transition: "background-color 0s",
             },
-            ...sx,
           }}
           {...props}
         />
       ),
-      [_checked, handleChange, props, sx],
+      [_checked, handleChange, props],
     );
 
     if (startLabel || endLabel) {
@@ -65,6 +64,7 @@ const Switch: NamedExoticComponent<SwitchProps> = memo(
           startLabel={startLabel}
           endLabel={endLabel}
           renderElement={(id) => renderSwitchElement(id)}
+          sx={sx}
         />
       );
     }

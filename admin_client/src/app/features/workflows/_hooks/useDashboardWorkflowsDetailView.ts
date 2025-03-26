@@ -1,44 +1,43 @@
-import { useEffect, useMemo } from "react";
+import { useCallback } from "react";
 
-import type { Workflows } from "~/app/features/workflows/_types";
 import type { IWorkflowDataResponse } from "~/app/types/_workflow";
-import { useGetWorkflowData } from "~/utils/libs/apis/_hooks/workflows";
-import { DASHBOARD_PATHS, useRouteNavigate } from "~/utils/libs/router";
+import { toast } from "~/ui/components";
+import {
+  useAPIWorkflowDataDetail,
+  useAPIWorkflowDataUpdate,
+} from "~/utils/libs/apis/_hooks/workflows";
+import {
+  DASHBOARD_PATHS,
+  useRouteNavigate,
+  useRouteRedirect,
+  useRouteSearchParams,
+} from "~/utils/libs/router";
 
 export default function useDashboardWorkflowsDetailView() {
+  const { data, isLoading, failureReason } = useAPIWorkflowDataDetail();
+  const { mutateAsync: updateAsync, isPending: isUpdating } = useAPIWorkflowDataUpdate();
+
   const { replace } = useRouteNavigate();
+  const { id } = useRouteSearchParams<{ id: string }>();
+  const shouldRedirect: boolean = !id || !!failureReason;
+  useRouteRedirect(shouldRedirect, DASHBOARD_PATHS.workflows.list);
 
-  const {
-    data: dataSource,
-    isLoading,
-    failureReason,
-  } = useGetWorkflowData<IWorkflowDataResponse>();
-
-  const data = useMemo(
-    () => ({
-      ...dataSource,
-      element: _formatResponseElementToWorkflowElement(dataSource?.element),
-    }),
-    [dataSource],
+  const update = useCallback(
+    async (data: Partial<IWorkflowDataResponse>) => {
+      updateAsync(data)
+        .then(({ id }) => {
+          toast.success(`#${data.id} updated successfully`);
+          replace(`${DASHBOARD_PATHS.workflows.playground}?id=${id}`);
+        })
+        .catch(() => toast.error(`Error creating #${data.id}`));
+    },
+    [updateAsync, replace],
   );
-
-  useEffect(() => {
-    if (failureReason) {
-      replace(DASHBOARD_PATHS.workflows.list);
-    }
-  }, [failureReason, replace]);
 
   return {
     data,
     isLoading,
-  };
-}
-
-function _formatResponseElementToWorkflowElement(
-  element: undefined | IWorkflowDataResponse["element"],
-): Workflows.Element {
-  return {
-    nodes: (element?.nodes || []) as Workflows.Node[],
-    edges: (element?.edges || []) as Workflows.Edge[],
+    update,
+    isUpdating,
   };
 }

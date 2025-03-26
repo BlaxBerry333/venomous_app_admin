@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { BrowserRouter } from "react-router-dom";
-
 import { Typography } from "~/ui/components/base";
 import PageProgressBar from "./PageProgressBar";
 
@@ -11,10 +9,12 @@ const meta = {
   parameters: { layout: "centered" },
   decorators: [
     (Story) => (
-      <BrowserRouter>
+      // <BrowserRouter>
+      <>
         <Story />
         <Typography>刷新页面以查看页面顶部的进度条</Typography>
-      </BrowserRouter>
+      </>
+      // </BrowserRouter>
     ),
   ],
   // tags: ["autodocs"],

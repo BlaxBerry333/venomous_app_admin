@@ -1,9 +1,23 @@
 import { useCallback, useEffect } from "react";
 
 import { debounce } from "lodash-es";
+import type { FieldValues, UseFormReturn } from "react-hook-form";
 import useNodeUpdate from "./use-node-update";
 
-export default function useNodeUpdateFormInvalid(nodeId: string, isInvalid: boolean = false) {
+type useNodeFormValueValidationProps<T extends FieldValues> = {
+  nodeId: string;
+  formInstance: UseFormReturn<T>;
+};
+
+/**
+ * 用于验证 Node 表单值，并自动更新`node.data.isFormInvalid`
+ */
+export default function useNodeFormValueValidation<T extends FieldValues>({
+  nodeId,
+  formInstance,
+}: useNodeFormValueValidationProps<T>) {
+  const isInvalid: boolean = !formInstance.formState.isValid;
+
   const { updateSpecificNodeData } = useNodeUpdate();
 
   // 手动避免 React Hook Form 表单初始化时的短暂的未验证状态导致的闪烁

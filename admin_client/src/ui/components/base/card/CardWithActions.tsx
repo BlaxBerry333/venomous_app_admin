@@ -64,7 +64,7 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
           <Typography component="div" noWrap>
             {title && (
               <Typography
-                variant="subtitle1"
+                variant="h6"
                 noWrap
                 sx={{
                   fontWeight: "bold",
@@ -113,11 +113,14 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
 
           {/* Card Actions List Popover */}
           {!isCustomCardAction && (
-            <MenuInsideActionPopover
-              actionItemList={actionItemList}
-              actionIsNotAllowed={actionIsNotAllowed}
-              popoverPosition={popoverPosition}
-            />
+            <MuiBox sx={{ display: "flex", alignItems: "center" }}>
+              {action}
+              <MenuInsideActionPopover
+                actionItemList={actionItemList}
+                actionIsNotAllowed={actionIsNotAllowed}
+                popoverPosition={popoverPosition}
+              />
+            </MuiBox>
           )}
         </MuiBox>
       );
@@ -135,7 +138,13 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
     return (
       <MuiCard
         elevation={3}
-        sx={{ position: "relative", borderRadius: "8px", p: 1, ...wrapperSx }}
+        sx={{
+          position: "relative",
+          borderRadius: "8px",
+          p: 1,
+          transition: "background-color 0s, background-image 0s",
+          ...wrapperSx,
+        }}
         {...props}
       >
         {/* NotAllowed Mask */}

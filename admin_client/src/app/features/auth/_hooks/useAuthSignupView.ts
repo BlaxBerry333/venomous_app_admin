@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import type { IAuthSignupParams, IAuthSignupResponse } from "~/app/types/_auth";
+import type { IAuthSignupParams } from "~/app/types/_auth";
 import { toast } from "~/ui/components";
 import { setAuthTokensAsStored } from "~/utils/libs/apis/_helpers";
 import { useAPIAuthSignup } from "~/utils/libs/apis/_hooks/auth";
@@ -9,7 +9,7 @@ import { DASHBOARD_PATHS, useRouteNavigate } from "~/utils/libs/router";
 function useAuthSignupView() {
   const { replace } = useRouteNavigate();
 
-  const { mutateAsync, isPending } = useAPIAuthSignup<IAuthSignupResponse, IAuthSignupParams>();
+  const { mutateAsync, isPending } = useAPIAuthSignup();
 
   const handleSignup = useCallback(
     async (formValue: IAuthSignupParams) => {

@@ -1,6 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
+import type {
+  IAuthLoginParams,
+  IAuthLoginResponse,
+  IAuthSignupParams,
+  IAuthSignupResponse,
+} from "~/app/types/_auth";
 import { getStoredAuthTokens, removeStoredAuthTokens } from "../_helpers";
 import { AUTH_ENTRYPOINTS } from "../entrypoints/auth";
 import { ADMIN_SERVER_AUTH_INSTANCE } from "../instances";
@@ -15,7 +21,7 @@ export async function getRefreshAccessToken() {
   return response.data;
 }
 
-export function useAPIAuthSignup<T = unknown, P = unknown>() {
+export function useAPIAuthSignup<T = IAuthSignupResponse, P = IAuthSignupParams>() {
   const url = AUTH_ENTRYPOINTS.signup.url;
   return useMutation<T, AxiosError, P>({
     mutationKey: [url],
@@ -26,7 +32,7 @@ export function useAPIAuthSignup<T = unknown, P = unknown>() {
   });
 }
 
-export function useAPIAuthLogin<T = unknown, P = unknown>() {
+export function useAPIAuthLogin<T = IAuthLoginResponse, P = IAuthLoginParams>() {
   const url = AUTH_ENTRYPOINTS.login.url;
   return useMutation<T, AxiosError, P>({
     mutationKey: [url],

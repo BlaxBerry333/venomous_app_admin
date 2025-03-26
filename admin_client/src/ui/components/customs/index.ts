@@ -9,3 +9,5 @@ export * from "./progress-bar";
 export * from "./snackbar";
 
 export * from "./uncontrolled-form";
+
+export * from "./virtual";

@@ -1,19 +1,16 @@
 import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 
-import MuiPapper from "@mui/material/Paper";
-import { IconButton } from "~/ui/components";
+import { IconButton, Paper } from "~/ui/components";
 
 const PlaygroundUndoRedoAction: NamedExoticComponent = memo(() => {
   return (
-    <MuiPapper
-      elevation={0}
+    <Paper
+      hasElevation={false}
       sx={{
         p: 0,
         display: "flex",
         alignItems: "center",
-        border: 1,
-        borderColor: "divider",
       }}
     >
       {/* Redo */}
@@ -38,7 +35,7 @@ const PlaygroundUndoRedoAction: NamedExoticComponent = memo(() => {
         tooltip="History of Undo Redo"
         sx={{ border: 0 }}
       />
-    </MuiPapper>
+    </Paper>
   );
 });
 

@@ -2,8 +2,8 @@ import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 import { BasePosition } from "~/ui/_helpers";
 
+import { Workflows } from "~/app/features/workflows/_types";
 import { IconButton, Popover, Typography, usePopover } from "~/ui/components";
-import { Workflows } from "../../_types";
 import { useNodeRegister } from "../_hooks/core";
 import { NodeWrapperIcon } from "../custom-nodes/_node-wrapper";
 

@@ -7,7 +7,6 @@ import "@xyflow/react/dist/base.css";
 import { FEATURE_WORKFLOWS_CONFIGS } from "~/app/_configs/feature-workflows";
 import { useWorkflowOriginalData } from "~/app/features/workflows/_contexts";
 import { Workflows } from "~/app/features/workflows/_types";
-import { useThemeStore } from "~/ui/_hooks";
 
 import { usePlaygroundActionStatusStore } from "../_hooks";
 import { useEdgeConnection, useNodeRegister } from "../_hooks/core";
@@ -21,12 +20,13 @@ import {
   PlaygroundTopRightPanel,
 } from "../custom-playground-panels";
 
-const PlaygroundDeleteConfirmModal = lazy(() =>
-  import("../custom-playground-modals").then((m) => ({ default: m.PlaygroundDeleteConfirmModal })),
+const PlaygroundNodeDeleteConfirmModal = lazy(() =>
+  import("../custom-playground-modals").then((m) => ({
+    default: m.PlaygroundNodeDeleteConfirmModal,
+  })),
 );
 
 const WorkflowPlayground: NamedExoticComponent = memo(() => {
-  const theme = useThemeStore();
   const { originalElement } = useWorkflowOriginalData();
 
   const { isGridLayout } = usePlaygroundActionStatusStore();
@@ -100,7 +100,6 @@ const WorkflowPlayground: NamedExoticComponent = memo(() => {
       // ----------------------------------------------------------------------------------------------------
       deleteKeyCode={null}                                                /** 默认删除 Node 与 Edge 的快捷键 */
       // ----------------------------------------------------------------------------------------------------
-      colorMode={theme?.mode}                                             /** 颜色模式 */
       proOptions={{ hideAttribution: true }}                              /** 隐藏版权信息 */
     >
       {/* Background */}
@@ -114,7 +113,7 @@ const WorkflowPlayground: NamedExoticComponent = memo(() => {
 
       {/* Modals */}
       <Suspense fallback={null}>
-        <PlaygroundDeleteConfirmModal />
+        <PlaygroundNodeDeleteConfirmModal />
       </Suspense>
     </ReactFlow>
   );

@@ -13,7 +13,7 @@ export { default as TextField } from "./TextField";
 export type { TextFieldProps } from "./TextField";
 
 export { default as Select } from "./Select";
-export type { SelectProps } from "./Select";
+export type { SelectOptionType, SelectProps } from "./Select";
 
 export { default as Switch } from "./Switch";
 export type { SwitchProps } from "./Switch";

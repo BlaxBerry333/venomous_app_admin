@@ -4,15 +4,13 @@ import { memo } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import type { WorkflowsFormValue } from "~/app/features/workflows/_types";
-import { RHF } from "~/ui/components";
-import { formSchemas, MESSAGE_NODE_FORM } from "./_helpers";
+import { useNodeFormValueValidation } from "~/app/features/workflows/workflow-playground/_hooks/core";
+import { RHF, useRHFValueIsEqual } from "~/ui/components";
+import { formSchemas, MESSAGE_NODE_FORM, type FormValueType } from "./_helpers";
 
-import { useNodeUpdateFormInvalid } from "~/app/features/workflows/workflow-playground/_hooks/core";
+export { type FormValueType } from "./_helpers";
 
-export type FormValueType = WorkflowsFormValue.MessageNode;
-
-const MessageNodeDetail: NamedExoticComponent<{
+const MessageNodeDetailForm: NamedExoticComponent<{
   nodeId: string;
   defaultValues?: FormValueType;
   onSubmit: (formValue: FormValueType) => void;
@@ -23,7 +21,9 @@ const MessageNodeDetail: NamedExoticComponent<{
     mode: "all",
   });
 
-  useNodeUpdateFormInvalid(nodeId, !formInstance.formState.isValid);
+  useNodeFormValueValidation({ nodeId, formInstance });
+
+  const { isNothingChanged } = useRHFValueIsEqual({ defaultValues, formInstance });
 
   return (
     <RHF.FormWithZod
@@ -57,9 +57,9 @@ const MessageNodeDetail: NamedExoticComponent<{
       />
 
       {/* Action Buttons */}
-      <RHF.Action isLoading={false} />
+      <RHF.Action isLoading={false} disabledSubmit={isNothingChanged} />
     </RHF.FormWithZod>
   );
 });
 
-export default MessageNodeDetail;
+export default MessageNodeDetailForm;

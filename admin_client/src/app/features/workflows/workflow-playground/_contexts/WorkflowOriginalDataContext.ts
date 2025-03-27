@@ -1,10 +1,10 @@
 import { createContext, useContext } from "react";
 
 import type { Workflows } from "~/app/features/workflows/_types";
-import type { IWorkflowDataResponse } from "~/app/types/_workflow";
+import type { IWorkflowDataResponse } from "~/utils/libs/apis/types/_workflow";
 
 export type WorkflowOriginalDataContextType = {
-  information: Partial<Pick<IWorkflowDataResponse, "id" | "name" | "created_at" | "element">>;
+  information: undefined | Pick<IWorkflowDataResponse, "id" | "name" | "createdAt" | "updatedAt">;
   originalElement: undefined | Workflows.Element;
 };
 
@@ -12,13 +12,16 @@ const WorkflowOriginalDataContextDefaultValue: WorkflowOriginalDataContextType =
   information: {
     id: "",
     name: "",
-    created_at: "",
+    createdAt: "",
+    updatedAt: "",
   },
   originalElement: {
     nodes: [],
     edges: [],
   },
 };
+
+// ----------------------------------------------------------------------------------------------------
 
 export const WorkflowOriginalDataContext = createContext<WorkflowOriginalDataContextType>(
   WorkflowOriginalDataContextDefaultValue,

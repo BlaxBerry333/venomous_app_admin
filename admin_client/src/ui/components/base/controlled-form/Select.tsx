@@ -1,126 +1,114 @@
 import type { NamedExoticComponent } from "react";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
-import { Menu } from "~/ui/components/base/menu";
-import { Icon } from "~/ui/components/customs";
+import MuiMenuItem from "@mui/material/MenuItem";
+import MuiTextField, { type TextFieldProps as MuiTextFieldProps } from "@mui/material/TextField";
+
 import { BlankContentImage } from "~/ui/components/design";
-import type { ListItemProps } from "../list-item";
-import { Popper, PopperPlacement } from "../popper";
-import type { TextFieldProps } from "./TextField";
-import TextField from "./TextField";
+import { type ListItemProps } from "../list-item";
+import { LoadingProgress, MaskWithLoading } from "../mask";
 
 export type SelectOptionType = ListItemProps<string | number>;
 
-export type SelectProps = Omit<TextFieldProps, "select" | "value" | "onChange"> & {
+export type SelectProps = Omit<MuiTextFieldProps, "children" | "onChange"> & {
   options: SelectOptionType[];
-  value?: SelectOptionType["value"];
-  onChange?: (option: undefined | SelectOptionType) => void;
+  onChange?: (option: SelectOptionType | undefined) => void;
+  isLoading?: boolean;
 };
 
 const Select: NamedExoticComponent<SelectProps> = memo(
-  ({ options = [], value: propsValue = "", onChange: propsOnChange, helperText, ...props }) => {
-    const [inputTitle, setInputTitle] = useState<string>("");
+  ({
+    options,
+    defaultValue = options[0]?.value,
+    value: propsValue,
+    onChange: propsOnChange,
+    isLoading = false,
+    disabled = false,
+    helperText,
+    ...props
+  }) => {
+    const [value, setValue] = useState<string>(String(defaultValue || ""));
 
-    // ----------------------------------------------------------------------------------------------------
-
-    const [showAllOptions, setShowAllOptions] = useState<boolean>(false);
-
-    const optionsFiltered = useMemo<SelectOptionType[]>(() => {
-      if (showAllOptions) return options;
-      if (!options) return [];
-      return options.filter((option) => {
-        return String(option.title || "")
-          .toLowerCase()
-          .includes(inputTitle.toLowerCase());
-      });
-    }, [options, inputTitle, showAllOptions]);
-
-    const getOptionSelectedByValue = useCallback(
-      (value: SelectOptionType["value"]) => options.find((option) => option.value === value),
-      [options],
-    );
-    const getOptionSelectedByTitle = useCallback(
-      (title: SelectOptionType["title"]) => options.find((option) => option.title === title),
-      [options],
-    );
-
-    // ----------------------------------------------------------------------------------------------------
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value as string;
+      setValue(value);
+      propsOnChange?.(options.find((option) => option.value === value));
+    };
 
     useEffect(() => {
-      setInputTitle(getOptionSelectedByValue(propsValue)?.title || "");
-    }, [propsValue, setInputTitle, getOptionSelectedByValue]);
-
-    // ----------------------------------------------------------------------------------------------------
-
-    const handleValueChange = useCallback(
-      (title: string) => {
-        if (title === "") {
-          setInputTitle("");
-        } else {
-          setInputTitle(title);
-        }
-        setShowAllOptions(false);
-        propsOnChange?.(getOptionSelectedByTitle(title));
-      },
-      [setInputTitle, setShowAllOptions, propsOnChange, getOptionSelectedByTitle],
-    );
-
-    const handleOptionSelect = useCallback(
-      (option: SelectOptionType, callback: VoidFunction) => {
-        setInputTitle(String(option.title));
-        setShowAllOptions(true);
-        propsOnChange?.(option);
-        callback?.();
-      },
-      [setInputTitle, setShowAllOptions, propsOnChange],
-    );
-
-    // ----------------------------------------------------------------------------------------------------
+      if (propsValue !== undefined) {
+        setValue(String(propsValue));
+      }
+    }, [propsValue]);
 
     return (
-      <Popper
-        placement={PopperPlacement.bottom}
-        autoWidth
-        popperContentSx={{ marginTop: helperText ? "-28px !important" : "0 !important" }}
-        handleOnClose={() => setShowAllOptions(true)}
-        renderPopperTrigger={(params) => (
-          <TextField
-            value={inputTitle}
-            onClick={params.handleOpen}
-            onChange={handleValueChange}
-            clearable
-            showClearButton={Boolean(inputTitle)}
-            handleOnClear={() => {
-              setInputTitle("");
-              setShowAllOptions(true);
+      <MuiTextField
+        select
+        size="small"
+        variant="outlined"
+        value={value}
+        onChange={handleChange}
+        disabled={disabled}
+        slotProps={{
+          htmlInput: {
+            autoComplete: "off",
+            sx: { borderRadius: "8px" },
+          },
+          input: {
+            sx: {
+              borderRadius: "8px",
+              "& .MuiSelect-icon": {
+                display: disabled ? "none" : "block",
+              },
+            },
+          },
+          inputLabel: {
+            shrink: true,
+            sx: { fontWeight: "bold" },
+          },
+          formHelperText: {
+            sx: {
+              display: helperText ? "block" : "none",
+              m: 0,
+              mx: 0.5,
+              mb: 1,
+            },
+          },
+          select: {
+            MenuProps: {
+              PaperProps: {
+                sx: {
+                  maxHeight: 200,
+                  overflowY: "auto",
+                  "& li.MuiButtonBase-root": { mb: 0.5 },
+                  "& li.MuiButtonBase-root:last-child": { mb: 0 },
+                },
+              },
+            },
+          },
+        }}
+        {...props}
+      >
+        {options.map((option) => (
+          <MuiMenuItem key={option.value} value={option.value} sx={{ px: "12px" }}>
+            {option.title}
+          </MuiMenuItem>
+        ))}
+
+        {(isLoading || !options.length) && (
+          <div
+            style={{
+              height: "100%",
+              width: "100%",
+              position: "absolute",
+              top: 0,
             }}
-            endElement={
-              <Icon
-                icon={
-                  params.isOpen
-                    ? "solar:alt-arrow-up-bold-duotone"
-                    : "solar:alt-arrow-down-bold-duotone"
-                }
-              />
-            }
-            helperText={helperText}
-            {...props}
-          />
+          >
+            <MaskWithLoading isLoading={isLoading} progress={LoadingProgress.CIRCULAR} />
+            {!options.length && <BlankContentImage />}
+          </div>
         )}
-        renderPopperContent={(params) =>
-          !optionsFiltered.length ? (
-            <BlankContentImage wrapperSx={{ py: 4 }} />
-          ) : (
-            <Menu
-              list={optionsFiltered.map((option) => ({
-                ...option,
-                selected: option.title === inputTitle,
-                onClick: () => handleOptionSelect(option, params.handleClose),
-              }))}
-            />
-          )
-        }
-      />
+      </MuiTextField>
     );
   },
 );

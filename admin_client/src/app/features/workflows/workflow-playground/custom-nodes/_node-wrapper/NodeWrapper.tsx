@@ -7,7 +7,7 @@ import {
   usePlaygroundSelectedNodeStore,
 } from "~/app/features/workflows/workflow-playground/_hooks";
 import { useNodeStyle } from "~/app/features/workflows/workflow-playground/_hooks/core";
-import { elementID } from "~/app/features/workflows/workflow-playground/custom-nodes-detail/NodeDetail";
+import { protalElementID } from "~/app/features/workflows/workflow-playground/custom-nodes-detail/NodeDetail";
 import { BasePosition } from "~/ui/_helpers";
 import { CardWithActions, Portal } from "~/ui/components";
 import NodeWrapperConnectionDots from "./NodeWrapperConnectionDots";
@@ -70,7 +70,7 @@ const NodeWrapper: NamedExoticComponent<NodeWrapperProps> = memo(
 
         {/* Node Card Portal Detail Content */}
         {selectedNode?.id === id && (
-          <Portal targetElementID={elementID}>{portalDetailContent}</Portal>
+          <Portal targetElementID={protalElementID}>{portalDetailContent}</Portal>
         )}
       </CardWithActions>
     );

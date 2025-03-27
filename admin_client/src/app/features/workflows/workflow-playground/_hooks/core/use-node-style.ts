@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 
 import { FEATURE_WORKFLOWS_CONFIGS } from "~/app/_configs/feature-workflows";
-import { getNodeColor, getNodeIcon } from "~/app/features/workflows/_helpers";
 import { Workflows } from "~/app/features/workflows/_types";
+import { getNodeColor, getNodeIcon } from "~/app/features/workflows/workflow-playground/_helpers";
 import { getColor } from "~/ui/_helpers";
 import type { CardWithActionsProps, IconProps } from "~/ui/components";
 

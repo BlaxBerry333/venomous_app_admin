@@ -3,6 +3,7 @@ import { memo } from "react";
 
 import { BaseEdge as XYFlowBaseEdge, getBezierPath } from "@xyflow/react";
 
+import { FEATURE_WORKFLOWS_CONFIGS } from "~/app/_configs/feature-workflows";
 import type { Workflows } from "~/app/features/workflows/_types";
 
 type EdgeWrapperProps = Workflows.EdgeProps & {
@@ -19,7 +20,7 @@ const EdgeWrapper: NamedExoticComponent<EdgeWrapperProps> = memo(
       targetY,
       sourcePosition,
       targetPosition,
-      style = { strokeWidth: 3 },
+      style = { strokeWidth: FEATURE_WORKFLOWS_CONFIGS.styles.edgeWidth },
       markerEnd,
     } = edgeProps;
 

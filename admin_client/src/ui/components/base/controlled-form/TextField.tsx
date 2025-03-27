@@ -6,7 +6,7 @@ import MuiTextField, { type TextFieldProps as MuiTextFieldProps } from "@mui/mat
 import { BaseColor, BaseSize } from "~/ui/_helpers";
 import { IconButton } from "~/ui/components/base/iconbutton";
 
-export type TextFieldProps = Omit<MuiTextFieldProps, "select" | "value" | "onChange"> & {
+export type TextFieldProps = Omit<MuiTextFieldProps, "value" | "onChange"> & {
   clearable?: boolean;
   showClearButton?: boolean;
   handleOnClear?: VoidFunction;

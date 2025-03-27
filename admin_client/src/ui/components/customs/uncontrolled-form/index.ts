@@ -1,3 +1,4 @@
+import RHFAutocomplete from "./RHFAutocomplete";
 import RHFCheckbox from "./RHFCheckbox";
 import RHFForm from "./RHFForm";
 import RHFFormAction from "./RHFFormAction";
@@ -18,6 +19,7 @@ export const RHF = {
   Action: RHFFormAction,
 
   // Fields
+  Autocomplete: RHFAutocomplete,
   Checkbox: RHFCheckbox,
   Number: RHFNumber,
   OneTimeInput: RHFOneTimeInput,

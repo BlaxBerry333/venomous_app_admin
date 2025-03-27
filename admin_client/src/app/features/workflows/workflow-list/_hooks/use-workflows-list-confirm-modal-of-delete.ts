@@ -3,7 +3,7 @@ import { useCallback, useMemo } from "react";
 import { useModal } from "~/ui/components";
 import { sleep } from "~/utils/custom/process";
 
-export default function useDashboardWorkflowsListViewConfirmModalOfDelete({
+export default function useWorkflowsListConfirmModalOfDelete({
   setSelectedId,
 }: {
   setSelectedId: React.Dispatch<React.SetStateAction<string | null>>;

@@ -2,8 +2,8 @@ import type { NamedExoticComponent } from "react";
 import { memo } from "react";
 import { z } from "zod";
 
-import type { IAuthResetPasswordParams } from "~/app/types/_auth";
 import { RHF } from "~/ui/components";
+import type { IAuthResetPasswordParams } from "~/utils/libs/apis/types/_auth";
 import { createZodSchema, ZOD_I18N_ERROR_CODES } from "~/utils/libs/tools/zod";
 
 const formSchemas = createZodSchema<IAuthResetPasswordParams>()(

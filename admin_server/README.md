@@ -103,8 +103,6 @@ root@[CONTAINER_ID]:/app# \
 ```shell
 venomous_apps/
 └── admin_server/
-    ├── .venv/
-    │
     ├── common/
     │    ├── utils/
     │    └── ...

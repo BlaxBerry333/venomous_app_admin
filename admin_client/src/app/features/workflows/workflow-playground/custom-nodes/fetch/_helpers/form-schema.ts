@@ -11,12 +11,9 @@ export const formSchemas = createZodSchema<FormValueType>()(
     items: z
       .array(
         z.object({
-          method: z.enum([
-            WorkflowsFormValue.FetchNodeMethod.GET,
-            WorkflowsFormValue.FetchNodeMethod.POST,
-            WorkflowsFormValue.FetchNodeMethod.PUT,
-            WorkflowsFormValue.FetchNodeMethod.DELETE,
-          ]),
+          method: z.nativeEnum(WorkflowsFormValue.FetchNodeMethod, {
+            errorMap: () => ({ message: ZOD_I18N_ERROR_CODES.INVALID_SELECT_OPTION }),
+          }),
           url: z
             .string()
             .min(1, ZOD_I18N_ERROR_CODES.REQUIRED)

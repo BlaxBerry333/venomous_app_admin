@@ -3,11 +3,8 @@ import { memo, useMemo } from "react";
 
 import { ReactFlowProvider } from "@xyflow/react";
 
-import {
-  WorkflowOriginalDataContext,
-  type WorkflowOriginalDataContextType,
-} from "~/app/features/workflows/_contexts";
 import { Paper } from "~/ui/components";
+import { WorkflowOriginalDataContext, type WorkflowOriginalDataContextType } from "../_contexts";
 
 type WorkflowPlaygroundWrapperProps = PropsWithChildren<WorkflowOriginalDataContextType>;
 

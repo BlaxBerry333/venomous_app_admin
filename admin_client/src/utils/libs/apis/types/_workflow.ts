@@ -18,16 +18,13 @@ export type IWorkflowDataResponse = {
   name: string;
   description: string;
   type: IWorkflowDataType;
-  created_at: string; // ISO 8601 格式日期字符串
-  updated_at: string; // ISO 8601 格式日期字符串
-  is_active: boolean;
-  element: {
-    nodes: unknown[];
-    edges: unknown[];
-  };
+  createdAt: string; // ISO 8601 格式日期字符串
+  updatedAt: string; // ISO 8601 格式日期字符串
+  isActive: boolean;
+  element: string; // json string
 };
 
 export enum IWorkflowDataType {
-  Logic = "logic",
-  Draft = "draft",
+  Logic = "LOGIC",
+  Draft = "DRAFT",
 }

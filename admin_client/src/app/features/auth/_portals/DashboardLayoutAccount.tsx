@@ -3,7 +3,6 @@ import { memo, useCallback } from "react";
 
 import MuiStack from "@mui/material/Stack";
 
-import type { ICurrentUserProfileResponse } from "~/app/types/_user";
 import { BaseColor, BasePosition, BaseSize } from "~/ui/_helpers";
 import {
   AnimationAvatar,
@@ -20,6 +19,7 @@ import {
 import { elementID } from "~/ui/templates";
 import { useAPIAuthLogout } from "~/utils/libs/apis/_hooks/auth";
 import { useAPIUserProfile } from "~/utils/libs/apis/_hooks/user";
+import type { ICurrentUserProfileResponse } from "~/utils/libs/apis/types/_user";
 import { AUTH_PATHS, useRouteNavigate } from "~/utils/libs/router";
 import { formateDateTime, formateFromNow } from "~/utils/libs/tools/datetime";
 

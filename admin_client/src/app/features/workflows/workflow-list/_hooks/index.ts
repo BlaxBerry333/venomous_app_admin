@@ -1,1 +1,1 @@
-export { default as useDashboardWorkflowsListViewConfirmModalOfDelete } from "./useDashboardWorkflowsListViewConfirmModalOfDelete";
+export { default as useWorkflowsListConfirmModalOfDelete } from "./use-workflows-list-confirm-modal-of-delete";

@@ -1,5 +1,8 @@
 export { default as BlankFieldWrapper } from "./_BlankFieldWrapper";
 
+export { default as Autocomplete } from "./Autocomplete";
+export type { AutocompleteProps } from "./Autocomplete";
+
 export { default as Checkbox } from "./Checkbox";
 export type { CheckboxProps } from "./Checkbox";
 

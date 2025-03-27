@@ -6,7 +6,7 @@ import type {
   IAuthLoginResponse,
   IAuthSignupParams,
   IAuthSignupResponse,
-} from "~/app/types/_auth";
+} from "~/utils/libs/apis/types/_auth";
 import { getStoredAuthTokens, removeStoredAuthTokens } from "../_helpers";
 import { AUTH_ENTRYPOINTS } from "../entrypoints/auth";
 import { ADMIN_SERVER_AUTH_INSTANCE } from "../instances";

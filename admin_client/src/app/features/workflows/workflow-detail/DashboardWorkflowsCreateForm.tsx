@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { FileUpload, RHF, useRHFValueIsEqual } from "~/ui/components";
+import { IWorkflowDataType } from "~/utils/libs/apis/types/_workflow";
 import { createFormSchemas, WORKFLOW_DETAIL_FORM } from "./_helpers";
 import type { CreateFormValueType } from "./_helpers/form-schema";
 
@@ -40,6 +41,15 @@ const DashboardWorkflowsCreateForm: NamedExoticComponent<{
         {/* Name */}
         <RHF.Text fullWidth name="name" label="名称" placeholder="4+ characters" sx={{ mb: 1 }} />
 
+        {/* Type */}
+        <RHF.Select
+          fullWidth
+          name="type"
+          label="类型"
+          options={WORKFLOW_DETAIL_FORM.TYPE_SELECT_OPTIONS}
+          sx={{ mb: 1 }}
+        />
+
         {/* Description */}
         <RHF.Text
           fullWidth
@@ -52,7 +62,10 @@ const DashboardWorkflowsCreateForm: NamedExoticComponent<{
           sx={{ mb: 1 }}
         />
 
-        <FileUpload label="上传本地文件" sx={{ width: { xs: 1, sm: "100px" } }} />
+        {/* Logic Type File Upload */}
+        {formInstance.watch("type") === IWorkflowDataType.Logic && (
+          <FileUpload label="上传本地文件" sx={{ width: { xs: 1, sm: "100px" } }} />
+        )}
 
         {/* Action Buttons */}
         <RHF.Action

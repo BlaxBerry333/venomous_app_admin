@@ -1,1 +1,6 @@
-export { default as NodeDetail } from "./NodeDetail";
+export {
+  default as NodeDetail,
+  protalElementID,
+  useDosomethingWhenCloseProtalElement,
+  useSetCloseFunctionForProtalElement,
+} from "./NodeDetail";

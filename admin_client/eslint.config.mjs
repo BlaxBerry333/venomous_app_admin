@@ -37,7 +37,6 @@ export default tseslint.config(
     rules: {
       // react
       "react/display-name": "off",
-      "react/prop-types": "off",
 
       // react-hooks
       ...reactHooks.configs.recommended.rules,

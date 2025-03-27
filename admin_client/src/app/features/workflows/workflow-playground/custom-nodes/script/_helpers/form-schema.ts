@@ -3,7 +3,7 @@ import { z } from "zod";
 import { WorkflowsFormValue } from "~/app/features/workflows/_types";
 import { createZodSchema, ZOD_I18N_ERROR_CODES } from "~/utils/libs/tools/zod";
 
-type FormValueType = WorkflowsFormValue.ScriptNode;
+export type FormValueType = WorkflowsFormValue.ScriptNode;
 
 export const formSchemas = createZodSchema<FormValueType>()(
   z.object({

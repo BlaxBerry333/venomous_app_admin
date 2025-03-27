@@ -36,7 +36,7 @@ stop-all:
 	@docker compose \
 		-f ${DOCKER_COMPOSE_FILE_PATH_DEV} \
 		-p ${PROJECT_NAME} \
-		stop
+		down
 
 
 # stop then remove all containers、volumes、images

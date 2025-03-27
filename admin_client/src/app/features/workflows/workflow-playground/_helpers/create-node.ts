@@ -1,4 +1,4 @@
-import type { Workflows } from "../_types";
+import { Workflows } from "~/app/features/workflows/_types";
 import { createNodeDefaultFormValue } from "./create-node-default-form-value";
 
 export function createNode({

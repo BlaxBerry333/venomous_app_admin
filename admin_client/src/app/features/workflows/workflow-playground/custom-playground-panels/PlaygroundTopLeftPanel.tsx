@@ -3,9 +3,9 @@ import { memo, useMemo } from "react";
 
 import { Panel } from "@xyflow/react";
 
-import { useWorkflowOriginalData } from "~/app/features/workflows/_contexts";
-import { Typography } from "~/ui/components";
-import { formateFromNow } from "~/utils/libs/tools/datetime";
+import { useWorkflowOriginalData } from "~/app/features/workflows/workflow-playground/_contexts";
+import { Tooltip, Typography } from "~/ui/components";
+import { formateDateTime, formateFromNow } from "~/utils/libs/tools/datetime";
 
 const PlaygroundTopLeftPanel: NamedExoticComponent = memo(() => {
   return (
@@ -23,29 +23,37 @@ const WorkflowInformation: NamedExoticComponent = memo(() => {
   const { information } = useWorkflowOriginalData();
   return useMemo<ReactNode>(() => {
     if (!information) return null;
-    const { id, name, created_at, element: originalElement } = information;
-    const originalNodes = originalElement?.nodes || [];
+    const { id, name, updatedAt, createdAt } = information;
     return (
-      <Typography component="div" noWrap sx={{ maxWidth: "180px" }}>
-        {id && (
-          <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
-            {`#${id}`}
-          </Typography>
-        )}
-        {name && (
-          <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
-            {name}
-          </Typography>
-        )}
-        {created_at && (
-          <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
-            {`Last updated:`}&nbsp;{formateFromNow(created_at)}
-          </Typography>
-        )}
-        <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
-          {`Total Nodes ( original ):`}&nbsp;{originalNodes.length}
+      <Tooltip
+        title={
+          <>
+            {updatedAt && (
+              <Typography variant="caption" component="p">
+                {`Last Updated At:`}&nbsp;{formateFromNow(updatedAt)}
+              </Typography>
+            )}
+            {createdAt && (
+              <Typography variant="caption" component="p">
+                {`Created At:`}&nbsp;{formateDateTime(createdAt)}
+              </Typography>
+            )}
+          </>
+        }
+      >
+        <Typography component="div" noWrap sx={{ maxWidth: "180px" }}>
+          {id && (
+            <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
+              {`#${id}`}
+            </Typography>
+          )}
+          {name && (
+            <Typography variant="caption" component="div" sx={{ color: "text.secondary" }}>
+              {name}
+            </Typography>
+          )}
         </Typography>
-      </Typography>
+      </Tooltip>
     );
   }, [information]);
 });

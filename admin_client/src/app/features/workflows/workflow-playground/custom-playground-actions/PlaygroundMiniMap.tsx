@@ -4,8 +4,8 @@ import { memo } from "react";
 import { useTheme } from "@mui/material/styles";
 import { MiniMap as XYFlowMiniMap } from "@xyflow/react";
 
-import { getNodeColor } from "~/app/features/workflows/_helpers";
 import type { Workflows } from "~/app/features/workflows/_types";
+import { getNodeColor } from "~/app/features/workflows/workflow-playground/_helpers";
 import { IconButton } from "~/ui/components";
 import { usePlaygroundActionStatusStore } from "../_hooks";
 import { useCanvasViewport } from "../_hooks/core";

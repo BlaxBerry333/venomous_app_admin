@@ -5,12 +5,12 @@ import { Controller, useFormContext } from "react-hook-form";
 
 import { Select, type SelectProps } from "~/ui/components/base";
 
-type RHFTextProps = SelectProps & {
+type RHFSelectProps = SelectProps & {
   name: string;
   defaultValue?: string;
 };
 
-const RHFSelect: NamedExoticComponent<RHFTextProps> = memo(
+const RHFSelect: NamedExoticComponent<RHFSelectProps> = memo(
   ({ name, defaultValue = "", options = [], ...props }) => {
     const { control, trigger } = useFormContext();
 
@@ -25,9 +25,9 @@ const RHFSelect: NamedExoticComponent<RHFTextProps> = memo(
         defaultValue={defaultValue}
         render={({ field, fieldState: { error } }) => (
           <Select
-            options={options}
             fullWidth
             inputRef={field.ref}
+            options={options}
             value={field.value || defaultValue}
             onChange={(option) => field.onChange(option?.value)}
             error={!!error}

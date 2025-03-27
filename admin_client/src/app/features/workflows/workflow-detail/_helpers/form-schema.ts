@@ -1,23 +1,32 @@
 import { z } from "zod";
 
-import { type IWorkflowDataResponse } from "~/app/types/_workflow";
+import { IWorkflowDataType, type IWorkflowDataResponse } from "~/utils/libs/apis/types/_workflow";
 import { createZodSchema, ZOD_I18N_ERROR_CODES } from "~/utils/libs/tools/zod";
 
-export type CreateFormValueType = Pick<IWorkflowDataResponse, "name" | "description">;
+export type CreateFormValueType = Pick<IWorkflowDataResponse, "name" | "description" | "type">;
 
-export type DetailFormValueType = Pick<IWorkflowDataResponse, "name" | "description" | "is_active">;
+export type DetailFormValueType = Pick<
+  IWorkflowDataResponse,
+  "name" | "description" | "type" | "isActive"
+>;
+
+const commonSchema = {
+  name: z.string().min(1, ZOD_I18N_ERROR_CODES.REQUIRED),
+  description: z.string(),
+  type: z.nativeEnum(IWorkflowDataType, {
+    errorMap: () => ({ message: ZOD_I18N_ERROR_CODES.INVALID_SELECT_OPTION }),
+  }),
+};
 
 export const createFormSchemas = createZodSchema<CreateFormValueType>()(
   z.object({
-    name: z.string().min(1, ZOD_I18N_ERROR_CODES.REQUIRED),
-    description: z.string().min(1, ZOD_I18N_ERROR_CODES.REQUIRED),
+    ...commonSchema,
   }),
 );
 
 export const detailFormSchemas = createZodSchema<DetailFormValueType>()(
   z.object({
-    name: z.string().min(1, ZOD_I18N_ERROR_CODES.REQUIRED),
-    description: z.string().min(1, ZOD_I18N_ERROR_CODES.REQUIRED),
-    is_active: z.boolean(),
+    ...commonSchema,
+    isActive: z.boolean(),
   }),
 );

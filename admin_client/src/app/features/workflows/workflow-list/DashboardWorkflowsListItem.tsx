@@ -1,10 +1,12 @@
 import type { NamedExoticComponent } from "react";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
-import type { IWorkflowDataResponse } from "~/app/types/_workflow";
-import { CardWithActions, Typography } from "~/ui/components";
+import { BaseColor } from "~/ui/_helpers";
+import { CardWithActions, IconButton, Typography } from "~/ui/components";
+import type { IWorkflowDataResponse } from "~/utils/libs/apis/types/_workflow";
 import { DASHBOARD_PATHS } from "~/utils/libs/router";
 import { formateDateTime } from "~/utils/libs/tools/datetime";
+import DashboardWorkflowsListItemAvatar from "./DashboardWorkflowsListItemAvatar";
 
 type DashboardWorkflowsListItemProps = {
   item: IWorkflowDataResponse;
@@ -14,15 +16,32 @@ type DashboardWorkflowsListItemProps = {
 };
 const DashboardWorkflowsListItem: NamedExoticComponent<DashboardWorkflowsListItemProps> = memo(
   ({ item, selectedItemId, handleNavigate, openConfirmModalOfRemove }) => {
-    const { id, name, updated_at, created_at } = item;
+    const { id, name, updatedAt, createdAt, isActive } = item;
     const isSelected: boolean = selectedItemId === id;
+
+    const navigateToDetail = useCallback(() => {
+      handleNavigate(`${DASHBOARD_PATHS.workflows.detail}?id=${id}`);
+    }, [handleNavigate, id]);
+
+    const navigateToPlayground = useCallback(() => {
+      handleNavigate(`${DASHBOARD_PATHS.workflows.playground}?id=${id}`);
+    }, [handleNavigate, id]);
 
     return (
       <CardWithActions
         id={id}
         title={name}
         subTitle={`#${id}`}
-        // action={<Tooltip title={description} />}
+        avatar={<DashboardWorkflowsListItemAvatar item={item} />}
+        action={
+          isActive && (
+            <IconButton
+              icon="solar:check-circle-bold-duotone"
+              color={BaseColor.PRIMARY}
+              onClick={navigateToDetail}
+            />
+          )
+        }
         wrapperSx={{
           width: "100%",
           height: "150px",
@@ -31,16 +50,22 @@ const DashboardWorkflowsListItem: NamedExoticComponent<DashboardWorkflowsListIte
           outline: ({ palette: { primary } }) =>
             `4px solid ${isSelected ? primary.main : "transparent"}`,
         }}
+        contentSx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 0.5,
+          py: 2,
+        }}
         actionItemList={[
           {
-            title: "演示",
+            title: "演示图",
             icon: "solar:routing-3-line-duotone",
-            onClick: () => handleNavigate(`${DASHBOARD_PATHS.workflows.playground}?id=${id}`),
+            onClick: () => navigateToPlayground(),
           },
           {
             title: "编辑",
             icon: "solar:pen-new-square-line-duotone",
-            onClick: () => handleNavigate(`${DASHBOARD_PATHS.workflows.detail}?id=${id}`),
+            onClick: () => navigateToDetail(),
           },
           {
             title: "删除",
@@ -49,14 +74,14 @@ const DashboardWorkflowsListItem: NamedExoticComponent<DashboardWorkflowsListIte
           },
         ]}
       >
-        <Typography noWrap variant="caption" component="div" sx={{ pr: 1, mt: 1 }}>
-          更新日期:&nbsp;{formateDateTime(updated_at)}
+        <Typography noWrap variant="caption" component="div">
+          更新日期:&nbsp;{formateDateTime(updatedAt)}
         </Typography>
-        <Typography noWrap variant="caption" component="div" sx={{ pr: 1 }}>
-          创建日期:&nbsp;{formateDateTime(created_at)}
+        <Typography noWrap variant="caption" component="div">
+          创建日期:&nbsp;{formateDateTime(createdAt)}
         </Typography>
 
-        {/* {is_active && (
+        {/* {isActive && (
           <Typography noWrap variant="caption" color="success" sx={{ fontWeight: "bold" }}>
             启动中
           </Typography>

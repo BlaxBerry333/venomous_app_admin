@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 
 import { FEATURE_WORKFLOWS_CONFIGS } from "~/app/_configs/feature-workflows";
-import { createNode } from "~/app/features/workflows/_helpers";
 import type { Workflows } from "~/app/features/workflows/_types";
+import { createNode } from "~/app/features/workflows/workflow-playground/_helpers";
 import useInstance from "./use-instance";
 
 export default function useNodeRegister() {

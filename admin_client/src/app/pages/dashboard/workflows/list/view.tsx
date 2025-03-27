@@ -1,10 +1,18 @@
 import type { NamedExoticComponent } from "react";
-import { memo, Suspense } from "react";
+import { memo, Suspense, useCallback, useMemo, useState } from "react";
 
-import { useDashboardWorkflowsListView } from "~/app/features/workflows/_hooks";
 import { DashboardWorkflowsListItem } from "~/app/features/workflows/workflow-list";
-import { useDashboardWorkflowsListViewConfirmModalOfDelete } from "~/app/features/workflows/workflow-list/_hooks";
-import { FullPageLoading, Modal, VirtualGrid } from "~/ui/components";
+import { useWorkflowsListConfirmModalOfDelete } from "~/app/features/workflows/workflow-list/_hooks";
+import { FullPageLoading, Modal, toast, VirtualGrid } from "~/ui/components";
+import {
+  useAPIWorkflowDataCrete,
+  useAPIWorkflowDataDelete,
+  useAPIWorkflowsDataList,
+} from "~/utils/libs/apis/_hooks/workflows";
+import type {
+  IWorkflowDataListResponse,
+  IWorkflowDataResponse,
+} from "~/utils/libs/apis/types/_workflow";
 import { useRouteNavigate } from "~/utils/libs/router";
 
 const DashboardWorkflowsListView: NamedExoticComponent = memo(() => {
@@ -17,7 +25,7 @@ const DashboardWorkflowsListView: NamedExoticComponent = memo(() => {
     isOpenConfirmModalOfRemove,
     handleOpenConfirmModalOfRemove,
     handleCloseConfirmModalOfRemove,
-  } = useDashboardWorkflowsListViewConfirmModalOfDelete({ setSelectedId });
+  } = useWorkflowsListConfirmModalOfDelete({ setSelectedId });
 
   if (isLoading) {
     return <FullPageLoading />;
@@ -27,7 +35,7 @@ const DashboardWorkflowsListView: NamedExoticComponent = memo(() => {
     <>
       <VirtualGrid
         list={data}
-        cols={{ xs: 1, sm: 2, md: 3, lg: 3, xl: 3 }}
+        cols={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 3 }}
         renderGridItem={(item) => (
           <DashboardWorkflowsListItem
             item={item}
@@ -57,3 +65,52 @@ const DashboardWorkflowsListView: NamedExoticComponent = memo(() => {
 });
 
 export default DashboardWorkflowsListView;
+
+// ----------------------------------------------------------------------------------------------------
+
+function useDashboardWorkflowsListView() {
+  const { data: dataSource, isLoading } = useAPIWorkflowsDataList();
+  const { mutateAsync: createAsync, isPending: isCreating } = useAPIWorkflowDataCrete();
+  const { mutateAsync: removeAsync, isPending: isRemoving } = useAPIWorkflowDataDelete();
+
+  const data = useMemo<IWorkflowDataListResponse["results"]>(() => {
+    if (!dataSource) return [];
+    return dataSource.results;
+  }, [dataSource]);
+
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const create = useCallback(
+    async (data: IWorkflowDataResponse) => {
+      createAsync(data)
+        .then(() => toast.success(`#${data.id} created successfully`))
+        .catch(() => toast.error(`Error creating #${data.id}`));
+    },
+    [createAsync],
+  );
+
+  const remove = useCallback(
+    async (callback: VoidFunction) => {
+      if (!selectedId) return;
+      removeAsync(selectedId)
+        .then(() => toast.success(`#${selectedId} removed successfully`))
+        .catch(() => toast.error(`Error removing #${selectedId}`))
+        .finally(() => {
+          setSelectedId(null);
+          callback();
+        });
+    },
+    [selectedId, removeAsync],
+  );
+
+  return {
+    data,
+    isLoading,
+    create,
+    isCreating,
+    remove,
+    isRemoving,
+    selectedId,
+    setSelectedId,
+  };
+}

@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 
 import { useNodeFormValueValidation } from "~/app/features/workflows/workflow-playground/_hooks/core";
+import { BaseColor } from "~/ui/_helpers";
 import { Button, IconButton, RHF, Typography, useRHFValueIsEqual } from "~/ui/components";
 import { FETCH_NODE_FORM, formSchemas, type FormValueType } from "./_helpers";
 
@@ -32,7 +33,7 @@ const FetchNodeDetailForm: NamedExoticComponent<{
 
   const itemsErrorMessage = formInstance.formState.errors.items?.message;
 
-  useNodeFormValueValidation({ nodeId, formInstance });
+  useNodeFormValueValidation({ nodeId, defaultValues, formInstance });
 
   const { isNothingChanged } = useRHFValueIsEqual({ defaultValues, formInstance });
 
@@ -49,7 +50,7 @@ const FetchNodeDetailForm: NamedExoticComponent<{
       <RHF.Text
         fullWidth
         name="description"
-        label="Description"
+        label="简介"
         placeholder="4+ characters"
         multiline
         minRows={2}
@@ -63,17 +64,18 @@ const FetchNodeDetailForm: NamedExoticComponent<{
           <RHF.Select
             name={`items.${index}.method`}
             label="Method"
-            clearable={false}
-            options={FETCH_NODE_FORM.DEFAULT_METHOD_OPTIONS.map(({ value, label }) => ({
-              title: label,
-              value,
-            }))}
+            options={FETCH_NODE_FORM.DEFAULT_METHOD_OPTIONS}
           />
           {/* Item.URL */}
           <RHF.Text name={`items.${index}.url`} label="URL" />
         </FetchNodeDetailFormItemWrapper>
       ))}
-      <Button onClick={() => append(FETCH_NODE_FORM.DEFAULT_FORM_VALUE_ITEM)}>Add Item</Button>
+      <Button
+        color={itemsErrorMessage ? BaseColor.ERROR : BaseColor.PRIMARY}
+        onClick={() => append(FETCH_NODE_FORM.DEFAULT_FORM_VALUE_ITEM)}
+      >
+        Add Item
+      </Button>
       <Typography color="error" variant="caption" sx={{ height: 24, pl: 0.5 }}>
         {itemsErrorMessage}
       </Typography>
@@ -93,15 +95,11 @@ const FetchNodeDetailFormItemWrapper: NamedExoticComponent<
   }>
 > = memo(({ children, index, removeItem }) => {
   return (
-    <Typography component="div" sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+    <Typography component="div" sx={{ display: "flex", alignItems: "flex-start", gap: 0.5 }}>
       {children}
 
       {/* Remove Button */}
-      <IconButton
-        icon="material-symbols:close"
-        onClick={() => removeItem(index)}
-        sx={{ transform: "translateY(-14px)" }}
-      />
+      <IconButton icon="material-symbols:close" onClick={() => removeItem(index)} />
     </Typography>
   );
 });

@@ -40,6 +40,16 @@ const DashboardWorkflowsDetailForm: NamedExoticComponent<{
         {/* Name */}
         <RHF.Text fullWidth name="name" label="名称" placeholder="4+ characters" sx={{ mb: 1 }} />
 
+        {/* Type */}
+        <RHF.Select
+          fullWidth
+          name="type"
+          label="类型"
+          disabled
+          options={WORKFLOW_DETAIL_FORM.TYPE_SELECT_OPTIONS}
+          sx={{ mb: 1 }}
+        />
+
         {/* Description */}
         <RHF.Text
           fullWidth
@@ -53,7 +63,7 @@ const DashboardWorkflowsDetailForm: NamedExoticComponent<{
         />
 
         {/* IsActive */}
-        <RHF.Switch name="is_active" endLabel="启动中" sx={{ mb: 1 }} />
+        <RHF.Switch name="isActive" startLabel="启动中" endLabel="停止中" sx={{ mb: 1 }} />
 
         {/* Action Buttons */}
         <RHF.Action

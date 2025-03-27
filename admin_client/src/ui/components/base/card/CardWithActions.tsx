@@ -56,7 +56,7 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
   }) => {
     const headerTitles = useMemo<JSX.Element>(() => {
       return (
-        <Typography component="div" noWrap sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Typography component="div" noWrap sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           {/* Card Header Icon */}
           {avatar}
 
@@ -64,11 +64,11 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
           <Typography component="div" noWrap>
             {title && (
               <Typography
-                variant="h6"
+                variant="subtitle1"
                 noWrap
                 sx={{
                   fontWeight: "bold",
-                  transform: `translateY(${subTitle ? "4px" : "0px"})`,
+                  fontSize: "18px",
                 }}
               >
                 {title}
@@ -79,8 +79,8 @@ const CardWithActions: NamedExoticComponent<CardWithActionsProps> = memo(
                 variant="subtitle2"
                 noWrap
                 sx={{
-                  color: "text.disabled",
                   fontWeight: "bold",
+                  color: "text.disabled",
                   transform: `translateY(${title ? "-4px" : "0px"})`,
                 }}
               >

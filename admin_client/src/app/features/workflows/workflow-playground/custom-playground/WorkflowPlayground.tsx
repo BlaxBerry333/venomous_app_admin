@@ -5,9 +5,9 @@ import { ConnectionLineType, MarkerType, ReactFlow } from "@xyflow/react";
 import "@xyflow/react/dist/base.css";
 
 import { FEATURE_WORKFLOWS_CONFIGS } from "~/app/_configs/feature-workflows";
-import { useWorkflowOriginalData } from "~/app/features/workflows/_contexts";
 import { Workflows } from "~/app/features/workflows/_types";
 
+import { useWorkflowOriginalData } from "../_contexts";
 import { usePlaygroundActionStatusStore } from "../_hooks";
 import { useEdgeConnection, useNodeRegister } from "../_hooks/core";
 import { customEdgeComponents } from "../custom-edges";

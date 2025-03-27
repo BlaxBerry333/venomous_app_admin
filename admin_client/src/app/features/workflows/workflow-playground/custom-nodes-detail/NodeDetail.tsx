@@ -1,5 +1,5 @@
 import type { NamedExoticComponent } from "react";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 
 import MuiStack from "@mui/material/Stack";
 
@@ -12,7 +12,8 @@ import { BaseColor } from "~/ui/_helpers";
 import { CardWithActions, IconButton } from "~/ui/components";
 import { NodeWrapperIcon } from "../custom-nodes/_node-wrapper";
 
-export const elementID = "node-detail";
+export const protalElementID = "node-detail" as const;
+export const protalElementCloseFunctionName = "node-detail-close" as const;
 
 const NodeDetail: NamedExoticComponent = memo(() => {
   const { isOpenNodeDetailModal, closeNodeDetailModal } = usePlaygroundActionStatusStore();
@@ -20,6 +21,8 @@ const NodeDetail: NamedExoticComponent = memo(() => {
   const { selectedNode } = usePlaygroundSelectedNodeStore();
 
   const { moveToSpecificNode } = useCanvasViewport();
+
+  useSetCloseFunctionForProtalElement({ showElement: isOpenNodeDetailModal });
 
   if (!selectedNode) {
     return null;
@@ -69,9 +72,36 @@ const NodeDetail: NamedExoticComponent = memo(() => {
         </MuiStack>
       }
     >
-      <div id={elementID} />
+      <div id={protalElementID} />
     </CardWithActions>
   );
 });
 
 export default NodeDetail;
+
+/**
+ * 创建一个自定义事件
+ * 使渲染到这个 ProtalElement 容器内的组件可以监听到该自定义事件，从而解决子组件不会被卸的问题
+ */
+export function useSetCloseFunctionForProtalElement({ showElement }: { showElement: boolean }) {
+  useEffect(() => {
+    if (!showElement) {
+      const event = new CustomEvent(protalElementCloseFunctionName);
+      document.getElementById(protalElementID)?.dispatchEvent(event);
+    }
+  }, [showElement]);
+}
+
+/**
+ * 监听一个自定义事件
+ * 使渲染到这个 ProtalElement 容器内的组件可以在监听到该自定义事件后执行某些行为，比如数据重置等，以解决子组件不会被卸的问题
+ */
+export function useDosomethingWhenCloseProtalElement({ func }: { func: VoidFunction }) {
+  useEffect(() => {
+    const protalElement = document.getElementById(protalElementID);
+    protalElement?.addEventListener("node-detail-close", func);
+    return () => {
+      protalElement?.removeEventListener("node-detail-close", func);
+    };
+  }, [func]);
+}

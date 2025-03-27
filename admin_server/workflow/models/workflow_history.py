@@ -2,22 +2,26 @@ from django.db import models
 
 
 class WorkflowHistoryModel(models.Model):
+    """
+    Model of Workflow Histroy
+    """
+
     id = models.BigAutoField(
         primary_key=True,
-        verbose_name="流程图更新记录ID",
+        verbose_name="履历ID",
     )
     name = models.CharField(
         max_length=100,
         blank=True,
         default="",
-        verbose_name="流程图更新记录名称",
+        verbose_name="履历名称",
         help_text="( 100 字符以内 )",
     )
     description = models.CharField(
         max_length=250,
         blank=True,
         default="",
-        verbose_name="流程图更新记录简介",
+        verbose_name="履历简介",
         help_text="( 250 字符以内 )",
     )
     created_at = models.DateTimeField(

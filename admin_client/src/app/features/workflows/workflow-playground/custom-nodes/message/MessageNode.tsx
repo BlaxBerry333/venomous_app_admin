@@ -20,7 +20,7 @@ const MessageNode: NamedExoticComponent<MessageNodeProps> = memo((props) => {
   const handleSubmit = useCallback(
     (formValue: FormValueType) => {
       updateSpecificNodeFormValue(id, formValue);
-      toast.success("更新成功");
+      toast.success(`#${id} 表单更新成功`);
     },
     [id, updateSpecificNodeFormValue],
   );

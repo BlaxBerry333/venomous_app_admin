@@ -2,11 +2,14 @@ import { useCallback, useEffect } from "react";
 
 import { debounce } from "lodash-es";
 import type { FieldValues, UseFormReturn } from "react-hook-form";
+
+import { useDosomethingWhenCloseProtalElement } from "~/app/features/workflows/workflow-playground/custom-nodes-detail";
 import useNodeUpdate from "./use-node-update";
 
 type useNodeFormValueValidationProps<T extends FieldValues> = {
   nodeId: string;
   formInstance: UseFormReturn<T>;
+  defaultValues?: T;
 };
 
 /**
@@ -14,6 +17,7 @@ type useNodeFormValueValidationProps<T extends FieldValues> = {
  */
 export default function useNodeFormValueValidation<T extends FieldValues>({
   nodeId,
+  defaultValues,
   formInstance,
 }: useNodeFormValueValidationProps<T>) {
   const isInvalid: boolean = !formInstance.formState.isValid;
@@ -31,9 +35,13 @@ export default function useNodeFormValueValidation<T extends FieldValues>({
 
   useEffect(() => {
     debouncedUpdate(nodeId, isInvalid);
-
     return () => {
       debouncedUpdate.cancel();
     };
   }, [debouncedUpdate, nodeId, isInvalid]);
+
+  // ----------------------------------------------------------------------------------------------------
+
+  // 监听自定义事件以触发表单值的重置，从而避免组件卸载后`node.data.isFormInvalid`状态的残留
+  useDosomethingWhenCloseProtalElement({ func: () => formInstance.reset(defaultValues) });
 }

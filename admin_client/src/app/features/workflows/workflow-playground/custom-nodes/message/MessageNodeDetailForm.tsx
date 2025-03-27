@@ -21,7 +21,7 @@ const MessageNodeDetailForm: NamedExoticComponent<{
     mode: "all",
   });
 
-  useNodeFormValueValidation({ nodeId, formInstance });
+  useNodeFormValueValidation({ nodeId, defaultValues, formInstance });
 
   const { isNothingChanged } = useRHFValueIsEqual({ defaultValues, formInstance });
 
@@ -38,7 +38,7 @@ const MessageNodeDetailForm: NamedExoticComponent<{
       <RHF.Text
         fullWidth
         name="description"
-        label="Description"
+        label="简介"
         placeholder="4+ characters"
         multiline
         minRows={2}

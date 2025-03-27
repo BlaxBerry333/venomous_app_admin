@@ -2,6 +2,7 @@ export const FEATURE_WORKFLOWS_CONFIGS = {
   styles: {
     nodeWidth: 250,
     nodeHeight: 100,
+    edgeWidth: 3,
 
     nodeColor: {
       default: "#fff",

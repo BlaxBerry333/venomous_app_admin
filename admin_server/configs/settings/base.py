@@ -152,7 +152,9 @@ USE_TZ = True
 # CORS Settings
 # ----------------------------------------------------------------------------------------------------
 
-CORS_PREFLIGHT_MAX_AGE = 60 * 15  # CORS 预检请求的缓存时间（ 15min, 与 JWT 的生命周期一致 )
+CORS_PREFLIGHT_MAX_AGE = (
+    60 * 15
+)  # CORS 预检请求的缓存时间（ 15min, 与 JWT 的生命周期一致 )
 
 CORS_ALLOW_CREDENTIALS = True
 

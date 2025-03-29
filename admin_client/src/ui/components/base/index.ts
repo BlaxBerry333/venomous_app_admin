@@ -18,8 +18,6 @@ export * from "./controlled-form";
 
 export * from "./drawer";
 
-export * from "./file-upload";
-
 export * from "./iconbutton";
 
 export * from "./image";

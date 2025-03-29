@@ -1,27 +1,21 @@
-import type { NamedExoticComponent, PropsWithChildren } from "react";
+import type { NamedExoticComponent, PropsWithChildren, ReactNode } from "react";
 import { memo, useCallback, useState } from "react";
 
 import MuiDialog, { type DialogProps as MuiDialogProps } from "@mui/material/Dialog";
-import MuiDialogActions from "@mui/material/DialogActions";
 import MuiDialogContent from "@mui/material/DialogContent";
 import MuiDialogContentText from "@mui/material/DialogContentText";
 import MuiDialogTitle from "@mui/material/DialogTitle";
 
-import { Button, ButtonVariant } from "../button";
+import ModalActions, { type ModalActionsProps } from "./ModalActions";
 
 export type ModalProps = PropsWithChildren<
-  Omit<MuiDialogProps, "open" | "onClose" | "content"> & {
-    isOpen: boolean;
-    closeModal: VoidFunction;
-    escapeKeyDown?: boolean;
-    isConfirmLoading?: boolean;
-    handleCancel?: (closeModal: VoidFunction) => void;
-    handleConfirm?: (closeModal: VoidFunction) => Promise<void>;
-    cancelText?: string;
-    confirmText?: string;
-    title?: string;
-    message?: string;
-  }
+  Omit<MuiDialogProps, "open" | "onClose" | "content"> &
+    Omit<ModalActionsProps, "isCustomActions"> & {
+      isOpen: boolean;
+      escapeKeyDown?: boolean;
+      title?: string;
+      content?: ReactNode;
+    }
 >;
 
 const Modal: NamedExoticComponent<ModalProps> = memo(
@@ -36,18 +30,9 @@ const Modal: NamedExoticComponent<ModalProps> = memo(
     cancelText = "Cancel",
     confirmText = "Confirm",
     title,
-    message,
+    content,
     ...props
   }) => {
-    const _handleCancel = useCallback(() => {
-      handleCancel?.(closeModal);
-      closeModal();
-    }, [handleCancel, closeModal]);
-
-    const _handleConfirm = useCallback(async () => {
-      await handleConfirm?.(closeModal);
-    }, [handleConfirm, closeModal]);
-
     return (
       <MuiDialog
         open={isOpen}
@@ -71,24 +56,21 @@ const Modal: NamedExoticComponent<ModalProps> = memo(
 
           {/* Default Content */}
           {!children && (
-            <MuiDialogContentText sx={{ color: "text.secondary" }}>{message}</MuiDialogContentText>
+            <MuiDialogContentText sx={{ color: "text.secondary" }}>{content}</MuiDialogContentText>
           )}
         </MuiDialogContent>
 
         {/* Actions */}
         {!children && (
-          <MuiDialogActions sx={{ pt: 0, pb: 2, px: 2 }}>
-            <Button
-              variant={ButtonVariant.OUTLINED}
-              disabled={isConfirmLoading}
-              onClick={_handleCancel}
-            >
-              {cancelText}
-            </Button>
-            <Button isLoading={isConfirmLoading} onClick={_handleConfirm}>
-              {confirmText}
-            </Button>
-          </MuiDialogActions>
+          <ModalActions
+            isCustomActions={false}
+            closeModal={closeModal}
+            isConfirmLoading={isConfirmLoading}
+            handleCancel={handleCancel}
+            handleConfirm={handleConfirm}
+            cancelText={cancelText}
+            confirmText={confirmText}
+          />
         )}
       </MuiDialog>
     );
@@ -96,6 +78,8 @@ const Modal: NamedExoticComponent<ModalProps> = memo(
 );
 
 export default Modal;
+
+// ----------------------------------------------------------------------------------------------------
 
 export function useModal() {
   // const theme = useTheme();

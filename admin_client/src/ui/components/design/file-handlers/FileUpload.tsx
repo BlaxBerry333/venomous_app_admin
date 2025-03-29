@@ -3,11 +3,8 @@ import { memo, useCallback, useRef, useState } from "react";
 
 import MuiBox, { type BoxProps as MuiBoxProps } from "@mui/material/Box";
 
+import { CardClickable, Paper, Tooltip, Typography } from "~/ui/components/base";
 import { Icon } from "~/ui/components/customs";
-import { CardClickable } from "../card";
-import { Paper } from "../paper";
-import { Tooltip } from "../tooltip";
-import { Typography } from "../typography";
 
 type FileUploadProps = {
   label?: string;
@@ -42,7 +39,7 @@ const FileUpload: NamedExoticComponent<FileUploadProps> = memo(({ label, sx }) =
           onClick={openInput}
         >
           <Icon
-            icon="solar:cloud-upload-line-duotone"
+            icon="solar:cloud-upload-outline"
             width={40}
             sx={{ transform: `translateY(${label ? "-4px" : "0px"})` }}
           />

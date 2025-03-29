@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
+import { downloadFileFromURLOrBlob } from "~/utils/custom/file";
 
 import { WORKFLOW_ENTRYPOINTS } from "~/utils/libs/apis/entrypoints/workflow";
 import { ADMIN_SERVER_API_INSTANCE } from "~/utils/libs/apis/instances";
@@ -122,4 +123,27 @@ export function useAPIWorkflowPlaygroundUpdate<
       });
     },
   });
+}
+
+export async function downloadWorkflowDataList(fileType?: string) {
+  let url = WORKFLOW_ENTRYPOINTS.downloadAll.url;
+  if (fileType) {
+    url += `?type=${fileType}`;
+  }
+  const { headers, data } = await ADMIN_SERVER_API_INSTANCE.get(url, {
+    responseType: "blob",
+  });
+  const fileName: string = headers["content-disposition"].split("filename=")[1];
+  downloadFileFromURLOrBlob({ fileName, blob: data });
+  return { fileName };
+}
+
+export async function downloadWorkflowData(id: string) {
+  const url = WORKFLOW_ENTRYPOINTS.download.url.replace(":id", id);
+  const { headers, data } = await ADMIN_SERVER_API_INSTANCE.get(url, {
+    responseType: "blob",
+  });
+  const fileName: string = headers["content-disposition"].split("filename=")[1];
+  downloadFileFromURLOrBlob({ fileName, blob: data });
+  return { fileName };
 }

@@ -9,7 +9,7 @@ type ModalWrapperProps = Omit<ModalProps, "isOpen" | "closeModal"> & {
 };
 
 const ModalWrapper: NamedExoticComponent<ModalWrapperProps> = memo(
-  ({ renderModalTrigger, renderModalContent, title, message, ...props }) => {
+  ({ renderModalTrigger, renderModalContent, ...props }) => {
     const modal = useModal();
 
     return (
@@ -17,13 +17,7 @@ const ModalWrapper: NamedExoticComponent<ModalWrapperProps> = memo(
         {/* Modal Trigger */}
         {renderModalTrigger?.(modal)}
 
-        <Modal
-          isOpen={modal.isOpen}
-          closeModal={modal.handleClose}
-          title={title}
-          message={message}
-          {...props}
-        >
+        <Modal isOpen={modal.isOpen} closeModal={modal.handleClose} {...props}>
           {renderModalContent?.(modal)}
         </Modal>
       </>

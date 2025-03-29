@@ -43,6 +43,8 @@ const Button: NamedExoticComponent<ButtonProps> = memo(
           cursor: isLoading ? "wait !important" : disabled ? "not-allowed !important" : "pointer",
           pointerEvents: "auto !important",
           transition: "background-color 0s, background-image 0s",
+          "& .MuiButton-startIcon": { svg: { color: "inherit" } },
+          "& .MuiButton-endIcon": { svg: { color: "inherit" } },
           ...sx,
         }}
         {...props}

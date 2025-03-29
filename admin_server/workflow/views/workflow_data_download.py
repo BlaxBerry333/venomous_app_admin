@@ -4,9 +4,14 @@ from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework import status
 
-from common.utils.generate_files import generate_csv_file, download_excel_file
+from common.utils.generate_files import generate_csv_file, generate_excel_file
 from workflow.models.workflow_data import WorkflowDataModel
 from workflow.serializers.workflow_data import WorkflowDataSerializer
+
+
+__all__ = [
+    "WorkflowDataDownloadViewSet",
+]
 
 
 # 文件类型
@@ -23,7 +28,7 @@ FILE_TYPES_CONFIGS = {
         "suffix": ".csv",
         "content_type": "text/csv",
     },
-    FileType.XLSX: {
+    FileType.EXCEL: {
         "suffix": ".xlsx",
         "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     },
@@ -55,29 +60,29 @@ class WorkflowDataDownloadViewSet(viewsets.ModelViewSet):
         file_type = request.GET.get("type")
         file_name = "workflows_data_all"
 
+        fields = WorkflowDataModel._meta.get_fields()
+
         # CSV 文件处理
         # /workflow/download/
         # /workflow/download/?type=csv
         if file_type == FileType.CSV or not file_type:
+            csv_file_headers = [field.verbose_name for field in fields]
+            csv_file_data = [
+                [getattr(workflow, field.name) for field in fields]
+                for workflow in self.queryset
+            ]
             buffer = generate_csv_file(
-                headers=[
-                    field.verbose_name for field in WorkflowDataModel._meta.get_fields()
-                ],
-                data=[
-                    [
-                        getattr(workflow, field.name)
-                        for field in WorkflowDataModel._meta.get_fields()
-                    ]
-                    for workflow in self.queryset
-                ],
+                headers=csv_file_headers,
+                data=csv_file_data,
             )
-            file_suffix = FILE_TYPES_CONFIGS[FileType.CSV]["suffix"]
             file_data = buffer.getvalue()
+            file_suffix = FILE_TYPES_CONFIGS[FileType.CSV]["suffix"]
+            file_name_with_suffix = file_name + file_suffix
             return HttpResponse(
                 file_data,
                 content_type=FILE_TYPES_CONFIGS[FileType.CSV]["content_type"],
                 headers={
-                    "Content-Disposition": f"attachment; filename={file_name + file_suffix}"
+                    "Content-Disposition": f"attachment; filename={file_name_with_suffix}"
                 },
             )
 
@@ -85,40 +90,39 @@ class WorkflowDataDownloadViewSet(viewsets.ModelViewSet):
         # /workflow/download/?type=excel
         # OR /workflow/download/?type=xlsx
         elif file_type in (FileType.EXCEL, FileType.XLSX):
-            file_suffix = FILE_TYPES_CONFIGS[FileType.EXCEL]["suffix"]
-            file_data = download_excel_file(
-                headers=[
-                    field.verbose_name for field in WorkflowDataModel._meta.get_fields()
-                ],
-                data=[
-                    [
-                        getattr(workflow, field.name)
-                        for field in WorkflowDataModel._meta.get_fields()
-                    ]
-                    for workflow in self.queryset
-                ],
+            excel_file_headers = [field.verbose_name for field in fields]
+            excel_file_data = [
+                [getattr(workflow, field.name) for field in fields]
+                for workflow in self.queryset
+            ]
+            file_data = generate_excel_file(
+                headers=excel_file_headers,
+                data=excel_file_data,
                 sheet_name=file_name,
             )
+            file_suffix = FILE_TYPES_CONFIGS[FileType.EXCEL]["suffix"]
+            file_name_with_suffix = file_name + file_suffix
             return HttpResponse(
                 file_data.getvalue(),
                 content_type=FILE_TYPES_CONFIGS[FileType.EXCEL]["content_type"],
                 headers={
-                    "Content-Disposition": f"attachment; filename={file_name + file_suffix}",
+                    "Content-Disposition": f"attachment; filename={file_name_with_suffix}",
                 },
             )
 
         # JSON 文件处理
         # /workflow/download/?type=json
         elif file_type == FileType.JSON:
-            file_suffix = FILE_TYPES_CONFIGS[FileType.JSON]["suffix"]
             file_data = json.dumps(
                 [WorkflowDataSerializer(workflow).data for workflow in self.queryset]
             )
+            file_suffix = FILE_TYPES_CONFIGS[FileType.JSON]["suffix"]
+            file_name_with_suffix = file_name + file_suffix
             return HttpResponse(
                 file_data,
                 content_type=FILE_TYPES_CONFIGS[FileType.JSON]["content_type"],
                 headers={
-                    "Content-Disposition": f"attachment; filename={file_name + file_suffix}",
+                    "Content-Disposition": f"attachment; filename={file_name_with_suffix}",
                 },
             )
 

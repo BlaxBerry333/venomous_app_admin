@@ -39,7 +39,7 @@ const meta = {
       description: "标题",
       control: "text",
     },
-    message: {
+    content: {
       description: "消息",
       control: "text",
     },
@@ -52,7 +52,7 @@ const meta = {
     cancelText: "取消",
     confirmText: "确认",
     title: "标题",
-    message: "消息",
+    content: "消息",
   },
 } satisfies Meta<typeof ModalWrapper>;
 

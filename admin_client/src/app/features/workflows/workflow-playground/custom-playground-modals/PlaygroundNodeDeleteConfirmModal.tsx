@@ -20,7 +20,7 @@ const PlaygroundNodeDeleteConfirmModal: NamedExoticComponent = memo(() => {
         closeModal();
       }}
       title={`Delete Node #${selectedNode?.id}`}
-      message="Are you sure you want to delete this node?"
+      content="Are you sure you want to delete this node?"
       cancelText="Cancel"
       confirmText="Delete"
     />

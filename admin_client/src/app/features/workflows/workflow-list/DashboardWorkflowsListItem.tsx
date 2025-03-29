@@ -11,11 +11,12 @@ import DashboardWorkflowsListItemAvatar from "./DashboardWorkflowsListItemAvatar
 type DashboardWorkflowsListItemProps = {
   item: IWorkflowDataResponse;
   selectedItemId: string | null;
-  handleNavigate: (path: string) => void;
   openConfirmModalOfRemove: VoidFunction;
+  handleNavigate: (path: string) => void;
+  handleDownload: VoidFunction;
 };
 const DashboardWorkflowsListItem: NamedExoticComponent<DashboardWorkflowsListItemProps> = memo(
-  ({ item, selectedItemId, handleNavigate, openConfirmModalOfRemove }) => {
+  ({ item, selectedItemId, openConfirmModalOfRemove, handleNavigate, handleDownload }) => {
     const { id, name, updatedAt, createdAt, isActive } = item;
     const isSelected: boolean = selectedItemId === id;
 
@@ -57,6 +58,11 @@ const DashboardWorkflowsListItem: NamedExoticComponent<DashboardWorkflowsListIte
           py: 2,
         }}
         actionItemList={[
+          {
+            title: "下载到本地",
+            icon: "solar:cloud-download-outline",
+            onClick: handleDownload,
+          },
           {
             title: "演示图",
             icon: "solar:routing-3-line-duotone",

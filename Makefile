@@ -27,11 +27,18 @@ start-all:
 	@docker compose \
 		-f ${DOCKER_COMPOSE_FILE_PATH_DEV} \
 		-p ${PROJECT_NAME} \
-		start
-	@cd admin_client && yarn start:dev --force \
+		up -d
 
 
-# stop all containers
+# restart all containers
+restart-all:
+	@docker compose \
+		-f ${DOCKER_COMPOSE_FILE_PATH_DEV} \
+		-p ${PROJECT_NAME} \
+		restart
+
+
+# stop all containers, but keep volumes、images
 stop-all:
 	@docker compose \
 		-f ${DOCKER_COMPOSE_FILE_PATH_DEV} \

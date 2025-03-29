@@ -8,7 +8,14 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "host.docker.internal",  # Docker Compose 内部网络地址
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://host.docker.internal:8080",  # Docker Compose 内部网络地址
+]
 
 
 # Database

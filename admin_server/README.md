@@ -26,17 +26,27 @@
 % cd .. && make entry CONTAINER=admin_server
 
 
+# changed something
+# run "make restart CONTAINER=admin_server" in the root directory of the project
+
+
 # install new package
 # 1. update admin_server/requirements.txt
-# 2. run "make build" in the root directory of the project
-# 3. run "make setup" in the root directory of the project
-# 4. run "make start-all" in the root directory of the project
+# 2. run "make stop-all" in the root directory of the project
+# 3. run "make build" in the root directory of the project
+# 4. run "make restart CONTAINER=admin_server" in the root directory of the project
 
 
 # create admin superuser
 # - USERNAME: admin
 # - EMAIL: admin@example.com
 # - PASSWORD: admin
+# % make entry CONTAINER=admin_server
+# root@[CONTAINER_ID]:/app# \
+#     export DJANGO_SUPERUSER_USERNAME=admin && \
+#     export DJANGO_SUPERUSER_EMAIL=admin@example.com && \
+#     export DJANGO_SUPERUSER_PASSWORD=admin && \
+#     python manage.py createsuperuser --noinput
 root@[CONTAINER_ID]:/app# \
     export DJANGO_SUPERUSER_USERNAME=[username] && \
     export DJANGO_SUPERUSER_EMAIL=[email@example.com] && \

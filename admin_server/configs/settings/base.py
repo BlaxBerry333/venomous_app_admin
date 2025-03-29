@@ -147,3 +147,31 @@ TIME_ZONE = "Asia/Tokyo"
 USE_I18N = True
 
 USE_TZ = True
+
+
+# CORS Settings
+# ----------------------------------------------------------------------------------------------------
+
+CORS_PREFLIGHT_MAX_AGE = 60 * 15  # CORS 预检请求的缓存时间（ 15min, 与 JWT 的生命周期一致 )
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]

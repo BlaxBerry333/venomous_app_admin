@@ -14,7 +14,6 @@ export const ADMIN_CLIENT_CONFIGS = {
   domain: {
     adminClient: import.meta.env.VITE_DOMAIN_ADMIN_CLIENT,
     adminServer: import.meta.env.VITE_DOMAIN_ADMIN_SERVER,
-    bff: import.meta.env.VITE_DOMAIN_BFF,
   },
 
   links: {

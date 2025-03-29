@@ -24,12 +24,6 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/admin-server-auth/, ""),
         },
-        // "/bff/api" → "http://localhost:9000
-        "/bff/api": {
-          target: ENV.VITE_DOMAIN_BFF,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/bff\/api/, ""),
-        },
       },
     },
 

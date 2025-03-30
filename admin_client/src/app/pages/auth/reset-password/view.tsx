@@ -2,8 +2,8 @@ import type { NamedExoticComponent } from "react";
 import { memo, useState } from "react";
 
 import { AuthResetPasswordForm } from "~/app/features/auth/_components";
-import type { IAuthResetPasswordParams } from "~/app/types";
 import { sleep } from "~/utils/custom/process";
+import type { IAuthResetPasswordParams } from "~/utils/libs/apis/types/_auth";
 
 const AuthResetPasswordView: NamedExoticComponent = memo(() => {
   const [isLoading, setIsLoading] = useState(false);

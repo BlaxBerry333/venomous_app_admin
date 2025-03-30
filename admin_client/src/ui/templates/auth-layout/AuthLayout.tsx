@@ -15,6 +15,8 @@ import {
 } from "~/ui/components";
 import { AUTH_PATHS } from "~/utils/libs/router";
 
+export const authLayoutdashboardLanguageProtalElementID = "auth-layout-language" as const;
+
 const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
   return (
     <ContainerWrapper
@@ -29,6 +31,7 @@ const AuthLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) 
         renderLogo={<Logo to={AUTH_PATHS.login} sx={{ ml: 3 }} />}
         renderActions={
           <>
+            <div id={authLayoutdashboardLanguageProtalElementID} />
             <SettingsDrawer
               showOptionBlocks={{
                 themeMode: true,

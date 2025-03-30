@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 
 import { FullPageLoading } from "~/ui/components";
+import { LanguageSwitcher } from "~/utils/libs/i18n";
 import { autoImportedLazyRoutes, type AutoImportedRoutesModulesType } from "../_helpers";
 
 const AuthLayout = lazy(() => import("~/ui/templates").then((m) => ({ default: m.AuthLayout })));
@@ -36,6 +37,7 @@ export const AuthRoutes: RouteObject[] = [
     element: (
       <AuthLayout>
         <Suspense fallback={<FullPageLoading />}>
+          <LanguageSwitcher />
           <Outlet />
         </Suspense>
       </AuthLayout>

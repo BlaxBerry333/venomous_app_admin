@@ -2,8 +2,8 @@ import type { NamedExoticComponent } from "react";
 import { memo, useState } from "react";
 
 import { AuthVerifyEmailForm } from "~/app/features/auth/_components";
-import type { IAuthVerifyPasswordParams } from "~/app/types";
 import { sleep } from "~/utils/custom/process";
+import type { IAuthVerifyPasswordParams } from "~/utils/libs/apis/types/_auth";
 
 const AuthVerifyEmailView: NamedExoticComponent = memo(() => {
   const [isLoading, setIsLoading] = useState(false);

@@ -29,6 +29,8 @@ const Avatar: NamedExoticComponent<AvatarProps> = memo(
           sx={{
             width: avatarSize,
             height: avatarSize,
+            border: 1,
+            borderColor: "divider",
           }}
           {...props}
         />

@@ -6,6 +6,7 @@ import { toast } from "~/ui/components";
 import { setAuthTokensAsStored } from "~/utils/libs/apis/_helpers";
 import { useAPIAuthLogin } from "~/utils/libs/apis/_hooks/auth";
 import type { IAuthLoginParams } from "~/utils/libs/apis/types/_auth";
+import { useTranslation } from "~/utils/libs/i18n";
 import { DASHBOARD_PATHS, useRouteNavigate, useRouteSearchParams } from "~/utils/libs/router";
 
 const AuthLoginView: NamedExoticComponent = memo(() => {
@@ -19,6 +20,7 @@ export default AuthLoginView;
 // ----------------------------------------------------------------------------------------------------
 
 function useAuthLoginView() {
+  const { t } = useTranslation("auth");
   const { replace } = useRouteNavigate();
   const searchParams = useRouteSearchParams<{ redirect: string }>();
 
@@ -34,19 +36,19 @@ function useAuthLoginView() {
           });
           // token 过期等原因导致的挑战到登陆页的场合，重定向回指定页面
           if (searchParams.redirect) {
-            toast.success("LOGIN SUCCESS");
+            toast.success(t("alerts.WELCOME_BACK"));
             return replace(searchParams.redirect);
           }
           // 初次登录
-          toast.success("LOGIN SUCCESS");
+          toast.success(t("alerts.LOGIN_SUCCESS"));
           replace(DASHBOARD_PATHS.analysis);
         })
         .catch((error) => {
-          const message: string = error.response.data.error || "LOGIN FAILED";
+          const message: string = error.response.data.error || t("alerts.LOGIN_FAILED");
           toast.error(message);
         });
     },
-    [mutateAsync, replace, searchParams.redirect],
+    [mutateAsync, replace, searchParams.redirect, t],
   );
 
   return {

@@ -4,6 +4,7 @@ import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 import { DashboardLayoutAccount } from "~/app/features/auth/_portals";
 import { AuthGuard } from "~/app/features/auth/_providers";
 import { FullPageLoading } from "~/ui/components";
+import { LanguageSwitcher } from "~/utils/libs/i18n";
 import { autoImportedLazyRoutes, type AutoImportedRoutesModulesType } from "../_helpers";
 
 const DashboardLayout = lazy(() =>
@@ -48,6 +49,7 @@ export const DashboardRoutes: RouteObject[] = [
       <AuthGuard>
         <DashboardLayout>
           <Suspense fallback={<FullPageLoading />}>
+            <LanguageSwitcher />
             <DashboardLayoutAccount />
             <Outlet />
           </Suspense>

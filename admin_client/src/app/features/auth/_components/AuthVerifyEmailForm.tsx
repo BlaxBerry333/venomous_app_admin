@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import { RHF } from "~/ui/components";
 import type { IAuthVerifyPasswordParams } from "~/utils/libs/apis/types/_auth";
+import { useTranslation } from "~/utils/libs/i18n";
 import { createZodSchema, ZOD_I18N_ERROR_CODES } from "~/utils/libs/tools/zod";
 
 const formSchemas = createZodSchema<IAuthVerifyPasswordParams>()(
@@ -18,14 +19,20 @@ const AuthVerifyEmailForm: NamedExoticComponent<{
   isLoading: boolean;
   onSubmit: (data: IAuthVerifyPasswordParams) => void;
 }> = memo(({ defaultValues = { email: "" }, isLoading = false, onSubmit }) => {
+  const { t } = useTranslation("auth");
+
   return (
     <RHF.FormWithZod zodSchema={formSchemas} defaultValues={defaultValues} onSubmit={onSubmit}>
       {/* Email Address */}
-      <RHF.Text name="email" label="Email" />
+      <RHF.Text name="email" label={t("labels.EMAIL")} />
       {/* Verification Code */}
       <RHF.OneTimeInput name="code" />
 
-      <RHF.Action hideResetButton isLoading={isLoading} submitButtonText="Verify" />
+      <RHF.Action
+        hideResetButton
+        isLoading={isLoading}
+        submitButtonText={t("buttons.VERIFY_EMAIL")}
+      />
     </RHF.FormWithZod>
   );
 });

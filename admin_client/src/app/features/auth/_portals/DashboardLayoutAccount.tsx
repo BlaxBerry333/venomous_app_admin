@@ -3,9 +3,9 @@ import { memo, useCallback } from "react";
 
 import MuiStack from "@mui/material/Stack";
 
-import { BaseColor, BasePosition, BaseSize } from "~/ui/_helpers";
+import { BaseColor, BasePosition } from "~/ui/_helpers";
 import {
-  AnimationAvatar,
+  AnimationIconButton,
   Icon,
   ListItem,
   Menu,
@@ -16,10 +16,11 @@ import {
   Typography,
   usePopover,
 } from "~/ui/components";
-import { elementID } from "~/ui/templates";
+import { dashboardAccountProtalElementID } from "~/ui/templates";
 import { useAPIAuthLogout } from "~/utils/libs/apis/_hooks/auth";
 import { useAPIUserProfile } from "~/utils/libs/apis/_hooks/user";
 import type { ICurrentUserProfileResponse } from "~/utils/libs/apis/types/_user";
+import { useTranslation } from "~/utils/libs/i18n";
 import { AUTH_PATHS, useRouteNavigate } from "~/utils/libs/router";
 import { formateDateTime, formateFromNow } from "~/utils/libs/tools/datetime";
 
@@ -27,12 +28,8 @@ const DashboardLayoutAccount: NamedExoticComponent = memo(() => {
   const popover = usePopover();
 
   return (
-    <Portal targetElementID={elementID}>
-      <AnimationAvatar
-        src="https://avatars.githubusercontent.com/u/166675080?v=4"
-        size={BaseSize.SMALL}
-        onClick={popover.handleOpen}
-      />
+    <Portal targetElementID={dashboardAccountProtalElementID}>
+      <AnimationIconButton icon="solar:user-circle-bold-duotone" onClick={popover.handleOpen} />
       <Popover
         isOpen={popover.isOpen}
         anchorEl={popover.anchorEl}
@@ -51,6 +48,7 @@ const DashboardLayoutAccount: NamedExoticComponent = memo(() => {
 export default DashboardLayoutAccount;
 
 const PopoverItemOfCurrentUserProfile: NamedExoticComponent = memo(() => {
+  const { t } = useTranslation("auth");
   const { data } = useAPIUserProfile<ICurrentUserProfileResponse>();
 
   if (!data) {
@@ -59,7 +57,11 @@ const PopoverItemOfCurrentUserProfile: NamedExoticComponent = memo(() => {
   return (
     <ModalWrapper
       renderModalTrigger={(params) => (
-        <ListItem title="个人信息" icon="solar:user-id-line-duotone" onClick={params.handleOpen} />
+        <ListItem
+          title={t("buttons.PROFILE")}
+          icon="solar:user-id-line-duotone"
+          onClick={params.handleOpen}
+        />
       )}
       renderModalContent={() => (
         <MuiStack spacing={2}>
@@ -85,7 +87,7 @@ const PopoverItemOfCurrentUserProfile: NamedExoticComponent = memo(() => {
           {data.last_login && (
             <div>
               <Typography variant="subtitle2" color="text.secondary">
-                上次登录:
+                {t("labels.UPDATED_AT")}
               </Typography>
               <Typography variant="subtitle2" noWrap>
                 {formateFromNow(data.last_login)}
@@ -95,7 +97,7 @@ const PopoverItemOfCurrentUserProfile: NamedExoticComponent = memo(() => {
 
           <div>
             <Typography variant="subtitle2" color="text.secondary">
-              注册时间:
+              {t("labels.CREATED_AT")}
             </Typography>
             <Typography variant="subtitle2" noWrap>
               {data.last_login
@@ -111,35 +113,32 @@ const PopoverItemOfCurrentUserProfile: NamedExoticComponent = memo(() => {
 
 const PopoverItemOfAuthLogout: NamedExoticComponent<{ callback: VoidFunction }> = memo(
   ({ callback }) => {
+    const { t } = useTranslation("auth");
     const { replace } = useRouteNavigate();
 
     const { mutateAsync, isPending } = useAPIAuthLogout();
 
     const handleLogout = useCallback(async () => {
       mutateAsync()
-        .then(() => {
-          toast.success("LOGOUT SUCCESS");
-        })
-        .catch(() => {
-          toast.error("LOGOUT FAILED");
-        })
+        .then(() => toast.success(t("alerts.LOGOUT_SUCCESS")))
+        .catch(() => toast.error(t("alerts.LOGOUT_FAILED")))
         .finally(() => {
           replace(AUTH_PATHS.login);
           callback();
         });
-    }, [mutateAsync, replace, callback]);
+    }, [mutateAsync, replace, callback, t]);
 
     return (
       <ModalWrapper
         escapeKeyDown
-        title="确定要退出登录吗?"
-        cancelText="取消"
-        confirmText="退出"
+        title={t("titles.CONFIRM_LOGOUT")}
+        cancelText={t("buttons.CANCEL")}
+        confirmText={t("buttons.LOGOUT")}
         handleConfirm={handleLogout}
         isConfirmLoading={isPending}
         renderModalTrigger={(params) => (
           <ListItem
-            title="退出登录"
+            title={t("buttons.LOGOUT")}
             icon="solar:logout-2-line-duotone"
             onClick={params.handleOpen}
           />

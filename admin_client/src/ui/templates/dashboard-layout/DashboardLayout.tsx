@@ -22,7 +22,8 @@ import { DASHBOARD_PATHS } from "~/utils/libs/router";
 import DashboardLayoutContent from "./DashboardLayoutContent";
 import DashboardLayoutNavMenu from "./DashboardLayoutNavMenu";
 
-export const elementID = "dashboard-layout-account";
+export const dashboardAccountProtalElementID = "dashboard-layout-account" as const;
+export const dashboardLanguageProtalElementID = "dashboard-layout-language" as const;
 
 const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
   const isLargeScreen: boolean = useMediaQuery((theme: MuiTheme) => theme.breakpoints.up("sm"));
@@ -80,7 +81,8 @@ const DashboardLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
           }
           renderActions={
             <>
-              <div id={elementID} />
+              <div id={dashboardAccountProtalElementID} />
+              <div id={dashboardLanguageProtalElementID} />
               <SettingsDrawer
                 showOptionBlocks={{
                   themeMode: true,

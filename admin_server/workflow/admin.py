@@ -1,38 +1,38 @@
 from django.contrib import admin
 
 
-from common.classes.admin_export_import import (
+from common.base.admin.admin_export_import import (
     AdminExportImportModelResource,
     AdminModelWithExportImportButton,
     AdminModelWithExportButton,
     AdminModelWithExportTableSelectedAction,
 )
-from workflow.models.workflow import WorkflowModel
+from workflow.models.workflow_data import WorkflowDataModel
 from workflow.models.workflow_history import WorkflowHistoryModel
 
 
 # ----------------------------------------------------------------------------------------------------
 
 
-class WorkflowExportImportResource(AdminExportImportModelResource):
+class WorkflowDataExportImportResource(AdminExportImportModelResource):
     class Meta:
-        model = WorkflowModel
-        fields = ("id", "name", "is_active", "is_draft", "description")
+        model = WorkflowDataModel
+        fields = ("id", "name", "type", "is_active", "description")
 
 
-@admin.register(WorkflowModel)
-class WorkflowAdmin(
+@admin.register(WorkflowDataModel)
+class WorkflowDataAdmin(
     AdminModelWithExportImportButton,
     AdminModelWithExportTableSelectedAction,
     admin.ModelAdmin,
 ):
-    resource_class = WorkflowExportImportResource
+    resource_class = WorkflowDataExportImportResource
 
-    list_display = ("id", "name", "is_active", "is_draft", "description")
+    list_display = ("id", "name", "type", "is_active", "description")
     list_filter = ("created_at",)
     list_per_page = 10
     search_fields = list_display
-    readonly_fields = ("id", "created_at", "updated_at")
+    readonly_fields = ("created_at", "updated_at", "id", "type")
 
 
 # ----------------------------------------------------------------------------------------------------
@@ -56,4 +56,4 @@ class WorkflowHistoryAdmin(
     list_filter = ("created_at",)
     list_per_page = 10
     search_fields = list_display
-    readonly_fields = ("id", "created_at", "updated_at")
+    readonly_fields = ("created_at", "updated_at", "id")

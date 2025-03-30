@@ -1,0 +1,19 @@
+export const UI_CONFIGS = {
+  storeKeys: {
+    theme: "VENOMOUS_APP_ADMIN_UI__THEME",
+    layout: "VENOMOUS_APP_ADMIN_UI__LAYOUT",
+  },
+
+  size: {
+    HEADER_HEIGHT: 48,
+    NAV_MENU_WIDTH: {
+      EXPANDED_IN_SMALL_SCREEN: 250,
+      EXPANDED_IN_LARGE_SCREEN: 300,
+      COLLAPSED_IN_LARGE_SCREEN: 80,
+    },
+    NAV_MENU_HEIGHT: {
+      COLLAPSED_IN_LARGE_SCREEN: 55,
+    },
+    SETTING_DRAWER_WIDTH: 300,
+  },
+} as const;

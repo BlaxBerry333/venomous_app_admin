@@ -13,3 +13,6 @@ node_modules/
 src/assets/styles/legacy/
 src/components/**/*.test.js
 src/__tests__/
+
+# Ignore Storybook
+storybook-static/

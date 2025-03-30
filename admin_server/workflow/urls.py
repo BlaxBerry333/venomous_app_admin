@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import workflow, workflow_history, workflow_download
+from .views import workflow_data, workflow_history, workflow_data_download
 
 
 workflow_router = DefaultRouter()
@@ -15,9 +15,9 @@ PUT     /workflow/data/<id>/
 DELETE  /workflow/data/<id>/   
 """
 workflow_router.register(
-    prefix="data",
-    viewset=workflow.WorkflowViewSet,
+    viewset=workflow_data.WorkflowDataViewSet,
     basename="workflow",
+    prefix="data",
 )
 
 
@@ -27,9 +27,9 @@ GET     /workflow/download/?type=<file_type>
 GET     /workflow/download/<id>/
 """
 workflow_router.register(
+    viewset=workflow_data_download.WorkflowDataDownloadViewSet,
+    basename="workflow_data_download",
     prefix="download",
-    viewset=workflow_download.WorkflowDownloadViewSet,
-    basename="workflow_download",
 )
 
 """
@@ -41,9 +41,9 @@ PUT     /workflow/history/<id>/
 DELETE  /workflow/history/<id>/
 """
 workflow_router.register(
-    prefix="history",
     viewset=workflow_history.WorkflowHistoryViewSet,
     basename="workflow_history",
+    prefix="history",
 )
 
 

@@ -9,7 +9,7 @@ from openpyxl.utils import get_column_letter
 
 __all__ = [
     "generate_csv_file",
-    "download_excel_file",
+    "generate_excel_file",
 ]
 
 
@@ -69,7 +69,7 @@ def generate_csv_file(headers, data):
     return buffer
 
 
-def download_excel_file(headers, data, sheet_name):
+def generate_excel_file(headers, data, sheet_name):
     """
     生成一个 Excel 文件的内存缓冲区
 
@@ -88,16 +88,25 @@ def download_excel_file(headers, data, sheet_name):
         file_data = buffer.getvalue()
     """
 
-    # 去除时区信息
-    for i, row in enumerate(data):
-        for j, value in enumerate(row):
-            if isinstance(value, datetime) and value.tzinfo is not None:
-                data[i][j] = value.replace(tzinfo=None)
+    # 格式化数据，特别处理日期时间和 NaT
+    formatted_data = []
+    for row in data:
+        formatted_row = []
+        for value in row:
+            if isinstance(value, datetime):
+                formatted_row.append(
+                    value.strftime("%Y-%m-%d %H:%M:%S") if value else ""
+                )
+            elif value is None or str(value).lower() == "nat":
+                formatted_row.append("")
+            else:
+                formatted_row.append(str(value))
+        formatted_data.append(formatted_row)
 
     # 数据自动补充空行到 10 行
-    __fill_empty_rows(data, min_rows=10)
+    __fill_empty_rows(formatted_data, min_rows=10)
 
-    df = pd.DataFrame(data, columns=headers)
+    df = pd.DataFrame(formatted_data, columns=headers)
     df = df.astype(str)
 
     buffer = io.BytesIO()
